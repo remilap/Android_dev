@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import static eu.remilapointe.tictactoe.R.id.board;
+import eu.remilapointe.tictactoe.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,8 +17,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(eu.remilapointe.tictactoe.R.layout.activity_main);
-        boardView = (BoardView) findViewById(board);
+        setContentView(R.layout.activity_main);
+        boardView = (BoardView) findViewById(R.id.board);
         gameEngine = new Board();
         boardView.setGameEngine(gameEngine);
         boardView.setMainActivity(this);
@@ -26,13 +26,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(eu.remilapointe.tictactoe.R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == eu.remilapointe.tictactoe.R.id.action_new_game) {
+        if (item.getItemId() == R.id.action_new_game) {
             newGame();
         }
 
