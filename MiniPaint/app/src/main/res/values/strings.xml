@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MiniPaint</string>
+    <string name="men_color">Color</string>
+    <string name="men_brush_size">Width</string>
+    <string name="men_normal">Normal</string>
+    <string name="men_emboss">Emboss</string>
+    <string name="men_blur">Blur</string>
+    <string name="men_clear">Clear</string>
+    <string name="men_save">Save</string>
+    <string name="men_exit">Exit</string>
+</resources>

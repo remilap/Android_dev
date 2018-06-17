@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+    <item
+        android:id="@+id/men_color"
+        app:showAsAction="never"
+        android:title="@string/men_color" />
+
+    <item
+        android:id="@+id/men_brush_size"
+        app:showAsAction="never"
+        android:title="@string/men_brush_size" />
+
+    <item
+        android:id="@+id/men_normal"
+        app:showAsAction="never"
+        android:title="@string/men_normal" />
+
+    <item
+        android:id="@+id/men_emboss"
+        app:showAsAction="never"
+        android:title="@string/men_emboss" />
+
+    <item
+        android:id="@+id/men_blur"
+        app:showAsAction="never"
+        android:title="@string/men_blur" />
+
+    <item
+        android:id="@+id/men_clear"
+        app:showAsAction="never"
+        android:title="Clear" />
+
+    <item
+        android:id="@+id/men_save"
+        app:showAsAction="never"
+        android:title="@string/men_save" />
+
+    <item
+        android:id="@+id/men_exit"
+        app:showAsAction="never"
+        android:title="@string/men_exit" />
+
+</menu>

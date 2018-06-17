@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Cluedo</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_new_alone">Conseils de jeu</string>
+    <string name="action_new_against_AI" type="id">Jeu contre IA</string>
+    <string name="str_ok">OK</string>
+    <string name="str_cancel">Cancel</string>
+    <string name="str_next">Next</string>
+    <string name="str_nb_players">Number of players</string>
+    <string name="str_which_player">Which player are you?</string>
+    <string name="str_player_name">Player %1$d\'s name</string>
+    <string name="str_game_character">Player %1$d\'s game character</string>
+    <string name="str_quit">Quit</string>
+    <string name="str_cards_in_soluce">Cards present in the enigma:</string>
+    <string name="str_rooms_plan">rooms plan</string>
+    <string-array name="places_name">
+        <item>véranda</item>
+        <item>hall</item>
+        <item>studio</item>
+        <item>salle à manger</item>
+        <item>bibliothèque</item>
+        <item>bureau</item>
+        <item>cuisine</item>
+        <item>grand salon</item>
+        <item>petit salon</item>
+    </string-array>
+    <string-array name="persons_name">
+        <item>Mlle Rose</item>
+        <item>Prof. Violet</item>
+        <item>Colonel Moutarde</item>
+        <item>Mme Pervenche</item>
+        <item>Mme Leblanc</item>
+        <item>Dc Olive</item>
+    </string-array>
+    <string-array name="weapons_name">
+        <item>corde</item>
+        <item>révolver</item>
+        <item>chandelier</item>
+        <item>poignard</item>
+        <item>matraque</item>
+        <item>clé anglaise</item>
+    </string-array>
+</resources>
