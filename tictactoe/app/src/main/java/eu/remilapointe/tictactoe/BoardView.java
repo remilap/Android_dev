@@ -118,19 +118,19 @@ public class BoardView extends View {
             canvas.drawCircle(cx, cy, Math.min(eltW, eltH) / 2 - ELT_MARGIN * 2, oPaint);
 
         } else if (c == 'X') {
-            float startX = (eltW * x) + ELT_MARGIN;
-            float startY = (eltH * y) + ELT_MARGIN;
-            float endX = startX + eltW - ELT_MARGIN * 2;
-            float endY = startY + eltH - ELT_MARGIN;
+            float startX = (eltW * x) + ELT_MARGIN * 4;
+            float startY = (eltH * y) + ELT_MARGIN * 4;
+            float endX = startX + eltW - ELT_MARGIN * 8;
+            float endY = startY + eltH - ELT_MARGIN * 8;
 
             canvas.drawLine(startX, startY, endX, endY, xPaint);
 
-            float startX2 = (eltW * (x + 1)) - ELT_MARGIN;
-            float startY2 = (eltH * y) + ELT_MARGIN;
-            float endX2 = startX2 - eltW + ELT_MARGIN * 2;
-            float endY2 = startY2 + eltH - ELT_MARGIN;
+//            float startX2 = (eltW * (x + 1)) - ELT_MARGIN * 4;
+//            float startY2 = (eltH * y) + ELT_MARGIN * 4;
+//            float endX2 = startX2 - eltW + ELT_MARGIN * 4;
+//            float endY2 = startY2 + eltH - ELT_MARGIN * 2;
 
-            canvas.drawLine(startX2, startY2, endX2, endY2, xPaint);
+            canvas.drawLine(startX, endY, endX, startY, xPaint);
         }
     }
 
