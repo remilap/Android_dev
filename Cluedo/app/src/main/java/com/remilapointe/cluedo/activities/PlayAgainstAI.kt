@@ -5,6 +5,7 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.remilapointe.cluedo.R
+import com.remilapointe.cluedo.Util
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -13,6 +14,7 @@ class PlayAgainstAI: AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Util.log("")
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
@@ -24,6 +26,6 @@ class PlayAgainstAI: AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(p0: View?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Util.log("with p0=${p0?.id}")
     }
 }

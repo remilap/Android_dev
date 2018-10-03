@@ -10,16 +10,32 @@
         android:layout_height="wrap_content">
 
         <TableLayout
-            android:id="@+id/tl_select_cards"
+            android:id="@+id/tl_players_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TableRow
-                android:id="@+id/tr_ok_cancel_cards"
+                android:id="@+id/tr_your_player_number"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="25"
+                    android:text="@string/str_which_player"/>
+                <Spinner
+                    android:id="@+id/spin_your_player_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="25"/>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tr_ok_cancel_players"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
                 <Button
-                    android:id="@+id/bt_add_cards_cancel"
+                    android:id="@+id/bt_add_player_cancel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="25"
@@ -28,7 +44,7 @@
                     tools:ignore="ButtonStyle" />
 
                 <Button
-                    android:id="@+id/bt_add_cards_ok"
+                    android:id="@+id/bt_add_player_ok"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="25"

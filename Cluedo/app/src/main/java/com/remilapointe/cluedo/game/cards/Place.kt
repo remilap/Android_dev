@@ -1,12 +1,11 @@
 package com.remilapointe.cluedo.game.cards
 
-import android.util.Log
-import com.remilapointe.cluedo.game.TAG
+import com.remilapointe.cluedo.Util
 
 class Place(name: String) : Card(name) {
 
     init {
-        Log.i(TAG,"Init Place with name=$name")
+        Util.log("Init Place with name=$name")
     }
 
 }

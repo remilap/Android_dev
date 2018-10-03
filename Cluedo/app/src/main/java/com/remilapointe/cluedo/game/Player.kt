@@ -1,11 +1,13 @@
 package com.remilapointe.cluedo.game
 
-import android.util.Log
+import com.remilapointe.cluedo.Util
 import com.remilapointe.cluedo.game.cards.Card
 
 class Player(val name: String, cPerson: Card) {
     var cardsInHand: MutableList<Card> = mutableListOf()
     var shownCards: MutableList<Card> = mutableListOf()
+    var x: Int = -1
+    var y: Int = -1
     var idx: Int = -1
 
     companion object {
@@ -15,6 +17,6 @@ class Player(val name: String, cPerson: Card) {
 
     init {
         idx = Player.nextId++
-        Log.i(TAG,"Init Player with name=$name and idx=$idx and cPerson=${cPerson.name}")
+        Util.log("Init Player with name=$name and idx=$idx and cPerson=${cPerson.name}")
     }
 }

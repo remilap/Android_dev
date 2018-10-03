@@ -1,26 +1,45 @@
 package com.remilapointe.cluedo.game
 
+import com.remilapointe.cluedo.Util
+import com.remilapointe.cluedo.game.GameItf.Companion.GAME_MODE_ALONE
+import com.remilapointe.cluedo.game.GameItf.Companion.GAME_MODE_HELP
+import com.remilapointe.cluedo.game.GameItf.Companion.GAME_MODE_UNKNOWN
+import com.remilapointe.cluedo.game.Settings.Companion.gameMode
+import com.remilapointe.cluedo.game.Settings.Companion.players
 import com.remilapointe.cluedo.game.cards.CARD_IN_PLAYER_HAND
 import com.remilapointe.cluedo.game.cards.CARD_IN_UNKNOWN
 import com.remilapointe.cluedo.game.cards.Card
 import com.remilapointe.cluedo.game.cards.CardPack
 import java.util.*
 
-class GameActions {
+class GameActions: GameItf {
 
-    val nbMaxPlayers: Int = 5
-    var players: MutableList<Player> = mutableListOf()
+    override fun setGameMode(mode: Int) {
+        if (mode in GAME_MODE_ALONE..GAME_MODE_HELP) {
+            gameMode = mode
+        } else {
+            gameMode = GAME_MODE_UNKNOWN
+        }
+    }
+
+    override fun getGameMode(): Int {
+        return gameMode
+    }
 
     fun addPlayer(name: String, card: Card) {
-        players.add(Player(name, card))
+        Util.log("name: $name, personage: ${card.name}")
+        addPlayer(Player(name, card))
     }
 
     fun addPlayer(pl: Player) {
-        if (players.size < nbMaxPlayers) players.add(pl)
+        Util.log("player: ${pl.name}")
+        if (players.size < MAX_PLAYERS) players.add(pl)
+        else Util.log("nb max players ($MAX_PLAYERS) reached")
     }
 
     fun addCardToPlayer(player: Player, card: Card) {
-        if (card.where != CARD_IN_UNKNOWN) {
+        Util.log("player: ${player.name} (${player.idx}), card: ${card.name}")
+        if (card.where == CARD_IN_UNKNOWN) {
             player.cardsInHand.add(card)
             card.where = CARD_IN_PLAYER_HAND + player.idx
 //        CardPack.cards.remove(card)
@@ -28,6 +47,7 @@ class GameActions {
     }
 
     fun distributeCards() {
+        Util.log("with ${players.size} player(s)")
         // distribute the cards to n players
         val random = Random()
         var iPlayer = 0
@@ -38,6 +58,5 @@ class GameActions {
             if (iPlayer == players.size) iPlayer = 0
         }
     }
-
 
 }

@@ -1,7 +1,6 @@
 package com.remilapointe.cluedo.game.cards
 
-import android.util.Log
-import com.remilapointe.cluedo.game.TAG
+import com.remilapointe.cluedo.Util
 import com.remilapointe.cluedo.game.ResourcesItf
 import java.util.*
 
@@ -20,18 +19,18 @@ object CardPack {
     var nbCardsInSoluc = 0
 
     init {
-        Log.i(TAG, "Init GameActions")
+        Util.log("Init CardPack")
     }
 
     fun initCards(res: ResourcesItf) {
-        Log.i(TAG, this.javaClass.simpleName + "initCards")
+        Util.log("")
         if (cards.isNotEmpty()) return
 
         // create the different Places cards
         val strPlaces = res.getPlacesNames()
         for (p in strPlaces) {
             var pl = Place(p)
-            Log.i(TAG, "add Place " + pl.name)
+            Util.log("add Place ${pl.name}")
             places.add(pl)
             cards.add(pl)
         }
@@ -40,7 +39,7 @@ object CardPack {
         val strPersons = res.getPersonsNames()
         for (p in strPersons) {
             var pe = Person(p)
-            Log.i(TAG, "add Person " + pe.name)
+            Util.log("add Person ${pe.name}")
             persons.add(pe)
             cards.add(pe)
         }
@@ -49,7 +48,7 @@ object CardPack {
         val strWeapons = res.getWeaponsNames()
         for (w in strWeapons) {
             var we = Weapon(w)
-            Log.i(TAG, "add Weapon " + we.name)
+            Util.log("add Weapon ${we.name}")
             weapons.add(we)
             cards.add(we)
         }
@@ -58,6 +57,7 @@ object CardPack {
     }
 
     fun createSolution() {
+        Util.log("")
         // create a solution
         val random = Random()
         var sPlace = random.nextInt(places.size)
@@ -79,10 +79,12 @@ object CardPack {
     }
 
     fun isInSolution(card: Card): Boolean {
+        Util.log("card name: ${card.name}")
         return card.where == CARD_IN_SOLUCE
     }
 
     fun getCard(name: String): Card? {
+        Util.log("card name: $name")
         for (c in cards) {
             if (c.name.equals(name)) {
                 return c
@@ -92,7 +94,8 @@ object CardPack {
     }
 
     fun getSoluce(): Array<Card> {
-        var res = Array<Card>(3) {_ -> Place("")}
+        Util.log("")
+        val res = Array<Card>(3) { _ -> Place("")}
         var n = 0
         for (c in solution) res[n++] = c
         return res

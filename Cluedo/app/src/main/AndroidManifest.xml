@@ -11,8 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:fullBackupContent="@xml/backup_descriptor">
-        <activity android:name=".activities.AlonePlayerActivity" />
-        <activity android:name=".activities.HelpPlayerActivity" />
+        <activity android:name=".activities.GameTurnsActivity" />
+        <activity android:name=".activities.InputPlayersActivity" />
         <activity android:name=".activities.InputNbPlayers" />
         <activity
             android:name=".activities.MainActivity"
@@ -24,9 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.MakeHypothesisActivity" />
         <activity android:name=".activities.PlayAgainstAI" />
         <activity android:name=".activities.SelectCards" />
+        <activity android:name=".activities.ShowCards" />
+        <activity android:name=".activities.ShowCards2" />
     </application>
 
 </manifest>

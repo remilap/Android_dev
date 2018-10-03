@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cluedo</string>
+    <string name="action_settings">Réglages</string>
+    <string name="action_new_alone">Conseils de jeu</string>
+    <string name="action_new_against_AI">Jeu contre IA</string>
+    <string name="str_ok">OK</string>
+    <string name="str_cancel">Retour</string>
+    <string name="str_next">Suivant</string>
+    <string name="str_nb_players">Nombre de joueurs</string>
+    <string name="str_which_player">Quel joueur êtes-vous ?</string>
+    <string name="str_player_name">Nom du joueur %1$d</string>
+    <string name="str_game_character">Personnage du joueur %1$d</string>
+    <string name="str_quit">Quitter</string>
+    <string name="str_cards_in_soluce">Cartes de l\'enigme :</string>
+    <string name="str_rooms_plan">plan des salles</string>
+    <string name="str_select_a_player">Choisir un joueur</string>
+    <string name="str_cards_in_your_hand">Vos cartes : :</string>
+    <string name="str_known_cards">Cartes connues de %s : </string>
+    <string-array name="places_name">
+        <item>studio</item>
+        <item>cuisine</item>
+        <item>hall</item>
+        <item>véranda</item>
+        <item>bureau</item>
+        <item>grand salon</item>
+        <item>salle à manger</item>
+        <item>bibliothèque</item>
+        <item>petit salon</item>
+    </string-array>
+    <string-array name="persons_name">
+        <item>Prof. Violet</item>
+        <item>Mme Leblanc</item>
+        <item>Dc Olive</item>
+        <item>Mme Pervenche</item>
+        <item>Mlle Rose</item>
+        <item>Colonel Moutarde</item>
+    </string-array>
+    <string-array name="weapons_name">
+        <item>chandelier</item>
+        <item>poignard</item>
+        <item>matraque</item>
+        <item>révolver</item>
+        <item>corde</item>
+        <item>clé anglaise</item>
+    </string-array>
+    <string-array name="play_menu_base">
+        <item>0 Choisir une action</item>
+        <item>1 Voir mes cartes</item>
+        <item>2 Voir les cartes connues d\'un autre joueur</item>
+    </string-array>
+    <string-array name="play_menu_advice_my_turn">
+        <item>3 Aide pour émettre une hypothèse</item>
+        <item>4 Emettre une hypothèse et sa réponse donnée</item>
+        <item>5 Formuler une accusation et son résultat</item>
+    </string-array>
+    <string-array name="play_menu_advice_turn_other">
+        <item>6 Aide pour répondre à l\'hypothèse d\'un autre joueur</item>
+        <item>7 Réponse d\'un joueur à l\'hyptohèse d\'un autre joueur</item>
+    </string-array>
+    <string-array name="play_menu_alone_my_turn">
+        <item>8 Je formule une hypothèse et attend la réponse</item>
+        <item>9 Je formule une accusation et attend la réponse</item>
+    </string-array>
+    <string-array name="play_menu_alone_turn_other">
+        <item>10 Action du joueur</item>
+    </string-array>
+
+</resources>

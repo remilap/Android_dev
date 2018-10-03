@@ -8,21 +8,21 @@ import com.remilapointe.cluedo.game.TAG
 
 class ResourcesAndroid(var ctx: Context): ResourcesItf, ResourcesAbstract() {
     init {
-        Log.i(TAG, this.javaClass.simpleName + ".init")
+        Util.log("init")
     }
 
     override fun getPlacesNames(): Array<String> {
-        Log.i(TAG, this.javaClass.simpleName + ".getPlacesNames")
+        Util.log("")
         return ctx.resources.getStringArray(R.array.places_name)
     }
 
     override fun getPersonsNames(): Array<String> {
-        Log.i(TAG, this.javaClass.simpleName + ".getPersonsNames")
+        Util.log("")
         return ctx.resources.getStringArray(R.array.persons_name)
     }
 
     override fun getWeaponsNames(): Array<String> {
-        Log.i(TAG, this.javaClass.simpleName + ".getWeaponsNames")
+        Util.log("")
         return ctx.resources.getStringArray(R.array.weapons_name)
     }
 

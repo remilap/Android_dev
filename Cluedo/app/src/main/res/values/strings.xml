@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Cluedo</string>
     <string name="action_settings">Settings</string>
-    <string name="action_new_alone">Conseils de jeu</string>
-    <string name="action_new_against_AI" type="id">Jeu contre IA</string>
+    <string name="action_new_alone">Playing advices</string>
+    <string name="action_new_against_AI">Playing against AI</string>
     <string name="str_ok">OK</string>
     <string name="str_cancel">Cancel</string>
     <string name="str_next">Next</string>
@@ -13,31 +13,56 @@
     <string name="str_quit">Quit</string>
     <string name="str_cards_in_soluce">Cards present in the enigma:</string>
     <string name="str_rooms_plan">rooms plan</string>
+    <string name="str_select_a_player">Select a player</string>
+    <string name="str_cards_in_your_hand">Cards in your hand:</string>
+    <string name="str_known_cards">Known cards of %s: </string>
     <string-array name="places_name">
-        <item>véranda</item>
+        <item>study</item>
+        <item>kitchen</item>
         <item>hall</item>
-        <item>studio</item>
-        <item>salle à manger</item>
-        <item>bibliothèque</item>
-        <item>bureau</item>
-        <item>cuisine</item>
-        <item>grand salon</item>
-        <item>petit salon</item>
+        <item>conservatory</item>
+        <item>lounge</item>
+        <item>ballroom</item>
+        <item>dinning room</item>
+        <item>library</item>
+        <item>billiard room</item>
     </string-array>
     <string-array name="persons_name">
-        <item>Mlle Rose</item>
-        <item>Prof. Violet</item>
-        <item>Colonel Moutarde</item>
-        <item>Mme Pervenche</item>
-        <item>Mme Leblanc</item>
-        <item>Dc Olive</item>
+        <item>Prof. Plum</item>
+        <item>Mrs. White</item>
+        <item>Mr. Green</item>
+        <item>Mrs. Peacock</item>
+        <item>Miss Scarlett</item>
+        <item>Colonel Mustard</item>
     </string-array>
     <string-array name="weapons_name">
-        <item>corde</item>
-        <item>révolver</item>
-        <item>chandelier</item>
-        <item>poignard</item>
-        <item>matraque</item>
-        <item>clé anglaise</item>
+        <item>candlestick</item>
+        <item>knife</item>
+        <item>lead pipe</item>
+        <item>revolver</item>
+        <item>rope</item>
+        <item>wrench</item>
     </string-array>
+    <string-array name="play_menu_base">
+        <item>0 Choose an action</item>
+        <item>1 View my cards</item>
+        <item>2 View the known cards of another player</item>
+    </string-array>
+    <string-array name="play_menu_advice_my_turn">
+        <item>3 Ask for help to make an hypothesis</item>
+        <item>4 Make an hypothesis and its answer</item>
+        <item>5 Make an accusation and its answer</item>
+    </string-array>
+    <string-array name="play_menu_advice_turn_other">
+        <item>6 Ask for help to answer to an hypothesis of a player</item>
+        <item>7 Answer of one player to an hypothesis of another player</item>
+    </string-array>
+    <string-array name="play_menu_alone_my_turn">
+        <item>8 I make an hypothesis and get the answer</item>
+        <item>9 I make an accusation and get the answer</item>
+    </string-array>
+    <string-array name="play_menu_alone_turn_other">
+        <item>10 Show the player action</item>
+    </string-array>
+
 </resources>

@@ -1,0 +1,31 @@
+
+CLUEDO
+
+Conseils de jeu :
+  - nb de joueurs
+  - nom des joueurs
+  - mes cartes
+  - menu :
+    - voir mes cartes
+	- voir les cartes connues d'un autre joueur
+	- mon tour :
+	  - demande d'aide pour poser une hypothèse
+	  - hypothèse formulée et réponse d'un joueur ou pas de réponse
+	  - accusation et réponse
+	- tour d'un autre joueur j1 :
+	  - demande d'aide pour répondre à l'hypothèse du j1
+	  - réponse du joueur j2 sur l'hypothèse du j1
+
+Jeu seul contre programme :
+  - nb de joueurs
+  - nom des joueurs
+  - distribution des cartes
+  - menu :
+    - voir mes cartes
+	- voir les cartes connues d'un autre joueur
+	- mon tour :
+	  - je formule une hypothèse
+	  - je formule une accusation
+	- tour d'un autre joueur j1 :
+	  - que fait-il ?
+	  - ma réponse si besoin

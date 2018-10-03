@@ -1,7 +1,6 @@
 package com.remilapointe.cluedo.game.cards
 
-import android.util.Log
-import com.remilapointe.cluedo.game.TAG
+import com.remilapointe.cluedo.Util
 
 const val CARD_IN_UNKNOWN = 1
 const val CARD_IN_SOLUCE = 2
@@ -17,7 +16,7 @@ abstract class Card(val name: String) {
 
     init {
         idx = nextId++
-        Log.i(TAG,"Init Card with name=$name and idx=$idx")
+        Util.log("Init Card with name=$name and idx=$idx")
     }
 
 }
