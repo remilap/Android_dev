@@ -1,4 +1,4 @@
-package com.remilapointe.tictactoe.view
+package eu.remilapointe.tictactoe.view
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -7,7 +7,7 @@ import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
-import com.remilapointe.tictactoe.R
+import eu.remilapointe.tictactoe.R
 
 class GameEndDialog : DialogFragment() {
 

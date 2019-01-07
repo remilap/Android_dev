@@ -1,4 +1,4 @@
-package com.remilapointe.tictactoe
+package eu.remilapointe.tictactoe
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("com.remilapointe.tictactoe", appContext.packageName)
+        assertEquals("eu.remilapointe.tictactoe", appContext.packageName)
     }
 }

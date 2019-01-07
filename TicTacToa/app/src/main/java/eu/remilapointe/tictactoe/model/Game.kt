@@ -1,4 +1,4 @@
-package com.remilapointe.tictactoe.model
+package eu.remilapointe.tictactoe.model
 
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log

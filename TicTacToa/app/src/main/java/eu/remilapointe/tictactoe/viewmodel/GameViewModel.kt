@@ -1,12 +1,12 @@
-package com.remilapointe.tictactoe.viewmodel
+package eu.remilapointe.tictactoe.viewmodel
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableArrayMap
 import android.util.Log
-import com.remilapointe.tictactoe.model.Cell
-import com.remilapointe.tictactoe.model.Game
-import com.remilapointe.tictactoe.model.Player
+import eu.remilapointe.tictactoe.model.Cell
+import eu.remilapointe.tictactoe.model.Game
+import eu.remilapointe.tictactoe.model.Player
 
 class GameViewModel : ViewModel() {
     lateinit var cells : ObservableArrayMap<String, String>

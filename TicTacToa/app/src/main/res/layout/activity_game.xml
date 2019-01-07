@@ -6,7 +6,7 @@
 
         <variable
                 name="gameViewModel"
-                type="com.remilapointe.tictactoe.viewmodel.GameViewModel" />
+                type="eu.remilapointe.tictactoe.viewmodel.GameViewModel" />
     </data>
 
     <android.support.v7.widget.GridLayout

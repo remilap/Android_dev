@@ -1,4 +1,4 @@
-package com.remilapointe.tictactoe.view
+package eu.remilapointe.tictactoe.view
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -6,10 +6,10 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.annotation.VisibleForTesting
 import android.support.v7.app.AppCompatActivity
-import com.remilapointe.tictactoe.R
-import com.remilapointe.tictactoe.databinding.ActivityGameBinding
-import com.remilapointe.tictactoe.model.Player
-import com.remilapointe.tictactoe.viewmodel.GameViewModel
+import eu.remilapointe.tictactoe.R
+import eu.remilapointe.tictactoe.databinding.ActivityGameBinding
+import eu.remilapointe.tictactoe.model.Player
+import eu.remilapointe.tictactoe.viewmodel.GameViewModel
 
 class GameActivity : AppCompatActivity() {
 

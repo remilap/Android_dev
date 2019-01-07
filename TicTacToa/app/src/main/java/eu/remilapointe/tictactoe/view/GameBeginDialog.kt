@@ -1,4 +1,4 @@
-package com.remilapointe.tictactoe.view
+package eu.remilapointe.tictactoe.view
 
 import android.app.Dialog
 import android.os.Bundle
@@ -11,7 +11,7 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
-import com.remilapointe.tictactoe.R
+import eu.remilapointe.tictactoe.R
 
 class GameBeginDialog : DialogFragment() {
 

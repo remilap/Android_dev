@@ -1,4 +1,4 @@
-package com.remilapointe.tictactoe
+package eu.remilapointe.tictactoe
 
 import org.junit.Test
 
