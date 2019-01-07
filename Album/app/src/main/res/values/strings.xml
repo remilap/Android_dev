@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Album</string>
+    <string name="add_album">Add album</string>
+    <string name="add">Add</string>
+    <string name="album">Album</string>
+    <string name="pinned">Pinned</string>
+    <string name="created_on">Created on</string>
+    <string name="modified_on">Modified on</string>
+    <string name="deleted">Deleted</string>
+    <string name="hidden">Hidden</string>
+</resources>
