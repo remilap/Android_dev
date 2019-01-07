@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Les pays</string>
+    <string name="add">Nouveau</string>
+    <string name="add_country">Nouveau pays</string>
+    <string name="country">Pays</string>
+    <string name="txt_name">Nom du pays</string>
+    <string name="txt_population">Population</string>
+    <string name="txt_surface">Superficie</string>
+    <string name="txt_capital">Capitale</string>
+    <string name="txt_surface_unit">km²</string>
+    <string name="txt_ok">Ok</string>
+    <string name="txt_cancel">Annuler</string>
+</resources>
