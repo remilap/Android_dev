@@ -12,14 +12,20 @@ class Game(playerOne: String, playerTwo: String) {
         val emptyCell = Cell(emptyPlayer)
     }
 
-    private var player1: Player = Player(playerOne, "X")
-    private var player2: Player = Player(playerTwo, "O")
+    var player1: Player = Player(playerOne, "X")
+    var player2: Player = Player(playerTwo, "O")
     var currentPlayer: Player = player1
-    var cells = Array(BOARD_SIZE * BOARD_SIZE) { emptyCell }
+    private var cells = Array(BOARD_SIZE * BOARD_SIZE) { emptyCell }
     var winner : MutableLiveData<Player> = MutableLiveData()
 
     fun switchPlayer() {
         currentPlayer = if (currentPlayer == player1) player2 else player1
+    }
+
+    fun getCell(row: Int, col: Int) = cells[BOARD_SIZE * row + col]
+
+    fun setCell(row: Int, col: Int, cell: Cell) {
+        cells[BOARD_SIZE * row + col] = cell
     }
 
     fun hasGameEnded() : Boolean {
@@ -34,31 +40,31 @@ class Game(playerOne: String, playerTwo: String) {
         return false
     }
 
-    private fun hasThreeSameHorizontalCells() : Boolean {
+    fun hasThreeSameHorizontalCells() : Boolean {
         for (i in 0 until BOARD_SIZE)
-            if (areEquals(arrayOf(cells[BOARD_SIZE*i+0], cells[BOARD_SIZE*i+1], cells[BOARD_SIZE*i+2]) )) {
-                Log.d(Game.TAG, "Row ${i+1} with $BOARD_SIZE same cells: ${cells[BOARD_SIZE*i]}")
+            if (areEquals(arrayOf(getCell(i, 0), getCell(i, 1), getCell(i, 2)) )) {
+                Log.d(Game.TAG, "Row ${i+1} with $BOARD_SIZE same cells: ${getCell(i, 0)}")
                 return true
             }
         return false
     }
 
-    private fun hasThreeSameVerticalCells() : Boolean {
+    fun hasThreeSameVerticalCells() : Boolean {
         for (i in 0 until BOARD_SIZE)
-            if (areEquals(arrayOf(cells[0+i], cells[BOARD_SIZE+i], cells[BOARD_SIZE*2+i]))) {
-                Log.d(Game.TAG, "Column ${i+1} with $BOARD_SIZE same cells: ${cells[i]}")
+            if (areEquals(arrayOf(getCell(0, i), getCell(1, i), getCell(2, i)))) {
+                Log.d(Game.TAG, "Column ${i+1} with $BOARD_SIZE same cells: ${getCell(0, i)}")
                 return true
             }
         return false
     }
 
-    private fun hasThreeSameDiagonalCells() : Boolean {
-        if (areEquals(arrayOf(cells[0+0], cells[BOARD_SIZE+1], cells[BOARD_SIZE*2+2]))) {
-            Log.d(Game.TAG, "Diagonal NO-SE with $BOARD_SIZE same cells: ${cells[0]}")
+    fun hasThreeSameDiagonalCells() : Boolean {
+        if (areEquals(arrayOf(getCell(0, 0), getCell(1, 1), getCell(2, 2)))) {
+            Log.d(Game.TAG, "Diagonal NO-SE with $BOARD_SIZE same cells: ${getCell(0, 0)}")
             return true
         }
-        if (areEquals(arrayOf(cells[0+2], cells[BOARD_SIZE+1], cells[BOARD_SIZE*2+0]))) {
-            Log.d(Game.TAG, "Diagonal NE-SO with $BOARD_SIZE same cells: ${cells[2]}")
+        if (areEquals(arrayOf(getCell(0, 2), getCell(1, 1), getCell(2, 0)))) {
+            Log.d(Game.TAG, "Diagonal NE-SO with $BOARD_SIZE same cells: ${getCell(0, 2)}")
             return true
         }
         return false
@@ -85,7 +91,7 @@ class Game(playerOne: String, playerTwo: String) {
         return true
     }
 
-    private fun isBoardFull() : Boolean {
+    fun isBoardFull() : Boolean {
         for (cell in cells)
             if (cell.isEmpty()) return false
         Log.d(Game.TAG, "Board is full")
@@ -96,8 +102,9 @@ class Game(playerOne: String, playerTwo: String) {
         player1 = Player("", "")
         player2 = Player("", "")
         currentPlayer = Player("", "")
-        for (i in 0 until BOARD_SIZE* BOARD_SIZE)
-            cells[i] = emptyCell
+        for (r in 0 until BOARD_SIZE)
+            for (c in 0 until BOARD_SIZE)
+                setCell(r, c, emptyCell)
     }
 
 }

@@ -19,8 +19,8 @@ class GameViewModel : ViewModel() {
 
     fun onClickedCellAt(row: Int, column: Int) {
         Log.d(Game.TAG, "onClickedCellAt($row, $column)")
-        if (game.cells[Game.BOARD_SIZE*row+column].player.value.isEmpty()) {
-            game.cells[Game.BOARD_SIZE*row+column] = Cell(game.currentPlayer)
+        if (game.getCell(row, column).player.value.isEmpty()) {
+            game.setCell(row, column, Cell(game.currentPlayer))
             cells[stringFromNumbers(row, column)] = game.currentPlayer.value
 
             if (game.hasGameEnded())
