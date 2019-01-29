@@ -159,20 +159,19 @@ dependencies {
 //    testImplementation "org.mockito:mockito-all:$versions.mockito_all"
 //    testImplementation "org.mockito:mockito-android:$versions.mockito_android"
 
-//    testImplementation "junit:junit:$versions.junit"
 //    testImplementation "com.squareup.okhttp3:mockwebserver:$versions.mockwebserver"
 
 
-//    testImplementation "junit:junit:$versions.junit"
+    testImplementation "junit:junit:$versions.junit"
     // Test helpers for LiveData
-//    testImplementation "android.arch.core:core-testing:1.1.1"
+    testImplementation "android.arch.core:core-testing:1.1.1"
     // Test helpers for Room
 //    testImplementation "android.arch.persistence.room:testing:1.1.1"
 
-//    androidTestImplementation "com.android.support.test:runner:$versions.support_test"
-//    androidTestImplementation "com.android.support.test:rules:$versions.support_test"
-//    androidTestImplementation("com.schibsted.spain:barista:$versions.barista") {
-//        exclude group: 'com.android.support', module: 'support-annotations'
-//    }
+    androidTestImplementation "com.android.support.test:runner:$versions.support_test"
+    androidTestImplementation "com.android.support.test:rules:$versions.support_test"
+    androidTestImplementation("com.schibsted.spain:barista:$versions.barista") {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
 //    androidTestImplementation "com.android.support.test.espresso:espresso-core:$versions.expresso"
 }

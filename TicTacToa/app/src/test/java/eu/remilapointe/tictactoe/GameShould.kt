@@ -13,9 +13,9 @@ class GameShould {
     @Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    lateinit var game: Game
-    lateinit var player: Player
-    lateinit var anotherPlayer: Player
+    private lateinit var game: Game
+    private lateinit var player: Player
+    private lateinit var anotherPlayer: Player
 
     @Before
     fun setUp() {
