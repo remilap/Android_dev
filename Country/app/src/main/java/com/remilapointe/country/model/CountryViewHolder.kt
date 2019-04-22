@@ -6,7 +6,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.remilapointe.country.R
 import com.remilapointe.country.entity.Country
-import org.jetbrains.anko.toast
 
 class CountryViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     LayoutInflater.from(parent.context).inflate(R.layout.country_short_item, parent, false)) {

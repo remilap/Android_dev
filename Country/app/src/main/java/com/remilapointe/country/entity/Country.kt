@@ -11,32 +11,23 @@ data class Country(
     @ColumnInfo(name = "id")
     var id: Long,
 
-    @ColumnInfo(name = "name_fr")
-    var name_fr: String = "France",
+    @ColumnInfo(name = "name_id")
+    var name_id: Long = 0,
 
-    @ColumnInfo(name = "name_en")
-    var name_en: String = "France",
-
-    @ColumnInfo(name = "capital_fr")
-    var capitale_fr: String = "Paris",
-
-    @ColumnInfo(name = "capital_en")
-    var capitale_en: String = "Paris",
+    @ColumnInfo(name = "capital_id")
+    var capitale_id: Long = 0,
 
     @ColumnInfo(name = "abbrev")
     var abbrev: String = "FR",
 
-    @ColumnInfo(name = "surface")   // in km2
-    var surface: Long = 632834,
+    @ColumnInfo(name = "surface_id")
+    var surface_id: Long = 0,
 
-    @ColumnInfo(name = "population")
-    var population: Long = 67200000,
-
-    @ColumnInfo(name = "year_reference")    // year reference for population
-    var year_reference: Int = 2018,
+    @ColumnInfo(name = "population_id")
+    var population_id: Long = 0,
 
     @ColumnInfo(name = "ue_entry_in")
-    var ue_entry_in: Int = 1957,
+    var ue_entry_in: Int = 0,
 
     @ColumnInfo(name = "money")
     var money: String = "Euro",
@@ -52,14 +43,12 @@ data class Country(
 
 ) : Serializable {
 
-    constructor(): this(0, "", "", "", "", "", 0, 0, 0, 0, "", false, "", "")
+    constructor(): this(0, 0, 0, "", 0, 0, 0, "", false, "", "")
 
     override fun toString(): String {
         return id.toString() +
-                '|' + name_en +
-                '|' + name_fr +
-                '|' + capitale_en +
-                '|' + capitale_fr +
+                '|' + name_id +
+                '|' + capitale_id +
                 '|' + abbrev
     }
 

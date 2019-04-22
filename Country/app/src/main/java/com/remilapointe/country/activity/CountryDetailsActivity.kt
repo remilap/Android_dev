@@ -1,6 +1,5 @@
 package com.remilapointe.country.activity
 
-import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
@@ -21,10 +20,10 @@ class CountryDetailsActivity : AppCompatActivity(), OnEditorActionListener {
         setContentView(R.layout.country_details)
 
         val dao = CountryDb.getInstance(this.applicationContext).countryDao()
-        var intentThatStartedThisActivity = intent
+        val intentThatStartedThisActivity = intent
 
         if (intentThatStartedThisActivity.hasExtra(Intent.EXTRA_TEXT)) {
-            var country = intentThatStartedThisActivity.extras!!.get(Intent.EXTRA_TEXT) as Country
+            val country = intentThatStartedThisActivity.extras!!.get(Intent.EXTRA_TEXT) as Country
             var modif = false
             txt_name.setText(country.name_fr)
             txt_name.setOnEditorActionListener { textView, actionId, event ->

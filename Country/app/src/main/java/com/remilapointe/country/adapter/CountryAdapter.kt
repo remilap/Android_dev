@@ -6,12 +6,12 @@ import androidx.recyclerview.widget.DiffUtil
 import com.remilapointe.country.entity.Country
 import com.remilapointe.country.model.CountryViewHolder
 
-class CountryAdapter(val clickKistener: ((Country) -> Unit)?) : PagedListAdapter<Country, CountryViewHolder>(
+class CountryAdapter(private val clickListener: ((Country) -> Unit)?) : PagedListAdapter<Country, CountryViewHolder>(
     diffCallback
 ) {
 
     override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
-        holder.bindTo(getItem(position)!!, clickKistener!!)
+        holder.bindTo(getItem(position)!!, clickListener!!)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder =

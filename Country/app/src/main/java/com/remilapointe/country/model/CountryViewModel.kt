@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class CountryViewModel(app: Application) : AndroidViewModel(app), CoroutineScope {
-    val dao = CountryDb.getInstance(app).countryDao()
+    private val dao = CountryDb.getInstance(app).countryDao()
 
     /**
      * We use -ktx Kotlin extension functions here, otherwise you would use LivePagedListBuilder(),

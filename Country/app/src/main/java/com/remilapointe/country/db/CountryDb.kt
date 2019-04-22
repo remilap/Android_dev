@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.remilapointe.country.dao.CountryDao
 import com.remilapointe.country.entity.Country
 
-@Database(entities = arrayOf(Country::class), version = 1, exportSchema = false)
+@Database(entities = [Country::class], version = 1, exportSchema = false)
 abstract class CountryDb : RoomDatabase() {
     abstract fun countryDao(): CountryDao
 
