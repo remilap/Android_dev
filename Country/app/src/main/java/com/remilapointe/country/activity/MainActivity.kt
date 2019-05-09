@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun countryClicked(country: Country) {
-        Toast.makeText(this, "Clicked: ${country.name_fr}", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Clicked: ${country.abbrev}", Toast.LENGTH_LONG).show()
 
         // Launch second activity, pass album ...
         val showDetailActivityIntent = Intent(this, CountryDetailsActivity::class.java)

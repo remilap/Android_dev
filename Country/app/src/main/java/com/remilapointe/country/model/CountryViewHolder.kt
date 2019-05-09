@@ -21,7 +21,7 @@ class CountryViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     fun bindTo(country: Country, clickListener: ((Country) -> Unit)) {
         //context.toast("binTo(country="+country.name_fr)
         this.country = country
-        nameView.text = country.name_fr
+        nameView.text = country.abbrev
         nameView.setOnClickListener { clickListener(country) }
     }
 

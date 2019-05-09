@@ -2,6 +2,7 @@ package com.remilapointe.country.dao
 
 import androidx.paging.DataSource
 import androidx.room.*
+import com.remilapointe.country.db.CountryDb
 import com.remilapointe.country.entity.Country
 
 @Dao
@@ -18,13 +19,10 @@ interface CountryDao {
     @Delete
     fun reallyDeleteCountry(country: Country)
 
-    @Query("SELECT * FROM countries ORDER BY name_fr")
-    fun listCountriesByNameFr(): DataSource.Factory<Int, Country>
+    @Query("SELECT * FROM ${CountryDb.DB_NAME} ORDER BY name_id")
+    fun listCountriesByName(): DataSource.Factory<Int, Country>
 
-    @Query("SELECT * FROM countries ORDER BY name_en")
-    fun listCountriesByNameEn(): DataSource.Factory<Int, Country>
-
-    @Query("SELECT * FROM countries WHERE id = :id")
+    @Query("SELECT * FROM ${CountryDb.DB_NAME} WHERE id = :id")
     fun getCountryById(id: Long): Country
 
 }

@@ -12,13 +12,14 @@ abstract class CountryDb : RoomDatabase() {
     abstract fun countryDao(): CountryDao
 
     companion object {
+        const val DB_NAME = "countries"
+
         private var INSTANCE: CountryDb? = null
 
         fun getInstance(context: Context): CountryDb {
             if (INSTANCE == null) {
                 synchronized(CountryDb::class) {
-                    INSTANCE = buildDatabase(context)
-                        .build()
+                    INSTANCE = buildDatabase(context).build()
                 }
             }
             return INSTANCE!!
@@ -29,7 +30,7 @@ abstract class CountryDb : RoomDatabase() {
         }
 
         private fun buildDatabase(context: Context) =
-            Room.databaseBuilder(context.applicationContext, CountryDb::class.java, "country.db")
+            Room.databaseBuilder(context.applicationContext, CountryDb::class.java, DB_NAME)
 
     }
 

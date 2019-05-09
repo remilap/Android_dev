@@ -19,7 +19,7 @@ class CountryViewModel(app: Application) : AndroidViewModel(app), CoroutineScope
      * We use -ktx Kotlin extension functions here, otherwise you would use LivePagedListBuilder(),
      * and PagedList.Config.Builder()
      */
-    val allCountries = dao.listCountriesByNameFr().toLiveData(
+    val allCountries = dao.listCountriesByName().toLiveData(
         Config(
             /**
              * A good page size is a value that fills at least a screen worth of content on a large
@@ -55,7 +55,7 @@ class CountryViewModel(app: Application) : AndroidViewModel(app), CoroutineScope
         get() = Dispatchers.Main
 
     fun insert(text: CharSequence) = launch {
-        dao.addCountry(Country(id = 0, name_fr = text.toString()))
+        dao.addCountry(Country())
     }
 
     fun remove(country: Country) = launch {

@@ -3,9 +3,10 @@ package com.remilapointe.country.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.remilapointe.country.db.LongWithDateDb
 import java.util.*
 
-@Entity(tableName = "countries")
+@Entity(tableName = LongWithDateDb.DB_NAME)
 data class LongWithDate(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

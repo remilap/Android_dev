@@ -3,9 +3,11 @@ package com.remilapointe.country.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.remilapointe.country.dao.CountryDao
+import com.remilapointe.country.db.CountryDb
 import java.io.Serializable
 
-@Entity(tableName = "countries")
+@Entity(tableName = CountryDb.DB_NAME)
 data class Country(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
