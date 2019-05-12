@@ -11,14 +11,16 @@ import android.widget.EditText
 /**
  * Activity for entering a word.
  */
-class NewWordActivity : AppCompatActivity() {
+class WordAddActivity : AppCompatActivity() {
 
     private lateinit var editWordView: EditText
+    private lateinit var editTradView: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_word)
         editWordView = findViewById(R.id.edit_word)
+        editTradView = findViewById(R.id.edit_trad)
 
         val button = findViewById<Button>(R.id.button_save)
         button.setOnClickListener {
@@ -27,7 +29,9 @@ class NewWordActivity : AppCompatActivity() {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
                 val word = editWordView.text.toString()
-                replyIntent.putExtra(EXTRA_REPLY, word)
+                replyIntent.putExtra(EXTRA_REPLY_WORD, word)
+                val trad = editTradView.text.toString()
+                replyIntent.putExtra(EXTRA_REPLY_TRAD, trad)
                 setResult(Activity.RESULT_OK, replyIntent)
             }
             finish()
@@ -35,7 +39,8 @@ class NewWordActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_REPLY = "com.example.android.wordlistsql.REPLY"
+        const val EXTRA_REPLY_WORD = "com.remilapointe.roomwordsample.REPLY_WORD"
+        const val EXTRA_REPLY_TRAD = "com.remilapointe.roomwordsample.REPLY_TRAD"
     }
 
 }

@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
  * This is the backend. The database. This used to be done by the OpenHelper.
  * The fact that this has very few comments emphasizes its coolness.
  */
-@Database(entities = [Word::class], version = 1, exportSchema = false)
+@Database(entities = [Word::class], version = 2, exportSchema = false)
 abstract class WordRoomDatabase : RoomDatabase() {
 
     abstract fun wordDao(): WordDao
@@ -70,9 +70,9 @@ abstract class WordRoomDatabase : RoomDatabase() {
             suspend fun populateDatabase(wordDao: WordDao) {
                 wordDao.deleteAll()
 
-                var word = Word("Hello")
+                var word = Word("Hello", "Bonjour")
                 wordDao.insert(word)
-                word = Word("World!")
+                word = Word("World!", "à tous")
                 wordDao.insert(word)
             }
         }
