@@ -21,18 +21,10 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/phrase_list"/>
+    <include layout="@layout/word_list"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_goto_word"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|left"
-            android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/ic_launcher_background"/>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_add_phrase"
+            android:id="@+id/fab_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"

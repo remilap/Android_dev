@@ -1,4 +1,4 @@
-package com.remilapointe.roomwordsample
+package com.remilapointe.roomwordsample.ui
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.remilapointe.roomwordsample.R
+import com.remilapointe.roomwordsample.db.Word
 
 class WordListAdapter internal constructor(
     context: Context
@@ -20,7 +22,7 @@ class WordListAdapter internal constructor(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
-        val itemView = inflater.inflate(R.layout.recyclerview_item, parent, false)
+        val itemView = inflater.inflate(R.layout.word_recyclerview_item, parent, false)
         return WordViewHolder(itemView)
     }
 

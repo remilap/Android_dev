@@ -1,4 +1,4 @@
-package com.remilapointe.roomwordsample
+package com.remilapointe.roomwordsample.ui
 
 import android.app.Activity
 import android.content.Intent
@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
+import com.remilapointe.roomwordsample.R
 
 /**
  * Activity for entering a word.
@@ -18,11 +19,11 @@ class WordAddActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_new_word)
+        setContentView(R.layout.word_add_activity)
         editWordView = findViewById(R.id.edit_word)
         editTradView = findViewById(R.id.edit_trad)
 
-        val button = findViewById<Button>(R.id.button_save)
+        val button = findViewById<Button>(R.id.bt_save_word)
         button.setOnClickListener {
             val replyIntent = Intent()
             if (TextUtils.isEmpty(editWordView.text)) {

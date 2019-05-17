@@ -12,13 +12,13 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_main"
-        tools:context=".MainActivity">
+        tools:context=".ui.MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/phraseRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/darker_gray"
-            tools:listitem="@layout/recyclerview_item" />
+            tools:listitem="@layout/phrase_recyclerview_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

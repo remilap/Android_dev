@@ -1,9 +1,12 @@
-package com.remilapointe.roomwordsample
+package com.remilapointe.roomwordsample.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.remilapointe.roomwordsample.repo.WordRepository
+import com.remilapointe.roomwordsample.db.Word
+import com.remilapointe.roomwordsample.db.WordRoomDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -29,7 +32,8 @@ class WordViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */
-    fun insert(word: Word) = viewModelScope.launch(Dispatchers.IO) {
+    fun insert(word: String, trad: String) = viewModelScope.launch(Dispatchers.IO) {
+        var word = Word(word, trad)
         repository.insert(word)
     }
 

@@ -1,10 +1,11 @@
-package com.remilapointe.roomwordsample
+package com.remilapointe.roomwordsample.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.remilapointe.roomwordsample.db.Word
 
 /**
  * The Room Magic is in this file, where you map a Java method call to an SQL query.
@@ -33,5 +34,8 @@ interface WordDao {
 
     @Query("DELETE FROM word_table")
     fun deleteAll()
+
+    @Query("DELETE FROM word_table WHERE word = :word")
+    fun removeAWord(word: String)
 
 }

@@ -1,4 +1,4 @@
-package com.remilapointe.roomwordsample
+package com.remilapointe.roomwordsample.ui
 
 import android.app.Activity
 import android.content.Intent
@@ -13,10 +13,14 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.remilapointe.roomwordsample.*
+import com.remilapointe.roomwordsample.db.Phrase
+import com.remilapointe.roomwordsample.db.StringToListConverter
+import com.remilapointe.roomwordsample.viewmodel.PhraseViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var wordViewModel: WordViewModel
+    private lateinit var phraseViewModel: PhraseViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,40 +29,42 @@ class MainActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        val adapter = WordListAdapter(this)
+        val recyclerView = findViewById<RecyclerView>(R.id.phraseRecyclerView)
+        val adapter = PhraseListAdapter(this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         // Get a new or existing ViewModel from the ViewModelProvider.
-        wordViewModel = ViewModelProviders.of(this).get(WordViewModel::class.java)
+        phraseViewModel = ViewModelProviders.of(this).get(PhraseViewModel::class.java)
 
         // Add an observer on the LiveData returned by getAlphabetizedWords.
         // The onChanged() method fires when the observed data changes and the activity is
         // in the foreground.
-        wordViewModel.allWords.observe(this, Observer { words ->
+        phraseViewModel.allPhrases.observe(this, Observer { phrases ->
             // Update the cached copy of the words in the adapter.
-            words?.let { adapter.setWords(it) }
+            phrases?.let { adapter.setPhrases(it) }
         })
 
-        val fab = findViewById<FloatingActionButton>(R.id.fab)
-        fab.setOnClickListener {
-            val intent = Intent(this@MainActivity, WordAddActivity::class.java)
-            startActivityForResult(intent, newWordActivityRequestCode)
+        val fabAddPhrase = findViewById<FloatingActionButton>(R.id.fab_add_phrase)
+        fabAddPhrase.setOnClickListener {
+            val intent = Intent(this@MainActivity, PhraseAddActivity::class.java)
+            startActivityForResult(intent, newPhraseActivityRequestCode)
         }
 
+        val fabGotoWordsList = findViewById<FloatingActionButton>(R.id.fab_goto_word)
+        fabGotoWordsList.setOnClickListener {
+            val intent = Intent(this@MainActivity, WordListActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
         super.onActivityResult(requestCode, resultCode, intentData)
 
-        if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
+        if (requestCode == newPhraseActivityRequestCode && resultCode == Activity.RESULT_OK) {
             intentData?.let {data ->
-                val word = Word(
-                    data.getStringExtra(WordAddActivity.EXTRA_REPLY_WORD),
-                    data.getStringExtra(WordAddActivity.EXTRA_REPLY_TRAD)
-                )
-                wordViewModel.insert(word)
+                val sPhrase = data.getStringExtra(PhraseAddActivity.EXTRA_REPLY_PHRASE)
+                phraseViewModel.insert(sPhrase)
             }
         } else {
             Toast.makeText(applicationContext, R.string.empty_not_saved, Toast.LENGTH_LONG).show()
@@ -82,7 +88,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val newWordActivityRequestCode = 1
+        const val newPhraseActivityRequestCode = 1
     }
 
 }

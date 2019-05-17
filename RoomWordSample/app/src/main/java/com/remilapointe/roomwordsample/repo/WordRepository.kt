@@ -1,7 +1,9 @@
-package com.remilapointe.roomwordsample
+package com.remilapointe.roomwordsample.repo
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
+import com.remilapointe.roomwordsample.db.Word
+import com.remilapointe.roomwordsample.db.WordDao
 
 /**
  * Abstracted Repository as promoted by the Architecture Guide.

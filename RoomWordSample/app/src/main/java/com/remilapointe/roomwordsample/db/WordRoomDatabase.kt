@@ -1,9 +1,10 @@
-package com.remilapointe.roomwordsample
+package com.remilapointe.roomwordsample.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,10 +14,12 @@ import kotlinx.coroutines.launch
  * This is the backend. The database. This used to be done by the OpenHelper.
  * The fact that this has very few comments emphasizes its coolness.
  */
-@Database(entities = [Word::class], version = 2, exportSchema = false)
+@Database(entities = [Word::class, Phrase::class], version = 3, exportSchema = false)
+@TypeConverters(StringToListConverter::class)
 abstract class WordRoomDatabase : RoomDatabase() {
 
     abstract fun wordDao(): WordDao
+    abstract fun phraseDao(): PhraseDao
 
     companion object {
         @Volatile
@@ -38,7 +41,11 @@ abstract class WordRoomDatabase : RoomDatabase() {
                     // Wipes and rebuilds instead of migrating if no Migration object.
                     // Migration is not part of this codelab.
                     .fallbackToDestructiveMigration()
-                    .addCallback(WordDatabaseCallback(scope))
+                    .addCallback(
+                        WordDatabaseCallback(
+                            scope
+                        )
+                    )
                     .build()
                 INSTANCE = instance
                 instance
@@ -56,9 +63,9 @@ abstract class WordRoomDatabase : RoomDatabase() {
                 super.onOpen(db)
                 // If you want to keep the data through app restarts,
                 // comment out the following line.
-                INSTANCE?.let { database ->
+                INSTANCE?.let {
                     scope.launch(Dispatchers.IO) {
-                        populateDatabase(database.wordDao())
+                        populateDatabase()
                     }
                 }
             }
@@ -67,13 +74,16 @@ abstract class WordRoomDatabase : RoomDatabase() {
              * Populate the database in a new coroutine.
              * If you want to start with more words, just add them.
              */
-            suspend fun populateDatabase(wordDao: WordDao) {
+            fun populateDatabase() {
+                /*
+            fun populateDatabase(wordDao: WordDao, phraseDao: PhraseDao) {
                 wordDao.deleteAll()
 
                 var word = Word("Hello", "Bonjour")
                 wordDao.insert(word)
                 word = Word("World!", "à tous")
                 wordDao.insert(word)
+                */
             }
         }
     }

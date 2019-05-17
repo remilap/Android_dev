@@ -6,19 +6,19 @@
               android:layout_height="wrap_content">
 
     <TextView
-            android:id="@+id/tvWord"
+            android:id="@+id/tvPhraseId"
             style="@style/word_title"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_orange_light"
             android:layout_weight="1"/>
+
     <TextView
-            android:id="@+id/tvTrad"
+            android:id="@+id/tvPhrase"
             style="@style/word_title"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_orange_light"
-            android:layout_weight="1"
-    />
+            android:layout_weight="7"/>
 
 </LinearLayout>
