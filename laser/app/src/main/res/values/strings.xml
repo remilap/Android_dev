@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">laser</string>
+    <string name="tab_colori_title">Coloris</string>
+    <string name="hint_colori">Colori</string>
+    <string name="tab_taille_title">Tailles</string>
+    <string name="hint_taille">Taille</string>
+    <string name="tab_placelogo_title">Place logo</string>
+    <string name="hint_placelogo">Place logo</string>
+    <string name="tab_produit">Articles</string>
+    <string name="hint_produit">Article</string>
+    <string name="tab_achatproduits_title">Achats</string>
+    <string name="tab_venteproduits_title">Ventes</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">Empty %s not saved because it is empty.</string>
+</resources>
