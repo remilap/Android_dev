@@ -24,7 +24,7 @@ interface WordDao {
     // data has changed. Since we are getting all the contents of the database,
     // we are notified whenever any of the database contents have changed.
     @Query("SELECT * FROM word_table ORDER BY word ASC")
-    fun getAllWords(): LiveData<List<Word>>
+    fun getAllWords(): LiveData<MutableList<Word>>
 
     // We do not need a conflict strategy, because the word is our primary key, and you cannot
     // add two items with the same primary key to the database. If the table has more than one
@@ -36,6 +36,6 @@ interface WordDao {
     fun deleteAll()
 
     @Query("DELETE FROM word_table WHERE word = :word")
-    fun removeAWord(word: String)
+    fun removeAWord(word: Word)
 
 }

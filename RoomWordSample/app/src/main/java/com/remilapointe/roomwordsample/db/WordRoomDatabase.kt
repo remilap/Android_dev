@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
  * The fact that this has very few comments emphasizes its coolness.
  */
 @Database(entities = [Word::class, Phrase::class], version = 3, exportSchema = false)
-@TypeConverters(StringToListConverter::class)
+@TypeConverters(StringToListConverter::class, WordToStringConverter::class)
 abstract class WordRoomDatabase : RoomDatabase() {
 
     abstract fun wordDao(): WordDao

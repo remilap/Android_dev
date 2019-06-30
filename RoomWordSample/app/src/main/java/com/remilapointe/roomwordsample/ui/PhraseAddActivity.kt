@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ class PhraseAddActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.phrase_add_activity)
         editPhraseView = findViewById(R.id.edit_phrase)
+        Log.d(TAG, "onCreate begin")
 
         val button = findViewById<Button>(R.id.bt_save_phrase)
         button.setOnClickListener {
@@ -32,6 +34,8 @@ class PhraseAddActivity : AppCompatActivity() {
     }
 
     companion object {
+        val TAG = PhraseAddActivity::class.simpleName
+        const val EXTRA_QUERY_PHRASE = "com.remilapointe.roomwordsample.QUERY_PHRASE"
         const val EXTRA_REPLY_PHRASE = "com.remilapointe.roomwordsample.REPLY_PHRASE"
     }
 

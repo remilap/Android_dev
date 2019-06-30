@@ -7,7 +7,7 @@
 
     <TextView
             android:id="@+id/tvPhraseId"
-            style="@style/word_title"
+            style="@style/phrase_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_orange_light"
@@ -15,7 +15,7 @@
 
     <TextView
             android:id="@+id/tvPhrase"
-            style="@style/word_title"
+            style="@style/phrase_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_orange_light"

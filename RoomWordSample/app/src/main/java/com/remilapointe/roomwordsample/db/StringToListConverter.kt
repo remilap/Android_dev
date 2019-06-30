@@ -5,18 +5,18 @@ import androidx.room.TypeConverter
 class StringToListConverter {
 
     companion object {
-        val separator: CharSequence = " "
+        private val separator: CharSequence = " "
 
         @TypeConverter
         @JvmStatic
-        fun wordsListToString(words: List<Word>?): String? {
+        fun wordsListToString(words: MutableList<Word>?): String? {
             return words?.map { it.word }?.joinToString(separator = separator)
         }
 
         @TypeConverter
         @JvmStatic
-        fun stringToWordsList(phrase: String?): List<Word>? {
-            return phrase?.split(separator.toString())?.map { Word(it, it) }
+        fun stringToWordsList(phrase: String?): MutableList<Word>? {
+            return phrase?.split(separator.toString())?.map { Word(it, it) }?.toMutableList()
         }
 
     }

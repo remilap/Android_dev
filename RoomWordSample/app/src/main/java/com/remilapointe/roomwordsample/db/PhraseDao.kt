@@ -5,12 +5,11 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.remilapointe.roomwordsample.db.Phrase
 
 @Dao
 interface PhraseDao {
     @Query("SELECT * FROM phrase_table ORDER BY id ASC")
-    fun getAllPhrases(): LiveData<List<Phrase>>
+    fun getAllPhrases(): LiveData<MutableList<Phrase>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(phrase: Phrase)

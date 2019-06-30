@@ -7,14 +7,12 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.remilapointe.roomwordsample.R
-import com.remilapointe.roomwordsample.db.Word
 import com.remilapointe.roomwordsample.viewmodel.WordViewModel
 
 class WordListActivity : AppCompatActivity() {
@@ -65,7 +63,7 @@ class WordListActivity : AppCompatActivity() {
                 )
             }
         } else {
-            Toast.makeText(applicationContext, R.string.empty_not_saved, Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, R.string.empty_word_not_saved, Toast.LENGTH_LONG).show()
         }
     }
 

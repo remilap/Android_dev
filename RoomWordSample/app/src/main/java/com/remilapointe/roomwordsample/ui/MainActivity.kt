@@ -6,10 +6,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -30,9 +33,19 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val recyclerView = findViewById<RecyclerView>(R.id.phraseRecyclerView)
-        val adapter = PhraseListAdapter(this)
+        val adapter = PhraseListAdapter(this) { phrase: Phrase -> phraseItemClicked(phrase) }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+
+        val swipeHandler = object : SwipeToDeleteCallBack(this) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val adapterSwipe = recyclerView.adapter as PhraseListAdapter
+                adapterSwipe.removePhrase(viewHolder.adapterPosition)
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
 
         // Get a new or existing ViewModel from the ViewModelProvider.
         phraseViewModel = ViewModelProviders.of(this).get(PhraseViewModel::class.java)
@@ -58,16 +71,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun phraseItemClicked(phrase: Phrase): View.OnClickListener {
+        val intent = Intent(this@MainActivity, PhraseAddActivity::class.java)
+        intent.putExtra(PhraseAddActivity.EXTRA_QUERY_PHRASE, StringToListConverter.wordsListToString(phrase.mots))
+        startActivity(intent)
+        return View.OnClickListener {  }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
         super.onActivityResult(requestCode, resultCode, intentData)
 
         if (requestCode == newPhraseActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            intentData?.let {data ->
+            intentData?.let { data ->
                 val sPhrase = data.getStringExtra(PhraseAddActivity.EXTRA_REPLY_PHRASE)
                 phraseViewModel.insert(sPhrase)
             }
+        } else if (requestCode == updatePhraseActivityRequestCode && resultCode == Activity.RESULT_OK) {
         } else {
-            Toast.makeText(applicationContext, R.string.empty_not_saved, Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, R.string.empty_word_not_saved, Toast.LENGTH_LONG).show()
         }
     }
 
@@ -89,6 +110,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val newPhraseActivityRequestCode = 1
+        const val updatePhraseActivityRequestCode = 2
     }
 
 }

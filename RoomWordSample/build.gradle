@@ -31,5 +31,6 @@ ext {
     roomVersion = '2.1.0-beta01'
     archLifecycleVersion = '2.2.0-alpha01'
     androidxArchVersion = '2.0.0'
+    daggerVersion = '2.9'
     coroutines = '1.2.0'
 }

@@ -13,11 +13,12 @@ import kotlinx.coroutines.launch
 class PhraseViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: PhraseRepository
-    val allPhrases: LiveData<List<Phrase>>
+    val allPhrases: LiveData<MutableList<Phrase>>
 
     init {
         val phraseDao = WordRoomDatabase.getDatabase(application, viewModelScope).phraseDao()
-        repository = PhraseRepository(phraseDao)
+        val wordDao = WordRoomDatabase.getDatabase(application, viewModelScope).wordDao()
+        repository = PhraseRepository(phraseDao, wordDao)
         allPhrases = repository.allPhrases
     }
 
@@ -28,4 +29,8 @@ class PhraseViewModel(application: Application) : AndroidViewModel(application) 
         repository.insert(sPhrase)
     }
 
+    fun remove(position: Int) = viewModelScope.launch(Dispatchers.IO) {
+        val id = allPhrases.value!![position].id
+        repository.remove(id)
+    }
 }
