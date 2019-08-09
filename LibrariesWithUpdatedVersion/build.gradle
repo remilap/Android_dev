@@ -4,7 +4,7 @@ buildscript {
     apply from: 'versions.gradle'
     addRepos(repositories)
     dependencies {
-        classpath "com.android.tools.build:gradle:$versions.android_gradle_plugin"
+        classpath "com.android.tools.build:gradle:${versions.android_gradle_plugin}"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$versions.kotlin"
 
