@@ -16,9 +16,6 @@ import com.remilapointe.laser.ui.viewmodel.TailleViewModel
 
 class ProduitListAdapter internal constructor(
     context: Context,
-    private val coloriViewModel: ColoriViewModel,
-    private val tailleViewModel: TailleViewModel,
-    private val placeLogoViewModel: PlaceLogoViewModel,
     private val clickListener: (Produit) -> View.OnClickListener
     ) : RecyclerView.Adapter<ProduitListAdapter.ProduitViewHolder>() {
 
@@ -41,9 +38,9 @@ class ProduitListAdapter internal constructor(
     override fun onBindViewHolder(holder: ProduitViewHolder, position: Int) {
         val current = strList[position]
         holder.idItemView.text = current.id.toString()
-        holder.coloriItemView.text = coloriViewModel.getValueForId(current.coloriId)
-        holder.tailleItemView.text = tailleViewModel.getValueForId(current.tailleId)
-        holder.placeLogoItemView.text = placeLogoViewModel.getValueForId(current.placeLogoId)
+        //holder.coloriItemView.text = coloriViewModel.getValueForId(current.coloriId)
+        //holder.tailleItemView.text = tailleViewModel.getValueForId(current.tailleId)
+        //holder.placeLogoItemView.text = placeLogoViewModel.getValueForId(current.placeLogoId)
         holder.bind(current, clickListener)
     }
 

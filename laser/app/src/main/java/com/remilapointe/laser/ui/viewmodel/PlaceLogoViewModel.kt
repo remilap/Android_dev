@@ -40,17 +40,17 @@ class PlaceLogoViewModel(application: Application) : AndroidViewModel(applicatio
         return Array(size = allObjs.value?.size!!) { i -> allObjs.value?.get(i)!! }
     }
 
-    fun getPlaceLogoById(id: Int) : PlaceLogo? {
+    fun getPlaceLogoById(id: Int) : PlaceLogo {
         getAllObjs().forEach {
             if (it.id == id) {
                 return it
             }
         }
-        return null
+        return PlaceLogo(0, "0")
     }
 
-    fun getValueForId(id: Int) : String? {
-        return getPlaceLogoById(id)?.elem
+    fun getValueForId(id: Int) : String {
+        return getPlaceLogoById(id).elem
     }
 
     fun getIdForValue(elem: String) : Int {

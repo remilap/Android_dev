@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,12 +18,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.log4k.d
 import com.remilapointe.laser.R
+import com.remilapointe.laser.adapter.ColoriListAdapter
+import com.remilapointe.laser.adapter.ColoriSimpleListAdapter
 import com.remilapointe.laser.adapter.ProduitListAdapter
+import com.remilapointe.laser.db.Colori
+import com.remilapointe.laser.db.LaserRoomDatabase
 import com.remilapointe.laser.db.Produit
+import com.remilapointe.laser.repo.ColoriRepo
 import com.remilapointe.laser.ui.viewmodel.ColoriViewModel
 import com.remilapointe.laser.ui.viewmodel.PlaceLogoViewModel
 import com.remilapointe.laser.ui.viewmodel.ProduitViewModel
 import com.remilapointe.laser.ui.viewmodel.TailleViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import org.jetbrains.anko.toast
 
 class ProduitFragment(passedContext: Context) : Fragment() {
@@ -30,18 +38,12 @@ class ProduitFragment(passedContext: Context) : Fragment() {
     val passThroughContext: Context = passedContext
 
     private lateinit var produitViewModel: ProduitViewModel
-    private lateinit var coloriViewModel: ColoriViewModel
-    private lateinit var tailleViewModel: TailleViewModel
-    private lateinit var placelogoViewModel: PlaceLogoViewModel
     private lateinit var adapter: ProduitListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        coloriViewModel = ViewModelProviders.of(this).get(ColoriViewModel::class.java)
-        tailleViewModel = ViewModelProviders.of(this).get(TailleViewModel::class.java)
-        placelogoViewModel = ViewModelProviders.of(this).get(PlaceLogoViewModel::class.java)
-        adapter = ProduitListAdapter(passThroughContext, coloriViewModel, tailleViewModel, placelogoViewModel) { item: Produit -> itemItemClicked(item) }
+        adapter = ProduitListAdapter(passThroughContext) { item: Produit -> itemItemClicked(item) }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -70,21 +72,21 @@ class ProduitFragment(passedContext: Context) : Fragment() {
             objs?.let { adapter.setStrings(it) }
         })
 
-        coloriViewModel = ViewModelProviders.of(this).get(ColoriViewModel::class.java)
-        val sb = StringBuffer("Liste des elements: ")
-        val allColoris = coloriViewModel.getAllObjs()
-        allColoris.forEach {
-            sb.append(it.elem).append(", ")
+        val coloriDao = LaserRoomDatabase.getDatabase(passThroughContext, CoroutineScope(Dispatchers.IO)).coloriDao()
+        val coloriRepo = ColoriRepo(coloriDao)
+        val allColoris = coloriRepo.allObjs.value
+        if (allColoris == null) {
+            activity!!.toast("allColoris is null")
+        } else {
+            val sb = StringBuffer("Liste des elements: ")
+            allColoris?.forEach {
+                sb.append(it.elem).append(", ")
+            }
+            activity!!.toast("nb de coloris: " + allColoris.size + ", " + sb)
         }
         val fabAdd = root.findViewById<FloatingActionButton>(R.id.fab_add_colori)
         fabAdd.setOnClickListener {
             //val intent = Intent(this@ColoriFragment.context, ColoriAddActivity::class.java)
-            if (coloriViewModel.allObjs.value == null) {
-                activity!!.toast("allObjs.value is null !!!")
-            } else {
-                activity!!.toast(coloriViewModel.allObjs.value.toString())
-            }
-            activity!!.toast("nb de coloris: " + allColoris.size + ", " + sb)
 //            startActivityForResult(
 //                activity?.ProduitDetailIntent(
 //                    null,

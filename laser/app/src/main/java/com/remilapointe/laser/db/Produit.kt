@@ -1,38 +1,43 @@
 package com.remilapointe.laser.db
 
+import androidx.annotation.NonNull
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(
     tableName = Produit.TABLE_NAME,
-    primaryKeys = ["id", "coloriId", "tailleId", "placeLogoId"],
+    //primaryKeys = ["id", "coloriId", "tailleId", "placeLogoId"],
     foreignKeys = [
         ForeignKey(
             entity = Colori::class,
             parentColumns = ["id"],
-            childColumns = ["elem"],
+            childColumns = ["coloriId"],
             onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
             entity = Taille::class,
             parentColumns = ["id"],
-            childColumns = ["elem"],
+            childColumns = ["tailleId"],
             onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
             entity = PlaceLogo::class,
             parentColumns = ["id"],
-            childColumns = ["elem"],
+            childColumns = ["placeLogoId"],
             onDelete = ForeignKey.CASCADE
         )
     ]
 )
 data class Produit(
     @PrimaryKey(autoGenerate = true)
-    val id: Int? = null,
+    @NonNull val id: Int,
+    @ColumnInfo(index = true)
     val coloriId: Int,
+    @ColumnInfo(index = true)
     val tailleId: Int,
+    @ColumnInfo(index = true)
     val placeLogoId: Int
 ) {
     companion object {

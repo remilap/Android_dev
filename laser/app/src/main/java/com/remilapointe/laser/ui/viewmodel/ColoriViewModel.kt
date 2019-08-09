@@ -18,9 +18,15 @@ class ColoriViewModel(application: Application) : AndroidViewModel(application) 
     val allObjs: LiveData<MutableList<Colori>>
 
     init {
+        d("ColoriViewModel:init")
         val myDao = LaserRoomDatabase.getDatabase(application, viewModelScope).coloriDao()
         myRepo = ColoriRepo(myDao)
         allObjs = myRepo.allObjs
+        if (allObjs.value == null) {
+            d("ColoriViewModel:getAllObjs, size: 0")
+        } else {
+            d("ColoriViewModel:getAllObjs, size: " + allObjs.value?.size)
+        }
     }
 
     /**
@@ -37,28 +43,30 @@ class ColoriViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun getAllObjs() : Array<Colori> {
+        d("ColoriViewModel:getAllObjs, size: " + allObjs.value?.size)
         val tabSize = if (allObjs.value == null) 1 else allObjs.value!!.size
+        d("ColoriViewModel:getAllObjs, size: $tabSize")
         val res = Array(size = tabSize) { i ->
             if (allObjs.value != null) {
                 allObjs.value!![i]
             } else {
-                Colori(0, "null")
+                Colori(0, "0")
             }
         }
         return res
     }
 
-    fun getColoriById(id: Int) : Colori? {
+    fun getColoriById(id: Int) : Colori {
         getAllObjs().forEach {
             if (it.id == id) {
                 return it
             }
         }
-        return null
+        return Colori(0, "0")
     }
 
-    fun getValueForId(id: Int) : String? {
-        return getColoriById(id)?.elem
+    fun getValueForId(id: Int) : String {
+        return getColoriById(id).elem
     }
 
     fun getIdForValue(elem: String) : Int {

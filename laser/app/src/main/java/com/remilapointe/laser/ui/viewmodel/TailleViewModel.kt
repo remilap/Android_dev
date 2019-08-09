@@ -40,17 +40,17 @@ class TailleViewModel(application: Application) : AndroidViewModel(application) 
         return Array(size = allObjs.value?.size!!) { i -> allObjs.value?.get(i)!! }
     }
 
-    fun getTailleById(id: Int) : Taille? {
+    fun getTailleById(id: Int) : Taille {
         getAllObjs().forEach {
             if (it.id == id) {
                 return it
             }
         }
-        return null
+        return Taille(0, "0")
     }
 
-    fun getValueForId(id: Int) : String? {
-        return getTailleById(id)?.elem
+    fun getValueForId(id: Int) : String {
+        return getTailleById(id).elem
     }
 
     fun getIdForValue(elem: String) : Int {

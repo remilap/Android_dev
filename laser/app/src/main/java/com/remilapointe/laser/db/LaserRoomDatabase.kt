@@ -9,11 +9,15 @@ import com.remilapointe.laser.dao.ColoriDao
 import com.remilapointe.laser.dao.PlaceLogoDao
 import com.remilapointe.laser.dao.ProduitDao
 import com.remilapointe.laser.dao.TailleDao
+import com.remilapointe.laser.repo.ColoriRepo
+import com.remilapointe.laser.repo.PlaceLogoRepo
+import com.remilapointe.laser.repo.ProduitRepo
+import com.remilapointe.laser.repo.TailleRepo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [Colori::class, Taille::class, PlaceLogo::class, Produit::class], version = 2, exportSchema = false)
+@Database(entities = [Colori::class, Taille::class, PlaceLogo::class, Produit::class], version = 3, exportSchema = false)
 abstract class LaserRoomDatabase : RoomDatabase() {
     abstract fun coloriDao(): ColoriDao
     abstract fun tailleDao(): TailleDao
@@ -77,5 +81,11 @@ abstract class LaserRoomDatabase : RoomDatabase() {
                 */
             }
         }
+
+        fun getColoriRepo() : ColoriRepo? = ColoriRepo(INSTANCE?.coloriDao()!!)
+        fun getTailleRepo() : TailleRepo? = TailleRepo(INSTANCE?.tailleDao()!!)
+        fun getPlaceLogoRepo() : PlaceLogoRepo? = PlaceLogoRepo(INSTANCE?.placeLogoDao()!!)
+        fun getProduitRepo() : ProduitRepo? = ProduitRepo(INSTANCE?.produitDao()!!)
+
     }
 }
