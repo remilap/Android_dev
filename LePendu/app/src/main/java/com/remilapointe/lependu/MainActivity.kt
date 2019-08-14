@@ -2,6 +2,7 @@ package com.remilapointe.lependu
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -31,23 +32,26 @@ class MainActivity : AppCompatActivity() {
             "TRANSIENT", "TRUE", "TRY", "VOID", "VOLATILE", "WHILE")
         val RANDOM = Random()
         // Max errors before user lose
-        const val MAX_ERRORS = 6
+        const val MAX_ERRORS = 7
+        const val TAG = "PENDU"
     }
 
-    var wordToFind: String = ""
-    var wordFound: CharArray = CharArray(0)
-    var nbErrors = 0
-    var letters: ArrayList<String> = ArrayList(1)
-    lateinit var img: ImageView
-    lateinit var wordTv: TextView
-    lateinit var wordToFindTv: TextView
+    private var wordToFind: String = ""
+    private var wordFound: CharArray = CharArray(0)
+    private var nbErrors = 0
+    private var letters: ArrayList<String> = ArrayList(1)
+    private lateinit var img: ImageView
+    private lateinit var wordTv: TextView
+    private lateinit var wordToFindTv: TextView
 
+    @ExperimentalStdlibApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         img = findViewById(R.id.img)
         wordTv = findViewById(R.id.wordTv)
         wordToFindTv = findViewById(R.id.wordToFindTv)
+        newGame()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -55,6 +59,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    @ExperimentalStdlibApi
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item!!.itemId == R.id.new_game) {
             newGame()
@@ -68,20 +73,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Method returning trus if word is found by user
+    @ExperimentalStdlibApi
     private fun wordFound(): Boolean {
-        return wordToFind.contentEquals(wordFound.toString())
+        Log.d(TAG, "wordToFind: $wordToFind, wordFound: ${wordFound.concatToString()}")
+        return wordToFind.contentEquals(wordFound.concatToString())
     }
 
     // Method for starting a new game
+    @ExperimentalStdlibApi
     private fun newGame() {
-        nbErrors = -1
+        nbErrors = 1
+        Log.d(TAG, "01- size of letters: ${letters.size}")
         letters.clear()
+        Log.d(TAG, "02- size of letters: ${letters.size}")
         wordToFind = nextWordToFind()
-        longToast("Word to find is $wordToFind")
+        Log.d(TAG, "Word to find is $wordToFind")
         wordFound = CharArray(wordToFind.length)
         for (i in 0 until wordFound.size) {
             wordFound[i] = '_'
         }
+        Log.d(TAG, "03- wordFound: ${wordFound.concatToString()}")
         updateImg(nbErrors)
         wordTv.text = wordFoundContent()
         wordToFindTv.text = ""
@@ -91,13 +102,15 @@ class MainActivity : AppCompatActivity() {
     private fun enter(c: String) {
         // we update only if c has not already been entered
         if (!letters.contains(c)) {
+            Log.d(TAG, "04- letters does not contain $c")
             // we check if word to find contains c
             if (wordToFind.contains(c)) {
+                Log.d(TAG, "05- wordToFind contains $c")
                 // if so, we replace _ by the character c
                 var index = wordToFind.indexOf(c)
                 while (index >= 0) {
                     wordFound[index] = c[0]
-                    index = wordToFind.indexOf(c)
+                    index = wordToFind.indexOf(c, index + 1)
                 }
             } else {
                 // c not in the word to find => error
@@ -113,7 +126,7 @@ class MainActivity : AppCompatActivity() {
 
     // Method returning the state of the word found by the user until by now
     private fun wordFoundContent(): String {
-        val builder : StringBuilder = StringBuilder()
+        val builder = StringBuilder()
         for (i in 0 until wordFound.size) {
             builder.append(wordFound[i])
             if (i < wordFound.size - 1) {
@@ -128,6 +141,7 @@ class MainActivity : AppCompatActivity() {
         img.setImageResource(resImg)
     }
 
+    @ExperimentalStdlibApi
     fun touchLetter(v: View) {
         if (nbErrors < MAX_ERRORS && !getString(R.string.you_win).equals(wordToFindTv.text)) {
             val letter : String = (v as Button).text.toString()
@@ -138,11 +152,11 @@ class MainActivity : AppCompatActivity() {
             // check if word is found
             if (wordFound()) {
                 toast(R.string.you_win)
-                wordToFindTv.text = R.string.you_win.toString()
+                wordToFindTv.setText(R.string.you_win)
             } else {
                 if (nbErrors >= MAX_ERRORS) {
                     toast(R.string.you_lose)
-                    wordToFindTv.text = R.string.word_to_find.toString().replace("#word#", wordToFind)
+                    wordToFindTv.text = resources.getText(R.string.word_to_find).toString().replace("#word#", wordToFind)
                 }
             }
         } else {
