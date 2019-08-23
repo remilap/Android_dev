@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -18,6 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.log4k.d
 import com.remilapointe.laser.R
 import com.remilapointe.laser.adapter.ColoriListAdapter
+import com.remilapointe.laser.adapter.ColoriSimpleListAdapter
 import com.remilapointe.laser.db.Colori
 import com.remilapointe.laser.ui.viewmodel.ColoriViewModel
 import org.jetbrains.anko.toast
@@ -27,15 +29,16 @@ class ColoriFragment(passedContext: Context) : Fragment() {
     val passThroughContext: Context = passedContext
 
     private lateinit var itemViewModel: ColoriViewModel
-    private lateinit var adapter: ColoriListAdapter
+    private lateinit var adapter: ColoriSimpleListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        itemViewModel = ViewModelProviders.of(this).get(ColoriViewModel::class.java).apply {
+        itemViewModel = ViewModelProvider(this).get(ColoriViewModel::class.java).apply {
 
         }
-        adapter = ColoriListAdapter(passThroughContext) { item: Colori -> itemItemClicked(item) }
+//        adapter = ColoriListAdapter(passThroughContext) { item: Colori -> itemItemClicked(item) }
+        adapter = ColoriSimpleListAdapter(passThroughContext)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -59,7 +62,7 @@ class ColoriFragment(passedContext: Context) : Fragment() {
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
-        itemViewModel = ViewModelProviders.of(this).get(ColoriViewModel::class.java)
+        itemViewModel = ViewModelProvider(this).get(ColoriViewModel::class.java)
         itemViewModel.allObjs.observe(this, Observer { objs ->
             objs?.let { adapter.setStrings(it) }
         })

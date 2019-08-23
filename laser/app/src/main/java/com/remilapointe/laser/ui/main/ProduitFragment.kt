@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -31,6 +32,7 @@ import com.remilapointe.laser.ui.viewmodel.ProduitViewModel
 import com.remilapointe.laser.ui.viewmodel.TailleViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import org.jetbrains.anko.longToast
 import org.jetbrains.anko.toast
 
 class ProduitFragment(passedContext: Context) : Fragment() {
@@ -67,14 +69,13 @@ class ProduitFragment(passedContext: Context) : Fragment() {
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
-        produitViewModel = ViewModelProviders.of(this).get(ProduitViewModel::class.java)
+        produitViewModel = ViewModelProvider(this).get(ProduitViewModel::class.java)
         produitViewModel.allObjs.observe(this, Observer { objs ->
             objs?.let { adapter.setStrings(it) }
         })
 
-        val coloriDao = LaserRoomDatabase.getDatabase(passThroughContext, CoroutineScope(Dispatchers.IO)).coloriDao()
-        val coloriRepo = ColoriRepo(coloriDao)
-        val allColoris = coloriRepo.allObjs.value
+        val coloriRepo = LaserRoomDatabase.getColoriRepo()
+        val allColoris = coloriRepo!!.allObjs.value
         if (allColoris == null) {
             activity!!.toast("allColoris is null")
         } else {
@@ -82,7 +83,7 @@ class ProduitFragment(passedContext: Context) : Fragment() {
             allColoris?.forEach {
                 sb.append(it.elem).append(", ")
             }
-            activity!!.toast("nb de coloris: " + allColoris.size + ", " + sb)
+            activity!!.longToast("nb de coloris: " + allColoris.size + ", " + sb)
         }
         val fabAdd = root.findViewById<FloatingActionButton>(R.id.fab_add_colori)
         fabAdd.setOnClickListener {
