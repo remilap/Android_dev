@@ -18,7 +18,7 @@
             tools:listitem="@layout/colori_recyclerview_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_check"
+            android:id="@+id/fab_check_colori"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|start"

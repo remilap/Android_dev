@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +18,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.log4k.d
 import com.remilapointe.laser.R
 import com.remilapointe.laser.adapter.ColoriListAdapter
-import com.remilapointe.laser.adapter.ColoriSimpleListAdapter
 import com.remilapointe.laser.db.Colori
 import com.remilapointe.laser.ui.viewmodel.ColoriViewModel
 import org.jetbrains.anko.toast
@@ -29,7 +27,7 @@ class ColoriFragment(passedContext: Context) : Fragment() {
     val passThroughContext: Context = passedContext
 
     private lateinit var itemViewModel: ColoriViewModel
-    private lateinit var adapter: ColoriSimpleListAdapter
+    private lateinit var adapter: ColoriListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +35,8 @@ class ColoriFragment(passedContext: Context) : Fragment() {
         itemViewModel = ViewModelProvider(this).get(ColoriViewModel::class.java).apply {
 
         }
-//        adapter = ColoriListAdapter(passThroughContext) { item: Colori -> itemItemClicked(item) }
-        adapter = ColoriSimpleListAdapter(passThroughContext)
+        adapter = ColoriListAdapter(passThroughContext) { item: Colori -> itemItemClicked(item) }
+//        adapter = ColoriSimpleListAdapter(passThroughContext)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -63,7 +61,7 @@ class ColoriFragment(passedContext: Context) : Fragment() {
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
         itemViewModel = ViewModelProvider(this).get(ColoriViewModel::class.java)
-        itemViewModel.allObjs.observe(this, Observer { objs ->
+        itemViewModel.allColoris.observe(this, Observer { objs ->
             objs?.let { adapter.setStrings(it) }
         })
 
@@ -74,7 +72,7 @@ class ColoriFragment(passedContext: Context) : Fragment() {
             startActivityForResult(activity?.ColoriDetailIntent(""), newColoriActivityRequestCode)
         }
 
-        val fabCheck = root.findViewById<FloatingActionButton>(R.id.fab_check)
+        val fabCheck = root.findViewById<FloatingActionButton>(R.id.fab_check_colori)
         fabCheck.setOnClickListener {
             //d("click on check, this= ${this@ColoriFragment}, this.context=" + context + ", root.context=" + root.context + ", passed context=" + passThroughContext)
             val allColoris = itemViewModel.getAllObjs()
@@ -92,7 +90,7 @@ class ColoriFragment(passedContext: Context) : Fragment() {
         //val intent = Intent(this@ColoriFragment.context, ColoriAddActivity::class.java)
         //intent.putExtra(ColoriAddActivity.EXTRA_QUERY_COLORI, item.elem)
         d("click on the $kind item ${item.elem}, launch update")
-        //startActivityForResult(activity!!.ColoriDetailIntent(item.elem), updateColoriActivityRequestCode)
+        startActivityForResult(activity!!.ColoriDetailIntent(item.elem), updateColoriActivityRequestCode)
         return View.OnClickListener {  }
     }
 

@@ -10,8 +10,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,19 +17,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.log4k.d
 import com.remilapointe.laser.R
-import com.remilapointe.laser.adapter.ColoriListAdapter
-import com.remilapointe.laser.adapter.ColoriSimpleListAdapter
 import com.remilapointe.laser.adapter.ProduitListAdapter
-import com.remilapointe.laser.db.Colori
-import com.remilapointe.laser.db.LaserRoomDatabase
 import com.remilapointe.laser.db.Produit
-import com.remilapointe.laser.repo.ColoriRepo
-import com.remilapointe.laser.ui.viewmodel.ColoriViewModel
-import com.remilapointe.laser.ui.viewmodel.PlaceLogoViewModel
 import com.remilapointe.laser.ui.viewmodel.ProduitViewModel
-import com.remilapointe.laser.ui.viewmodel.TailleViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import org.jetbrains.anko.longToast
 import org.jetbrains.anko.toast
 
@@ -70,44 +58,60 @@ class ProduitFragment(passedContext: Context) : Fragment() {
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
         produitViewModel = ViewModelProvider(this).get(ProduitViewModel::class.java)
-        produitViewModel.allObjs.observe(this, Observer { objs ->
-            objs?.let { adapter.setStrings(it) }
+        produitViewModel.allProduits.observe(this, Observer { objs ->
+            objs?.let { adapter.setProduits(it) }
+        })
+        produitViewModel.allColoris.observe(this, Observer { objs ->
+            objs?.let { adapter.setColoris(it) }
+        })
+        produitViewModel.allTailles.observe(this, Observer { objs ->
+            objs?.let { adapter.setTailles(it) }
+        })
+        produitViewModel.allPlaceLogs.observe(this, Observer { ojs ->
+            ojs?.let { adapter.setPlaceLogs(it) }
         })
 
-        val coloriRepo = LaserRoomDatabase.getColoriRepo()
-        val allColoris = coloriRepo!!.allObjs.value
-        if (allColoris == null) {
-            activity!!.toast("allColoris is null")
-        } else {
-            val sb = StringBuffer("Liste des elements: ")
-            allColoris?.forEach {
-                sb.append(it.elem).append(", ")
-            }
-            activity!!.longToast("nb de coloris: " + allColoris.size + ", " + sb)
-        }
+//        val allColoris = produitViewModel.allColoris.value
+        val tabColoris = produitViewModel.allColoris.value?.toTypedArray()
+        val sb = StringBuffer()
+        sb.append(tabColoris?.size)
+        sb.append(" coloris (")
+        tabColoris?.forEach {sb.append(it.elem).append(", ")}
+        sb.append("), ")
+        val tabTailles = produitViewModel.allTailles.value?.toTypedArray()
+        sb.append(tabTailles?.size)
+        sb.append(" tailles (")
+        tabTailles?.forEach {sb.append(it.elem).append(", ")}
+        sb.append("), ")
+        val tabPlaceLogos = produitViewModel.allPlaceLogs.value?.toTypedArray()
+        sb.append(tabPlaceLogos?.size)
+        sb.append(" places logo (")
+        tabPlaceLogos?.forEach {sb.append(it.elem).append(", ")}
+        sb.append("), ")
+        activity!!.longToast(sb)
         val fabAdd = root.findViewById<FloatingActionButton>(R.id.fab_add_colori)
         fabAdd.setOnClickListener {
-            //val intent = Intent(this@ColoriFragment.context, ColoriAddActivity::class.java)
-//            startActivityForResult(
-//                activity?.ProduitDetailIntent(
-//                    null,
-//                    coloriViewModel.getAllObjs(),
-//                    tailleViewModel.getAllObjs(),
-//                    placelogoViewModel.getAllObjs()
-//                ),
-//                newProduitActivityRequestCode
-//            )
+//            val intent = Intent(this@ProduitFragment.context, ProduitAddActivity::class.java)
+            startActivityForResult(
+                activity?.ProduitDetailIntent(
+                    null,
+                    tabColoris!!,
+                    tabTailles!!,
+                    tabPlaceLogos!!
+                ),
+                newProduitActivityRequestCode
+            )
         }
 
-//        val fabCheck = root.findViewById<FloatingActionButton>(R.id.fab_check)
-//        fabCheck.setOnClickListener {
-//            //d("click on check, this= ${this@ColoriFragment}, this.context=" + context + ", root.context=" + root.context + ", passed context=" + passThroughContext)
-//            val sb = StringBuffer("Liste des elements: ")
-//            produitViewModel.allObjs.value?.forEach {
-//                sb.append(it.elem).append(", ")
-//            }
-//            activity!!.toast(sb)
-//        }
+        val fabCheck = root.findViewById<FloatingActionButton>(R.id.fab_check_colori)
+        fabCheck.setOnClickListener {
+            //d("click on check, this= ${this@ColoriFragment}, this.context=" + context + ", root.context=" + root.context + ", passed context=" + passThroughContext)
+            val sb2 = StringBuffer("Liste des elements: ")
+            produitViewModel.allProduits.value?.forEach {
+                sb2.append(it.coloriId).append("/").append(it.tailleId).append("/").append(it.placeLogoId).append(", ")
+            }
+            activity!!.toast(sb2)
+        }
 
         return root
     }

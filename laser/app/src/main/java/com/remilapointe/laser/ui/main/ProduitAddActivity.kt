@@ -8,13 +8,11 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.log4k.d
 import com.remilapointe.laser.R
 import com.remilapointe.laser.db.*
-import com.remilapointe.laser.ui.viewmodel.ColoriViewModel
-import com.remilapointe.laser.ui.viewmodel.PlaceLogoViewModel
-import com.remilapointe.laser.ui.viewmodel.TailleViewModel
+import com.remilapointe.laser.ui.viewmodel.ProduitViewModel
 import kotlinx.android.synthetic.main.produit_add_activity.*
 
 fun Context.ProduitDetailIntent(
@@ -48,9 +46,10 @@ class ProduitAddActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
     private lateinit var spProduitAddColori: Spinner
     private lateinit var spProduitAddTaille: Spinner
     private lateinit var spProduitAddCPlacelogo: Spinner
-    private lateinit var coloriViewModel: ColoriViewModel
-    private lateinit var tailleViewModel: TailleViewModel
-    private lateinit var placelogoViewModel: PlaceLogoViewModel
+//    private lateinit var coloriViewModel: ColoriViewModel
+//    private lateinit var tailleViewModel: TailleViewModel
+//    private lateinit var placelogoViewModel: PlaceLogoViewModel
+    private lateinit var produitViewModel: ProduitViewModel
     private var produitColoriId: Int = 0
     private var produitTailleId: Int = 0
     private var produitPlaceLogoId: Int = 0
@@ -67,10 +66,10 @@ class ProduitAddActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         tvProduitId = findViewById(R.id.tvProduitAddId)
 //        val productId = intent.getIntExtra(EXTRA_QUERY_PRODUIT_ID, 0)
 
-        coloriViewModel = ViewModelProviders.of(this).get(ColoriViewModel::class.java)
+        produitViewModel = ViewModelProvider(this).get(ProduitViewModel::class.java)
         produitColoriId = intent.getIntExtra(EXTRA_QUERY_PRODUIT_COLORI_ID, 0)
-        produitColori = coloriViewModel.getValueForId(produitColoriId)
-        val coloriList = intent.getStringArrayExtra(EXTRA_QUERY_COLORI_LIST)
+        produitColori = produitViewModel.getColoriById(produitColoriId)
+        val coloriList = intent.getStringArrayExtra(EXTRA_QUERY_COLORI_LIST)!!
 
         spProduitAddColori = findViewById(R.id.spProduitAddColori)
         val adaptColori = ArrayAdapter(this, android.R.layout.simple_spinner_item, coloriList)
@@ -78,10 +77,9 @@ class ProduitAddActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         spProduitAddColori.adapter = adaptColori
         spProduitAddColori.onItemSelectedListener = this
 
-        tailleViewModel = ViewModelProviders.of(this).get(TailleViewModel::class.java)
         produitTailleId = intent.getIntExtra(EXTRA_QUERY_PRODUIT_TAILLE_ID, 0)
-        produitTaille = tailleViewModel.getValueForId(produitTailleId)
-        val tailleList = intent.getStringArrayExtra(EXTRA_QUERY_TAILLE_LIST)
+        produitTaille = produitViewModel.getTailleById(produitTailleId)
+        val tailleList = intent.getStringArrayExtra(EXTRA_QUERY_TAILLE_LIST)!!
 
         spProduitAddTaille = findViewById(R.id.spProduitAddTaille)
         val adaptTaille = ArrayAdapter(this, android.R.layout.simple_spinner_item, tailleList)
@@ -89,10 +87,9 @@ class ProduitAddActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         spProduitAddTaille.adapter = adaptTaille
         spProduitAddTaille.onItemSelectedListener = this
 
-        placelogoViewModel = ViewModelProviders.of(this).get(PlaceLogoViewModel::class.java)
         produitPlaceLogoId = intent.getIntExtra(EXTRA_QUERY_PRODUIT_PLACELOGO_ID, 0)
-        produitPlacelogo = placelogoViewModel.getValueForId(produitPlaceLogoId)
-        val placelogoList = intent.getStringArrayExtra(EXTRA_QUERY_PLACELOGO_LIST)
+        produitPlacelogo = produitViewModel.getPlaceLogoById(produitPlaceLogoId)
+        val placelogoList = intent.getStringArrayExtra(EXTRA_QUERY_PLACELOGO_LIST)!!
 
         spProduitAddCPlacelogo = findViewById(R.id.spProduitAddPlacelogo)
         val adaptPlacelogo = ArrayAdapter(this, android.R.layout.simple_spinner_item, placelogoList)
@@ -110,14 +107,11 @@ class ProduitAddActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                 val elem = tvProduitId.text.toString()
                 d("produitId to save: $elem")
                 replyIntent.putExtra(EXTRA_REPLY_PRODUIT_ID, elem)
-                produitColori = coloriList[spProduitAddColori.selectedItemPosition]
-                produitColoriId = coloriViewModel.getIdForValue(produitColori!!)
+                produitColoriId = produitViewModel.getColoriId(coloriList[spProduitAddColori.selectedItemPosition])
                 replyIntent.putExtra(EXTRA_REPLY_PRODUIT_COLORI_ID, produitColoriId)
-                produitTaille = tailleList[spProduitAddTaille.selectedItemPosition]
-                produitTailleId = tailleViewModel.getIdForValue(produitTaille!!)
+                produitTailleId = produitViewModel.getTailleId(tailleList[spProduitAddTaille.selectedItemPosition])
                 replyIntent.putExtra(EXTRA_REPLY_PRODUIT_TAILLE_ID, produitTailleId)
-                produitPlacelogo = placelogoList[spProduitAddCPlacelogo.selectedItemPosition]
-                produitPlaceLogoId = placelogoViewModel.getIdForValue(produitPlacelogo!!)
+                produitPlaceLogoId = produitViewModel.getPlaceLogoId(placelogoList[spProduitAddCPlacelogo.selectedItemPosition])
                 replyIntent.putExtra(EXTRA_REPLY_PRODUIT_PLACELOG_ID, produitPlaceLogoId)
                 setResult(Activity.RESULT_OK, replyIntent)
             }

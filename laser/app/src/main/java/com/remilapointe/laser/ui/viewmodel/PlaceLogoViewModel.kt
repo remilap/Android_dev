@@ -15,12 +15,12 @@ class PlaceLogoViewModel(application: Application) : AndroidViewModel(applicatio
 
     private val myRepo: PlaceLogoRepo
 
-    val allObjs: LiveData<MutableList<PlaceLogo>>
+    val allPlaceLogos: LiveData<MutableList<PlaceLogo>>
 
     init {
-        val myDao = LaserRoomDatabase.getDatabase(application, viewModelScope).placeLogoDao()
+        val myDao = LaserRoomDatabase.getDatabase(application).placeLogoDao()
         myRepo = PlaceLogoRepo(myDao)
-        allObjs = myRepo.allObjs
+        allPlaceLogos = myRepo.allPlaceLogos
     }
 
     /**
@@ -37,7 +37,7 @@ class PlaceLogoViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     fun getAllObjs() : Array<PlaceLogo> {
-        return Array(size = allObjs.value?.size!!) { i -> allObjs.value?.get(i)!! }
+        return Array(size = allPlaceLogos.value?.size!!) { i -> allPlaceLogos.value?.get(i)!! }
     }
 
     fun getPlaceLogoById(id: Int) : PlaceLogo {

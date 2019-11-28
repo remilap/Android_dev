@@ -8,7 +8,7 @@ import com.remilapointe.laser.dao.TailleDao
 
 class TailleRepo(private val dao: TailleDao) {
 
-    val allObjs: LiveData<MutableList<Taille>> = dao.getAll()
+    val allTailles: LiveData<MutableList<Taille>> = dao.getAll()
 
     @WorkerThread
     suspend fun insert(elem: String) {

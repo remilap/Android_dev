@@ -30,6 +30,9 @@
         <activity
                 android:name=".ui.main.PlaceLogoAddActivity"
                 android:windowSoftInputMode="stateVisible"/>
+        <activity
+                android:name=".ui.main.ProduitAddActivity"
+                android:windowSoftInputMode="stateVisible"/>
     </application>
 
 </manifest>

@@ -15,17 +15,17 @@ class ColoriViewModel(application: Application) : AndroidViewModel(application) 
 
     private val myRepo: ColoriRepo
 
-    val allObjs: LiveData<MutableList<Colori>>
+    val allColoris: LiveData<MutableList<Colori>>
 
     init {
         d("ColoriViewModel:init")
-        val myDao = LaserRoomDatabase.getDatabase(application, viewModelScope).coloriDao()
+        val myDao = LaserRoomDatabase.getDatabase(application).coloriDao()
         myRepo = ColoriRepo(myDao)
-        allObjs = myRepo.allObjs
-        if (allObjs.value == null) {
-            d("ColoriViewModel:getAllObjs, size: 0")
+        allColoris = myRepo.allColoris
+        if (allColoris.value == null) {
+            d("ColoriViewModel:getAllColoris, size: 0")
         } else {
-            d("ColoriViewModel:getAllObjs, size: " + allObjs.value?.size)
+            d("ColoriViewModel:getAllColoris, size: " + allColoris.value?.size)
         }
     }
 
@@ -43,12 +43,12 @@ class ColoriViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun getAllObjs() : Array<Colori> {
-        d("ColoriViewModel:getAllObjs, size: " + allObjs.value?.size)
-        val tabSize = if (allObjs.value == null) 1 else allObjs.value!!.size
-        d("ColoriViewModel:getAllObjs, size: $tabSize")
+        d("ColoriViewModel:getAllColoris, size: " + allColoris.value?.size)
+        val tabSize = if (allColoris.value == null) 1 else allColoris.value!!.size
+        d("ColoriViewModel:getAllColoris, size: $tabSize")
         val res = Array(size = tabSize) { i ->
-            if (allObjs.value != null) {
-                allObjs.value!![i]
+            if (allColoris.value != null) {
+                allColoris.value!![i]
             } else {
                 Colori(0, "0")
             }

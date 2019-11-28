@@ -18,6 +18,8 @@ class ColoriSimpleListAdapter internal constructor(
     private var strList = mutableListOf<Colori>()
 
     inner class ColoriViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val stringItemView: TextView = itemView.findViewById(R.id.tvColoriItem)
+//        fun bind(colori: Colori, listener: (Colori) -> View.OnClickListener) = stringItemView.setOnClickListener( listener(colori) )
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ColoriViewHolder {
@@ -26,17 +28,20 @@ class ColoriSimpleListAdapter internal constructor(
     }
 
     override fun onBindViewHolder(holder: ColoriViewHolder, position: Int) {
+        val current = strList[position]
+        holder.stringItemView.text = current.elem
+//        holder.bind(current, clickListener)
     }
 
     internal fun setStrings(strs: MutableList<Colori>) {
         this.strList = strs
-        d("ColoriSimpleListAdapter:setStrings with ${strs.size} elems")
+        d("setStrings with ${strs.size} elems")
         notifyDataSetChanged()
     }
 
     fun get(position: Int): Colori {
         val colori = strList.get(position)
-        d("ColoriSimpleListAdapter: get elem position $position value ${colori.elem}")
+        d("get elem position $position value ${colori.elem}")
         return colori
     }
 

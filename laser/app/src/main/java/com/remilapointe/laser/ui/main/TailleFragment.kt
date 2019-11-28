@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -60,7 +59,7 @@ class TailleFragment(passedContext: Context) : Fragment() {
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
-        itemViewModel.allObjs.observe(this, Observer { objs ->
+        itemViewModel.allTailles.observe(this, Observer { objs ->
             objs?.let { adapter.setStrings(it) }
         })
 
@@ -68,6 +67,17 @@ class TailleFragment(passedContext: Context) : Fragment() {
         fabAdd.setOnClickListener {
             //d("click on add coloriId, this= ${this@TailleFragment}, this.context=" + context + ", root.context=" + root.context + ", passed context=" + passThroughContext)
             startActivityForResult(activity?.TailleDetailIntent(""), newTailleActivityRequestCode)
+        }
+
+        val fabCheck = root.findViewById<FloatingActionButton>(R.id.fab_check_taille)
+        fabCheck.setOnClickListener {
+            //d("click on check, this= ${this@ColoriFragment}, this.context=" + context + ", root.context=" + root.context + ", passed context=" + passThroughContext)
+            val allTailles = itemViewModel.getAllObjs()
+            val sb = StringBuffer("Liste des elements: ")
+            allTailles.forEach {
+                sb.append(it.elem).append(", ")
+            }
+            activity!!.toast("nb colori: " + allTailles.size + ", are: " + sb)
         }
 
         return root

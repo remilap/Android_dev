@@ -15,12 +15,12 @@ class TailleViewModel(application: Application) : AndroidViewModel(application) 
 
     private val myRepo: TailleRepo
 
-    val allObjs: LiveData<MutableList<Taille>>
+    val allTailles: LiveData<MutableList<Taille>>
 
     init {
-        val myDao = LaserRoomDatabase.getDatabase(application, viewModelScope).tailleDao()
+        val myDao = LaserRoomDatabase.getDatabase(application).tailleDao()
         myRepo = TailleRepo(myDao)
-        allObjs = myRepo.allObjs
+        allTailles = myRepo.allTailles
     }
 
     /**
@@ -37,7 +37,7 @@ class TailleViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun getAllObjs() : Array<Taille> {
-        return Array(size = allObjs.value?.size!!) { i -> allObjs.value?.get(i)!! }
+        return Array(size = allTailles.value?.size!!) { i -> allTailles.value?.get(i)!! }
     }
 
     fun getTailleById(id: Int) : Taille {

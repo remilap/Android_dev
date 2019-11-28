@@ -36,7 +36,7 @@ class PlaceLogoListAdapter internal constructor(
 
     internal fun setStrings(strs: MutableList<PlaceLogo>) {
         this.strList = strs
-        d("setStrings with ${strs.size} elems")
+        d("setProduits with ${strs.size} elems")
         notifyDataSetChanged()
     }
 

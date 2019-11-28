@@ -8,7 +8,7 @@ import com.remilapointe.laser.dao.ColoriDao
 
 class ColoriRepo(private val dao: ColoriDao) {
 
-    val allObjs: LiveData<MutableList<Colori>> = dao.getAll()
+    val allColoris: LiveData<MutableList<Colori>> = dao.getAll()
 
     @WorkerThread
     suspend fun insert(elem: String) {

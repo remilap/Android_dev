@@ -8,7 +8,7 @@ import com.remilapointe.laser.dao.PlaceLogoDao
 
 class PlaceLogoRepo(private val dao: PlaceLogoDao) {
 
-    val allObjs: LiveData<MutableList<PlaceLogo>> = dao.getAll()
+    val allPlaceLogos: LiveData<MutableList<PlaceLogo>> = dao.getAll()
 
     @WorkerThread
     suspend fun insert(elem: String) {

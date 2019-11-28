@@ -1,6 +1,7 @@
 package com.remilapointe.laser.db
 
 import android.content.Context
+import androidx.annotation.VisibleForTesting
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -29,8 +30,7 @@ abstract class LaserRoomDatabase : RoomDatabase() {
         private var INSTANCE: LaserRoomDatabase? = null
 
         fun getDatabase(
-            context: Context,
-            scope: CoroutineScope
+            context: Context
         ): LaserRoomDatabase {
             return INSTANCE ?: synchronized(this) {
                 // create database here
@@ -42,14 +42,24 @@ abstract class LaserRoomDatabase : RoomDatabase() {
                     // Wipes and rebuilds instead of migrating if no Migration object.
                     // Migration is not part of this codelab.
                     .fallbackToDestructiveMigration()
-                    .addCallback(LaserDatabaseCallback(scope))
+                    .addCallback(LaserDatabaseCallback())
                     .build()
                 INSTANCE = instance
                 instance
             }
         }
 
-        private class LaserDatabaseCallback(private val scope: CoroutineScope) : RoomDatabase.Callback() {
+        /**
+         * Switches the internal implementation with an empty in-memory database.
+         *
+         * @param context The context.
+         */
+        @VisibleForTesting
+        public fun switchToInMemory(context: Context) {
+            INSTANCE = Room.inMemoryDatabaseBuilder(context.applicationContext, LaserRoomDatabase::class.java).build()
+        }
+
+        private class LaserDatabaseCallback : RoomDatabase.Callback() {
             /**
              * Override the onOpen method to populate the database.
              * For this sample, we clear the database every time it is created or opened.
@@ -59,9 +69,7 @@ abstract class LaserRoomDatabase : RoomDatabase() {
                 // If you want to keep the data through app restarts,
                 // comment out the following line.
                 INSTANCE?.let {
-                    scope.launch(Dispatchers.IO) {
-                        populateDatabase()
-                    }
+                    populateDatabase()
                 }
             }
 
@@ -81,11 +89,6 @@ abstract class LaserRoomDatabase : RoomDatabase() {
                 */
             }
         }
-
-        fun getColoriRepo() : ColoriRepo? = ColoriRepo(INSTANCE?.coloriDao()!!)
-        fun getTailleRepo() : TailleRepo? = TailleRepo(INSTANCE?.tailleDao()!!)
-        fun getPlaceLogoRepo() : PlaceLogoRepo? = PlaceLogoRepo(INSTANCE?.placeLogoDao()!!)
-        fun getProduitRepo() : ProduitRepo? = ProduitRepo(INSTANCE?.produitDao()!!)
 
     }
 }
