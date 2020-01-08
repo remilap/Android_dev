@@ -42,6 +42,7 @@ class TailleAddActivity : AppCompatActivity() {
                 replyIntent.putExtra(EXTRA_REPLY_TAILLE, elem)
                 setResult(Activity.RESULT_OK, replyIntent)
             }
+            this.finish()
         }
     }
 

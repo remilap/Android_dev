@@ -15,10 +15,18 @@ interface PlaceLogoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(placeLogo: PlaceLogo)
 
-    @Query("DELETE FROM " + PlaceLogo.TABLE_NAME + " WHERE " + PlaceLogo.SORT_FIELD + " = :key")
-    fun remove(key: String)
+    @Query("DELETE FROM " + PlaceLogo.TABLE_NAME + " WHERE " + PlaceLogo.PRIM_KEY + " = :key")
+    fun remove(key: Int)
 
-    @Query("SELECT * FROM " + PlaceLogo.TABLE_NAME + " WHERE " + PlaceLogo.SORT_FIELD + " = :key")
-    fun get(key: String) : PlaceLogo
+    @Query("SELECT * FROM " + PlaceLogo.TABLE_NAME + " WHERE " + PlaceLogo.PRIM_KEY + " = :key")
+    fun get(key: Int) : PlaceLogo
+
+    @Query("SELECT * FROM " + PlaceLogo.TABLE_NAME + " WHERE " + PlaceLogo.SORT_FIELD + " = :value")
+    fun get(value: String) : PlaceLogo
+
+    @Query("UPDATE " + PlaceLogo.TABLE_NAME + " SET " +
+            PlaceLogo.SORT_FIELD + " = :value" +
+            " WHERE " + PlaceLogo.PRIM_KEY + " = :key")
+    suspend fun update(key: Int, value: String)
 
 }

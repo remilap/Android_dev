@@ -5,25 +5,24 @@ import androidx.annotation.VisibleForTesting
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.remilapointe.laser.dao.ColoriDao
-import com.remilapointe.laser.dao.PlaceLogoDao
-import com.remilapointe.laser.dao.ProduitDao
-import com.remilapointe.laser.dao.TailleDao
-import com.remilapointe.laser.repo.ColoriRepo
-import com.remilapointe.laser.repo.PlaceLogoRepo
-import com.remilapointe.laser.repo.ProduitRepo
-import com.remilapointe.laser.repo.TailleRepo
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.remilapointe.laser.dao.*
 
-@Database(entities = [Colori::class, Taille::class, PlaceLogo::class, Produit::class], version = 3, exportSchema = false)
+@Database(
+    entities = [Produit::class, Colori::class, Taille::class, PlaceLogo::class, Article::class, ArticlesEnStock::class, AchatArticles::class],
+    version = 6,
+    exportSchema = false
+)
+@TypeConverters(Converters::class)
+
 abstract class LaserRoomDatabase : RoomDatabase() {
+    abstract fun produitDao(): ProduitDao
     abstract fun coloriDao(): ColoriDao
     abstract fun tailleDao(): TailleDao
     abstract fun placeLogoDao(): PlaceLogoDao
-    abstract fun produitDao(): ProduitDao
+    abstract fun articleDao(): ArticleDao
+    abstract fun articlesEnStockDao(): ArticlesEnStockDao
 
     companion object {
         @Volatile

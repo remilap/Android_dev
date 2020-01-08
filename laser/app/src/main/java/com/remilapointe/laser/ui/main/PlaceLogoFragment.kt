@@ -26,23 +26,23 @@ class PlaceLogoFragment(passedContext: Context) : Fragment() {
 
     val passThroughContext: Context = passedContext
 
-    private lateinit var itemViewModel: PlaceLogoViewModel
-    private lateinit var adapter: PlaceLogoListAdapter
+    private lateinit var placeLogoViewModel: PlaceLogoViewModel
+    private lateinit var placeLogoListAdapter: PlaceLogoListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        itemViewModel = ViewModelProvider(this).get(PlaceLogoViewModel::class.java).apply {
+        placeLogoViewModel = ViewModelProvider(this).get(PlaceLogoViewModel::class.java).apply {
 
         }
-        adapter = PlaceLogoListAdapter(passThroughContext) { item: PlaceLogo -> itemItemClicked(item) }
+        placeLogoListAdapter = PlaceLogoListAdapter(passThroughContext) { item: PlaceLogo -> itemItemClicked(item) }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.placelogo_fragment, container, false)
 
         val recyclerView = root.findViewById<RecyclerView>(R.id.placeLogoRecyclerView)
-        recyclerView.adapter = adapter
+        recyclerView.adapter = placeLogoListAdapter
         recyclerView.layoutManager = LinearLayoutManager(passThroughContext)
         recyclerView.addItemDecoration(DividerItemDecoration(passThroughContext, DividerItemDecoration.VERTICAL))
 
@@ -50,45 +50,56 @@ class PlaceLogoFragment(passedContext: Context) : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val adapterSwipe = recyclerView.adapter as PlaceLogoListAdapter
                 viewHolder.adapterPosition.let {
-                    d("$kind swipe position $it")
+                    d("${PlaceLogo.ELEM} swipe position $it")
                     val item = adapterSwipe.get(it)
-                    itemViewModel.remove(item)
+                    placeLogoViewModel.remove(item)
                 }
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
-        itemViewModel.allPlaceLogos.observe(this, Observer { objs ->
-            objs?.let { adapter.setStrings(it) }
+        placeLogoViewModel.allPlaceLogos.observe(this, Observer { objs ->
+            objs?.let { placeLogoListAdapter.setPlaceLogos(it) }
         })
 
-        val fab: FloatingActionButton = root.findViewById(R.id.fab_add_placelogo)
-        fab.setOnClickListener {
+        val fabadd: FloatingActionButton = root.findViewById(R.id.fab_add_placelogo)
+        fabadd.setOnClickListener {
             //val intent = Intent(root.context, PlaceLogoAddActivity::class.java)
             startActivityForResult(activity?.PlaceLogoDetailIntent(""), newPlaceLogoActivityRequestCode)
+        }
+
+        val fabCheck = root.findViewById<FloatingActionButton>(R.id.fab_check_placelogo)
+        fabCheck.setOnClickListener {
+            //d("click on check, this= ${this@ColoriFragment}, this.context=" + context + ", root.context=" + root.context + ", passed context=" + passThroughContext)
+            val allPlacelogos = placeLogoViewModel.getAllPlaceLogos()
+            val sb = StringBuffer()
+            allPlacelogos.forEach {
+                sb.append(it.id).append("-").append(it.elem).append(", ")
+            }
+            activity!!.toast("" + allPlacelogos.size + " placelogo(s): " + sb)
         }
 
         return root
     }
 
     private fun itemItemClicked(item: PlaceLogo): View.OnClickListener {
-        d("click on the $kind item ${item.elem}, launch update")
+        d("click on the ${PlaceLogo.ELEM} item ${item.elem}, launch update")
         //startActivityForResult(activity!!.PlaceLogoDetailIntent(item.elem), updatePlaceLogoActivityRequestCode)
         return View.OnClickListener {  }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
         super.onActivityResult(requestCode, resultCode, intentData)
-        d("onActivityResult $kind: request: $requestCode, result: $resultCode")
+        d("onActivityResult ${PlaceLogo.ELEM}: request: $requestCode, result: $resultCode")
         if (requestCode == newPlaceLogoActivityRequestCode && resultCode == Activity.RESULT_OK) {
             intentData?.let { data ->
-                val sItem = data.getStringExtra(PlaceLogoAddActivity.EXTRA_REPLY_PLACELOGO)
-                if (sItem != null && sItem.isNotEmpty()) {
-                    d("$kind to insert: $sItem")
-                    itemViewModel.insert(sItem)
+                val sPlaceLogo = data.getStringExtra(PlaceLogoAddActivity.EXTRA_REPLY_PLACELOGO)
+                if (sPlaceLogo != null && sPlaceLogo.isNotEmpty()) {
+                    d("${PlaceLogo.ELEM} to insert: $sPlaceLogo")
+                    placeLogoViewModel.insert(sPlaceLogo)
                 } else {
-                    d("empty $kind cannot be inserted")
+                    d("empty ${PlaceLogo.ELEM} cannot be inserted")
                 }
             }
         } else if (requestCode == updatePlaceLogoActivityRequestCode && resultCode == Activity.RESULT_OK) {
@@ -99,7 +110,6 @@ class PlaceLogoFragment(passedContext: Context) : Fragment() {
     }
 
     companion object {
-        const val kind = "placelogo"
         const val newPlaceLogoActivityRequestCode = 21
         const val updatePlaceLogoActivityRequestCode = 22
     }

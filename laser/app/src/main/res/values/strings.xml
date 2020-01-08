@@ -1,15 +1,30 @@
 <resources>
     <string name="app_name">laser</string>
+    <string name="tab_produit_title">Produits</string>
+    <string name="tab_produit">Produit</string>
+    <string name="hint_produit">produit</string>
     <string name="tab_colori_title">Coloris</string>
-    <string name="hint_colori">Colori</string>
+    <string name="tab_colori">Colori</string>
+    <string name="hint_colori">colori</string>
     <string name="tab_taille_title">Tailles</string>
-    <string name="hint_taille">Taille</string>
-    <string name="tab_placelogo_title">Place logo</string>
-    <string name="hint_placelogo">Place logo</string>
-    <string name="tab_produit">Articles</string>
-    <string name="hint_produit">Article</string>
+    <string name="tab_taille">Taille</string>
+    <string name="hint_taille">taille</string>
+    <string name="tab_placelogo_title">Places Logo</string>
+    <string name="tab_placelogo">Place logo</string>
+    <string name="hint_placelogo">place logo</string>
+    <string name="tab_articleavecprix_title">Tarifs articles</string>
+    <string name="tab_articleavecprix">Tarif article</string>
+    <string name="hint_articleavecprix">tarif article</string>
+    <string name="tab_quantiteproduit_title">Nb articles</string>
+    <string name="tab_quantiteproduit">Nb articles</string>
+    <string name="hint_quantiteproduit_ref">Référence</string>
+    <string name="hint_quantiteproduit_nb">Nombre articles</string>
     <string name="tab_achatproduits_title">Achats</string>
     <string name="tab_venteproduits_title">Ventes</string>
     <string name="button_save">Save</string>
     <string name="empty_not_saved">Empty %s not saved because it is empty.</string>
+    <string name="hint_article">article</string>
+    <string name="hint_prix_uht">prix unitaire HT</string>
+    <string name="splash_app_name">Laser</string>
+    <string name="splash_designed">Designed by Remi Lapointe</string>
 </resources>

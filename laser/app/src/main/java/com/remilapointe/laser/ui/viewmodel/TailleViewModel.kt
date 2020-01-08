@@ -13,35 +13,34 @@ import kotlinx.coroutines.launch
 
 class TailleViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val myRepo: TailleRepo
+    private val tailleRepo: TailleRepo
 
     val allTailles: LiveData<MutableList<Taille>>
 
     init {
-        val myDao = LaserRoomDatabase.getDatabase(application).tailleDao()
-        myRepo = TailleRepo(myDao)
-        allTailles = myRepo.allTailles
+        val tailleDao = LaserRoomDatabase.getDatabase(application).tailleDao()
+        tailleRepo = TailleRepo(tailleDao)
+        allTailles = tailleRepo.allTailles
     }
 
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */
     fun insert(taille: String) = viewModelScope.launch(Dispatchers.IO) {
-        d("View Model insert taille: $taille")
-        myRepo.insert(taille)
+        d("View Model insert ${Taille.ELEM}: $taille")
+        tailleRepo.insert(taille)
     }
 
     fun remove(taille: Taille) = viewModelScope.launch(Dispatchers.IO) {
-        d("View Model get taille: ${taille.elem}")
-        myRepo.remove(taille)
+        d("View Model get ${Taille.ELEM}: ${taille.elem}")
+        tailleRepo.remove(taille)
     }
 
-    fun getAllObjs() : Array<Taille> {
-        return Array(size = allTailles.value?.size!!) { i -> allTailles.value?.get(i)!! }
-    }
+    fun getAllTailles() : Array<Taille> =
+        Array(size = allTailles.value?.size!!) { i -> allTailles.value?.get(i)!! }
 
     fun getTailleById(id: Int) : Taille {
-        getAllObjs().forEach {
+        getAllTailles().forEach {
             if (it.id == id) {
                 return it
             }
@@ -49,12 +48,10 @@ class TailleViewModel(application: Application) : AndroidViewModel(application) 
         return Taille(0, "0")
     }
 
-    fun getValueForId(id: Int) : String {
-        return getTailleById(id).elem
-    }
+    fun getValueForId(id: Int) : String = getTailleById(id).elem
 
     fun getIdForValue(elem: String) : Int {
-        getAllObjs().forEach {
+        getAllTailles().forEach {
             if (it.elem == elem) {
                 return it.id
             }

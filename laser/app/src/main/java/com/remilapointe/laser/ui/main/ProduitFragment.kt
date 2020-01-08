@@ -20,7 +20,6 @@ import com.remilapointe.laser.R
 import com.remilapointe.laser.adapter.ProduitListAdapter
 import com.remilapointe.laser.db.Produit
 import com.remilapointe.laser.ui.viewmodel.ProduitViewModel
-import org.jetbrains.anko.longToast
 import org.jetbrains.anko.toast
 
 class ProduitFragment(passedContext: Context) : Fragment() {
@@ -28,19 +27,22 @@ class ProduitFragment(passedContext: Context) : Fragment() {
     val passThroughContext: Context = passedContext
 
     private lateinit var produitViewModel: ProduitViewModel
-    private lateinit var adapter: ProduitListAdapter
+    private lateinit var produitListAdapter: ProduitListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        adapter = ProduitListAdapter(passThroughContext) { item: Produit -> itemItemClicked(item) }
+        produitViewModel = ViewModelProvider(this).get(ProduitViewModel::class.java).apply {
+
+        }
+        produitListAdapter = ProduitListAdapter(passThroughContext) { item: Produit -> itemItemClicked(item) }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.produit_fragment, container, false)
 
         val recyclerView = root.findViewById<RecyclerView>(R.id.produitRecyclerView)
-        recyclerView.adapter = adapter
+        recyclerView.adapter = produitListAdapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.addItemDecoration(DividerItemDecoration(passThroughContext, DividerItemDecoration.VERTICAL))
 
@@ -48,7 +50,7 @@ class ProduitFragment(passedContext: Context) : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val adapterSwipe = recyclerView.adapter as ProduitListAdapter
                 viewHolder.adapterPosition.let {
-                    d("$kind swipe position $it")
+                    d("${Produit.ELEM} swipe position $it")
                     val item = adapterSwipe.get(it)
                     produitViewModel.remove(item)
                 }
@@ -57,90 +59,49 @@ class ProduitFragment(passedContext: Context) : Fragment() {
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
-        produitViewModel = ViewModelProvider(this).get(ProduitViewModel::class.java)
-        produitViewModel.allProduits.observe(this, Observer { objs ->
-            objs?.let { adapter.setProduits(it) }
-        })
-        produitViewModel.allColoris.observe(this, Observer { objs ->
-            objs?.let { adapter.setColoris(it) }
-        })
-        produitViewModel.allTailles.observe(this, Observer { objs ->
-            objs?.let { adapter.setTailles(it) }
-        })
-        produitViewModel.allPlaceLogs.observe(this, Observer { ojs ->
-            ojs?.let { adapter.setPlaceLogs(it) }
+        produitViewModel.allProduits.observe(viewLifecycleOwner, Observer { objs ->
+            objs?.let { produitListAdapter.setProduits(it) }
         })
 
-//        val allColoris = produitViewModel.allColoris.value
-        val tabColoris = produitViewModel.allColoris.value?.toTypedArray()
-        val sb = StringBuffer()
-        sb.append(tabColoris?.size)
-        sb.append(" coloris (")
-        tabColoris?.forEach {sb.append(it.elem).append(", ")}
-        sb.append("), ")
-        val tabTailles = produitViewModel.allTailles.value?.toTypedArray()
-        sb.append(tabTailles?.size)
-        sb.append(" tailles (")
-        tabTailles?.forEach {sb.append(it.elem).append(", ")}
-        sb.append("), ")
-        val tabPlaceLogos = produitViewModel.allPlaceLogs.value?.toTypedArray()
-        sb.append(tabPlaceLogos?.size)
-        sb.append(" places logo (")
-        tabPlaceLogos?.forEach {sb.append(it.elem).append(", ")}
-        sb.append("), ")
-        activity!!.longToast(sb)
         val fabAdd = root.findViewById<FloatingActionButton>(R.id.fab_add_colori)
         fabAdd.setOnClickListener {
-//            val intent = Intent(this@ProduitFragment.context, ProduitAddActivity::class.java)
-            startActivityForResult(
-                activity?.ProduitDetailIntent(
-                    null,
-                    tabColoris!!,
-                    tabTailles!!,
-                    tabPlaceLogos!!
-                ),
-                newProduitActivityRequestCode
-            )
+            startActivityForResult(activity?.ProduitDetailIntent(""), newProduitActivityRequestCode)
         }
 
         val fabCheck = root.findViewById<FloatingActionButton>(R.id.fab_check_colori)
         fabCheck.setOnClickListener {
             //d("click on check, this= ${this@ColoriFragment}, this.context=" + context + ", root.context=" + root.context + ", passed context=" + passThroughContext)
-            val sb2 = StringBuffer("Liste des elements: ")
-            produitViewModel.allProduits.value?.forEach {
-                sb2.append(it.coloriId).append("/").append(it.tailleId).append("/").append(it.placeLogoId).append(", ")
+            val allProduits = produitViewModel.getAllProduits()
+            val sb = StringBuffer()
+            allProduits.forEach {
+                sb.append(it.id).append("-").append(it.elem).append(", ")
             }
-            activity!!.toast(sb2)
+            activity!!.toast("" + allProduits.size + " produit(s): " + sb)
         }
 
         return root
     }
 
     private fun itemItemClicked(item: Produit): View.OnClickListener {
-        //val intent = Intent(this@ColoriFragment.context, ColoriAddActivity::class.java)
-        //intent.putExtra(ColoriAddActivity.EXTRA_QUERY_COLORI, item.elem)
-        d("click on the $kind item ${item.id}, launch update")
+        d("click on the ${Produit.ELEM} item ${item.id}, launch update")
         //startActivityForResult(activity!!.ColoriDetailIntent(item.elem), updateColoriActivityRequestCode)
         return View.OnClickListener {  }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
         super.onActivityResult(requestCode, resultCode, intentData)
-        d("onActivityResult $kind: request: $requestCode, result: $resultCode")
+        d("onActivityResult ${Produit.ELEM}: request: $requestCode, result: $resultCode")
         if (requestCode == newProduitActivityRequestCode && resultCode == Activity.RESULT_OK) {
             intentData?.let { data ->
-                val produitId = data.getIntExtra(ProduitAddActivity.EXTRA_REPLY_PRODUIT_ID, 0)
-                val produitColoriId = data.getIntExtra(ProduitAddActivity.EXTRA_REPLY_PRODUIT_COLORI_ID, 0)
-                val produitTailleId = data.getIntExtra(ProduitAddActivity.EXTRA_REPLY_PRODUIT_TAILLE_ID, 0)
-                val produitPlacelogoId = data.getIntExtra((ProduitAddActivity.EXTRA_REPLY_PRODUIT_PLACELOG_ID), 0)
-                if (produitId != 0) {
-                    d("$kind to insert: $produitId")
-                    produitViewModel.insert(produitColoriId, produitTailleId, produitPlacelogoId)
+                val sProduit = data.getStringExtra(ProduitAddActivity.EXTRA_REPLY_PRODUIT)
+                if (sProduit != null && sProduit.isNotEmpty()) {
+                    d("${Produit.ELEM} to insert: $sProduit")
+                    produitViewModel.insert(sProduit)
                 } else {
-                    d("empty $kind cannot be inserted")
+                    d("empty ${Produit.ELEM} cannot be inserted")
                 }
             }
-        } else if (requestCode == updateColoriActivityRequestCode && resultCode == Activity.RESULT_OK) {
+        } else if (requestCode == updateProduitActivityRequestCode && resultCode == Activity.RESULT_OK) {
 
         } else {
             activity!!.toast(R.string.empty_not_saved)
@@ -148,9 +109,8 @@ class ProduitFragment(passedContext: Context) : Fragment() {
     }
 
     companion object {
-        const val kind = "produit"
         const val newProduitActivityRequestCode = 31
-        const val updateColoriActivityRequestCode = 32
+        const val updateProduitActivityRequestCode = 32
     }
 
 }

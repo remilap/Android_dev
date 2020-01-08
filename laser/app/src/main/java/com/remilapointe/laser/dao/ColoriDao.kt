@@ -15,10 +15,18 @@ interface ColoriDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(colori: Colori)
 
-    @Query("DELETE FROM " + Colori.TABLE_NAME + " WHERE " + Colori.SORT_FIELD + " = :key")
-    suspend fun remove(key: String)
+    @Query("DELETE FROM " + Colori.TABLE_NAME + " WHERE " + Colori.PRIM_KEY + " = :key")
+    suspend fun remove(key: Int)
 
-    @Query("SELECT * FROM " + Colori.TABLE_NAME + " WHERE " + Colori.SORT_FIELD + " = :key")
-    fun get(key: String) : Colori
+    @Query("SELECT * FROM " + Colori.TABLE_NAME + " WHERE " + Colori.PRIM_KEY + " = :key")
+    fun get(key: Int) : Colori
+
+    @Query("SELECT * FROM " + Colori.TABLE_NAME + " WHERE " + Colori.SORT_FIELD + " = :value")
+    fun get(value: String) : Colori
+
+    @Query("UPDATE " + Colori.TABLE_NAME + " SET " +
+            Colori.SORT_FIELD + " = :value" +
+            " WHERE " + Colori.PRIM_KEY + " = :key")
+    suspend fun update(key: Int, value: String)
 
 }

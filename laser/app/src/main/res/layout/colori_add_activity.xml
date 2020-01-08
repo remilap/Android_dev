@@ -7,7 +7,7 @@
         android:layout_height="match_parent">
 
     <EditText
-            android:id="@+id/edit_colori"
+            android:id="@+id/edColori"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
@@ -25,6 +25,6 @@
             android:background="@color/colorPrimary"
             android:text="@string/button_save"
             android:textColor="@color/buttonLabel"
-            app:layout_constraintTop_toBottomOf="@+id/edit_colori"/>
+            app:layout_constraintTop_toBottomOf="@+id/edColori"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

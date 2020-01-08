@@ -13,35 +13,35 @@ import kotlinx.coroutines.launch
 
 class PlaceLogoViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val myRepo: PlaceLogoRepo
+    private val placeLogoRepo: PlaceLogoRepo
 
     val allPlaceLogos: LiveData<MutableList<PlaceLogo>>
 
     init {
-        val myDao = LaserRoomDatabase.getDatabase(application).placeLogoDao()
-        myRepo = PlaceLogoRepo(myDao)
-        allPlaceLogos = myRepo.allPlaceLogos
+        val placeLogoDao = LaserRoomDatabase.getDatabase(application).placeLogoDao()
+        placeLogoRepo = PlaceLogoRepo(placeLogoDao)
+        allPlaceLogos = placeLogoRepo.allPlaceLogos
     }
 
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */
     fun insert(placeLogo: String) = viewModelScope.launch(Dispatchers.IO) {
-        d("View Model insert coloriId: $placeLogo")
-        myRepo.insert(placeLogo)
+        d("View Model insert ${PlaceLogo.ELEM}: $placeLogo")
+        placeLogoRepo.insert(placeLogo)
     }
 
     fun remove(placeLogo: PlaceLogo) = viewModelScope.launch(Dispatchers.IO) {
-        d("View Model get coloriId: ${placeLogo.elem}")
-        myRepo.remove(placeLogo)
+        d("View Model get ${PlaceLogo.ELEM}: ${placeLogo.elem}")
+        placeLogoRepo.remove(placeLogo)
     }
 
-    fun getAllObjs() : Array<PlaceLogo> {
+    fun getAllPlaceLogos() : Array<PlaceLogo> {
         return Array(size = allPlaceLogos.value?.size!!) { i -> allPlaceLogos.value?.get(i)!! }
     }
 
     fun getPlaceLogoById(id: Int) : PlaceLogo {
-        getAllObjs().forEach {
+        getAllPlaceLogos().forEach {
             if (it.id == id) {
                 return it
             }
@@ -49,12 +49,10 @@ class PlaceLogoViewModel(application: Application) : AndroidViewModel(applicatio
         return PlaceLogo(0, "0")
     }
 
-    fun getValueForId(id: Int) : String {
-        return getPlaceLogoById(id).elem
-    }
+    fun getValueForId(id: Int) : String = getPlaceLogoById(id).elem
 
     fun getIdForValue(elem: String) : Int {
-        getAllObjs().forEach {
+        getAllPlaceLogos().forEach {
             if (it.elem == elem) {
                 return it.id
             }

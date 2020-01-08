@@ -8,8 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.log4k.d
 import com.remilapointe.laser.R
-import com.remilapointe.laser.db.Colori
-import com.remilapointe.laser.db.PlaceLogo
 import com.remilapointe.laser.db.Taille
 
 class TailleListAdapter internal constructor(
@@ -18,7 +16,7 @@ class TailleListAdapter internal constructor(
 ) : RecyclerView.Adapter<TailleListAdapter.TailleViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private var strList = mutableListOf<Taille>()
+    private var taillesList = mutableListOf<Taille>()
 
     inner class TailleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val stringItemView: TextView = itemView.findViewById(R.id.tvTailleItem)
@@ -31,23 +29,23 @@ class TailleListAdapter internal constructor(
     }
 
     override fun onBindViewHolder(holder: TailleViewHolder, position: Int) {
-        val current = strList[position]
+        val current = taillesList[position]
         holder.stringItemView.text = current.elem
         holder.bind(current, clickListener)
     }
 
-    internal fun setStrings(strs: MutableList<Taille>) {
-        this.strList = strs
-        d("setStrings with ${strs.size} elems")
+    internal fun setTailles(strs: MutableList<Taille>) {
+        this.taillesList = strs
+        d("setTailles with ${strs.size} elems")
         notifyDataSetChanged()
     }
 
     fun get(position: Int): Taille {
-        val taille = strList.get(position)
-        d("get elem position $position value ${taille.elem}")
+        val taille = taillesList.get(position)
+        d("get Taille position $position value ${taille.elem}")
         return taille
     }
 
-    override fun getItemCount(): Int = strList.size
+    override fun getItemCount(): Int = taillesList.size
 
 }

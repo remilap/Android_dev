@@ -16,7 +16,7 @@ class PlaceLogoListAdapter internal constructor(
 ) : RecyclerView.Adapter<PlaceLogoListAdapter.PlaceLogoViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private var strList = mutableListOf<PlaceLogo>()
+    private var placeLogosList = mutableListOf<PlaceLogo>()
 
     inner class PlaceLogoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val stringItemView: TextView = itemView.findViewById(R.id.tvPlaceLogoItem)
@@ -29,23 +29,23 @@ class PlaceLogoListAdapter internal constructor(
     }
 
     override fun onBindViewHolder(holder: PlaceLogoViewHolder, position: Int) {
-        val current = strList[position]
+        val current = placeLogosList[position]
         holder.stringItemView.text = current.elem
         holder.bind(current, clickListener)
     }
 
-    internal fun setStrings(strs: MutableList<PlaceLogo>) {
-        this.strList = strs
-        d("setProduits with ${strs.size} elems")
+    internal fun setPlaceLogos(strs: MutableList<PlaceLogo>) {
+        this.placeLogosList = strs
+        d("setPlaceLogos with ${strs.size} elems")
         notifyDataSetChanged()
     }
 
     fun get(position: Int): PlaceLogo {
-        val placeLogo = strList.get(position)
-        d("get elem position $position value ${placeLogo.elem}")
+        val placeLogo = placeLogosList.get(position)
+        d("get PlaceLogo position $position value ${placeLogo.elem}")
         return placeLogo
     }
 
-    override fun getItemCount(): Int = strList.size
+    override fun getItemCount(): Int = placeLogosList.size
 
 }

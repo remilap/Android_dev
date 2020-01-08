@@ -6,41 +6,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <TextView
-            android:id="@+id/tvProduitAddId"
+    <EditText
+            android:id="@+id/edProduit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:hint="@string/hint_colori"
+            android:inputType="textAutoComplete"
+            android:focusedByDefault="true"
+            android:padding="@dimen/small_padding"
+            android:textSize="18sp"
             app:layout_constraintTop_toTopOf="parent"/>
-
-    <Spinner
-            android:id="@+id/spProduitAddColori"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:padding="@dimen/small_padding"
-            android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@id/tvProduitAddId">
-    </Spinner>
-
-    <Spinner
-            android:id="@+id/spProduitAddTaille"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:padding="@dimen/small_padding"
-            android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@id/spProduitAddColori">
-    </Spinner>
-
-    <Spinner
-            android:id="@+id/spProduitAddPlacelogo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:padding="@dimen/small_padding"
-            android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@id/spProduitAddTaille">
-    </Spinner>
 
     <Button
             android:id="@+id/bt_save_produit"
@@ -49,6 +25,6 @@
             android:background="@color/colorPrimary"
             android:text="@string/button_save"
             android:textColor="@color/buttonLabel"
-            app:layout_constraintTop_toBottomOf="@id/spProduitAddPlacelogo"/>
+            app:layout_constraintTop_toBottomOf="@id/edProduit"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

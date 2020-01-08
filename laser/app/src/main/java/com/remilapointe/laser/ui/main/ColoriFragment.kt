@@ -18,25 +18,26 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.log4k.d
 import com.remilapointe.laser.R
 import com.remilapointe.laser.adapter.ColoriListAdapter
+import com.remilapointe.laser.adapter.ColoriSimpleListAdapter
 import com.remilapointe.laser.db.Colori
 import com.remilapointe.laser.ui.viewmodel.ColoriViewModel
 import org.jetbrains.anko.toast
 
-class ColoriFragment(passedContext: Context) : Fragment() {
+class ColoriFragment(passedContext: Context) : Fragment(), ColoriListAdapter.OnSaveItems {
 
     val passThroughContext: Context = passedContext
 
-    private lateinit var itemViewModel: ColoriViewModel
+    private lateinit var coloriViewModel: ColoriViewModel
     private lateinit var adapter: ColoriListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        itemViewModel = ViewModelProvider(this).get(ColoriViewModel::class.java).apply {
+        coloriViewModel = ViewModelProvider(this).get(ColoriViewModel::class.java).apply {
 
         }
-        adapter = ColoriListAdapter(passThroughContext) { item: Colori -> itemItemClicked(item) }
-//        adapter = ColoriSimpleListAdapter(passThroughContext)
+//        adapter = ColoriListAdapter(passThroughContext) { item: Colori -> itemItemClicked(item) }
+        adapter = ColoriListAdapter(passThroughContext, this) { item: Colori -> itemItemClicked(item) }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -51,23 +52,23 @@ class ColoriFragment(passedContext: Context) : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val adapterSwipe = recyclerView.adapter as ColoriListAdapter
                 viewHolder.adapterPosition.let {
-                    d("$kind swipe position $it")
+                    d("${Colori.ELEM} swipe position $it")
                     val item = adapterSwipe.get(it)
-                    itemViewModel.remove(item)
+                    coloriViewModel.remove(item)
                 }
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
-        itemViewModel = ViewModelProvider(this).get(ColoriViewModel::class.java)
-        itemViewModel.allColoris.observe(this, Observer { objs ->
-            objs?.let { adapter.setStrings(it) }
+        coloriViewModel = ViewModelProvider(this).get(ColoriViewModel::class.java)
+        coloriViewModel.allColoris.observe(viewLifecycleOwner, Observer { objs ->
+            objs?.let { adapter.setColoris(it) }
         })
 
         val fabAdd = root.findViewById<FloatingActionButton>(R.id.fab_add_colori)
         fabAdd.setOnClickListener {
-            //d("click on add $kind, this= ${this@ColoriFragment}, this.context=" + context + ", root.context=" + root.context + ", passed context=" + passThroughContext)
+            //d("click on add ${Colori.ELEM}, this= ${this@ColoriFragment}, this.context=" + context + ", root.context=" + root.context + ", passed context=" + passThroughContext)
             //val intent = Intent(this@ColoriFragment.context, ColoriAddActivity::class.java)
             startActivityForResult(activity?.ColoriDetailIntent(""), newColoriActivityRequestCode)
         }
@@ -75,12 +76,12 @@ class ColoriFragment(passedContext: Context) : Fragment() {
         val fabCheck = root.findViewById<FloatingActionButton>(R.id.fab_check_colori)
         fabCheck.setOnClickListener {
             //d("click on check, this= ${this@ColoriFragment}, this.context=" + context + ", root.context=" + root.context + ", passed context=" + passThroughContext)
-            val allColoris = itemViewModel.getAllObjs()
-            val sb = StringBuffer("Liste des elements: ")
+            val allColoris = coloriViewModel.getAllColoris()
+            val sb = StringBuffer()
             allColoris.forEach {
-                sb.append(it.elem).append(", ")
+                sb.append(it.id).append("-").append(it.elem).append(", ")
             }
-            activity!!.toast("nb colori: " + allColoris.size + ", are: " + sb)
+            activity!!.toast("" + allColoris.size + " colori(s): " + sb)
         }
 
         return root
@@ -89,22 +90,22 @@ class ColoriFragment(passedContext: Context) : Fragment() {
     private fun itemItemClicked(item: Colori): View.OnClickListener {
         //val intent = Intent(this@ColoriFragment.context, ColoriAddActivity::class.java)
         //intent.putExtra(ColoriAddActivity.EXTRA_QUERY_COLORI, item.elem)
-        d("click on the $kind item ${item.elem}, launch update")
-        startActivityForResult(activity!!.ColoriDetailIntent(item.elem), updateColoriActivityRequestCode)
+        d("click on the ${Colori.ELEM} item ${item.elem}, launch update")
+        //startActivityForResult(activity!!.ColoriDetailIntent(item.elem), updateColoriActivityRequestCode)
         return View.OnClickListener {  }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
         super.onActivityResult(requestCode, resultCode, intentData)
-        d("onActivityResult $kind: request: $requestCode, result: $resultCode")
+        d("onActivityResult ${Colori.ELEM}: request: $requestCode, result: $resultCode")
         if (requestCode == newColoriActivityRequestCode && resultCode == Activity.RESULT_OK) {
             intentData?.let { data ->
-                val sItem = data.getStringExtra(ColoriAddActivity.EXTRA_REPLY_COLORI)
-                if (sItem != null && sItem.isNotEmpty()) {
-                    d("$kind to insert: $sItem")
-                    itemViewModel.insert(sItem)
+                val sColori = data.getStringExtra(ColoriAddActivity.EXTRA_REPLY_COLORI)
+                if (sColori != null && sColori.isNotEmpty()) {
+                    d("${Colori.ELEM} to insert: $sColori")
+                    coloriViewModel.insert(sColori)
                 } else {
-                    d("empty $kind cannot be inserted")
+                    d("empty ${Colori.ELEM} cannot be inserted")
                 }
             }
         } else if (requestCode == updateColoriActivityRequestCode && resultCode == Activity.RESULT_OK) {
@@ -114,8 +115,13 @@ class ColoriFragment(passedContext: Context) : Fragment() {
         }
     }
 
+    override fun saveColori(position: Int, vararg items: Colori?) {
+        items.forEach {
+            coloriViewModel.update(it!!)
+        }
+    }
+
     companion object {
-        const val kind = "colori"
         const val newColoriActivityRequestCode = 1
         const val updateColoriActivityRequestCode = 2
     }

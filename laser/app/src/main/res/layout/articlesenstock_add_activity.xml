@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <TextView
+            android:id="@+id/tvArticlesEnStockAddId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <Spinner
+            android:id="@+id/spArticlesEnStockAddArticle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:padding="@dimen/small_padding"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/tvArticlesEnStockAddId">
+    </Spinner>
+
+    <EditText
+            android:id="@+id/edArticlesEnStockAddNb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:hint="@string/hint_quantiteproduit_nb"
+            android:inputType="number"
+            android:focusedByDefault="true"
+            android:padding="@dimen/small_padding"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@+id/spArticlesEnStockAddArticle"/>
+
+    <Button
+            android:id="@+id/bt_save_articlesenstock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="@string/button_save"
+            android:textColor="@color/buttonLabel"
+            app:layout_constraintTop_toBottomOf="@+id/edArticlesEnStockAddNb"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

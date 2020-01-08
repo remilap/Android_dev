@@ -6,35 +6,12 @@
         android:layout_height="wrap_content">
 
     <TextView
-            android:id="@+id/tvProduitId"
-            android:layout_width="match_parent"
+            android:id="@+id/tvProduitItem"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/small_padding"
             android:layout_marginBottom="@dimen/small_padding"
-            android:background="@android:color/holo_orange_light"/>
-
-    <TextView
-            android:id="@+id/tvProduitColori"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_padding"
-            android:layout_marginBottom="@dimen/small_padding"
-            android:background="@android:color/holo_orange_light"/>
-
-    <TextView
-            android:id="@+id/tvProduitTaille"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_padding"
-            android:layout_marginBottom="@dimen/small_padding"
-            android:background="@android:color/holo_orange_light"/>
-
-    <TextView
-            android:id="@+id/tvProduitPlaceLogo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_padding"
-            android:layout_marginBottom="@dimen/small_padding"
+            android:layout_weight="1"
             android:background="@android:color/holo_orange_light"/>
 
 </LinearLayout>

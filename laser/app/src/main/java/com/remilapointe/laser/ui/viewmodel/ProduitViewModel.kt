@@ -6,85 +6,67 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.log4k.d
 import com.remilapointe.laser.db.*
-import com.remilapointe.laser.repo.ColoriRepo
-import com.remilapointe.laser.repo.PlaceLogoRepo
-import com.remilapointe.laser.repo.ProduitRepo
-import com.remilapointe.laser.repo.TailleRepo
+import com.remilapointe.laser.repo.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ProduitViewModel(application: Application) : AndroidViewModel(application) {
 
     private val produitRepo: ProduitRepo
-    private val coloriRepo: ColoriRepo
-    private val tailleRepo: TailleRepo
-    private val placeLogoRepo: PlaceLogoRepo
 
     val allProduits: LiveData<MutableList<Produit>>
-    val allColoris: LiveData<MutableList<Colori>>
-    val allTailles: LiveData<MutableList<Taille>>
-    val allPlaceLogs: LiveData<MutableList<PlaceLogo>>
 
     init {
+        d("ProduitViewModel:init")
         val produitDao = LaserRoomDatabase.getDatabase(application).produitDao()
         produitRepo = ProduitRepo(produitDao)
         allProduits = produitRepo.allProduits
-        val coloriDao = LaserRoomDatabase.getDatabase(application).coloriDao()
-        coloriRepo = ColoriRepo(coloriDao)
-        allColoris = coloriRepo.allColoris
-        val tailleDao = LaserRoomDatabase.getDatabase(application).tailleDao()
-        tailleRepo = TailleRepo(tailleDao)
-        allTailles = tailleRepo.allTailles
-        val placeLogoDao = LaserRoomDatabase.getDatabase(application).placeLogoDao()
-        placeLogoRepo = PlaceLogoRepo(placeLogoDao)
-        allPlaceLogs = placeLogoRepo.allPlaceLogos
+        if (allProduits.value == null) {
+            d("ProduitViewModel:getAllProduits, size: 0")
+        } else {
+            d("ProduitViewModel:getAllProduits, size: " + allProduits.value?.size)
+        }
     }
 
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */
-    fun insert(coloriId: Int, tailleId: Int, placeLogoId: Int) = viewModelScope.launch(Dispatchers.IO) {
-        d("View Model insert produit: $coloriId/$tailleId/$placeLogoId")
-        produitRepo.insert(coloriId, tailleId, placeLogoId)
+    fun insert(produit: String) = viewModelScope.launch(Dispatchers.IO) {
+        d("View Model insert ${Produit.ELEM}: $produit")
+        produitRepo.insert(produit)
     }
 
     fun remove(produit: Produit) = viewModelScope.launch(Dispatchers.IO) {
-        d("View Model get produit: ${produit.id}")
-        produitRepo.remove(produit.id)
+        d("View Model get ${Produit.ELEM}: ${produit.elem}")
+        produitRepo.remove(produit)
     }
 
-    fun getAllObjs() : Array<Produit> {
-        return Array(size = allProduits.value?.size!!) { i -> allProduits.value?.get(i)!! }
+    fun update(produit: Produit) = viewModelScope.launch(Dispatchers.IO) {
+        d("View Model update ${Produit.ELEM} ${Produit.PRIM_KEY}: ${produit.id} with value ${produit.elem}")
+        produitRepo.update(produit)
     }
 
-    fun getProduitById(id: Int) : Produit? {
-        getAllObjs().forEach {
+    fun getAllProduits() : Array<Produit> =
+        Array(size = allProduits.value?.size!!) { i -> allProduits.value?.get(i)!! }
+
+    fun getProduitById(id: Int) : Produit {
+        getAllProduits().forEach {
             if (it.id == id) {
                 return it
             }
         }
-        return null
+        return Produit(0, "0")
     }
 
-    fun getColoriById(id: Int) : String? = allColoris.value!![id].elem
+    fun getValueForId(id: Int) : String = getProduitById(id).elem
 
-    fun getTailleById(id: Int) : String? = allTailles.value!![id].elem
-
-    fun getPlaceLogoById(id: Int) : String? = allPlaceLogs.value!![id].elem
-
-    fun getColoriId(elem: String) : Int {
-        allColoris.value!!.forEach { if (it.elem == elem) return it.id }
-        return 0
-    }
-
-    fun getTailleId(elem: String) : Int {
-        allTailles.value!!.forEach { if (it.elem == elem) return it.id }
-        return 0
-    }
-
-    fun getPlaceLogoId(elem: String) : Int {
-        allPlaceLogs.value!!.forEach { if (it.elem == elem) return it.id }
-        return 0
+    fun getIdForValue(elem: String) : Int {
+        getAllProduits().forEach {
+            if (it.elem == elem) {
+                return it.id
+            }
+        }
+        return -1
     }
 
 }
