@@ -11,15 +11,15 @@ private val TAB_TITLES = arrayOf(
     R.string.tab_colori_title,
     R.string.tab_taille_title,
     R.string.tab_placelogo_title,
-    R.string.tab_articleavecprix_title,
-    R.string.tab_quantiteproduit_title//,
+    R.string.tab_article_title//,
+//    R.string.tab_quantiteproduit_title,
 //    R.string.tab_achatproduits_title
 )
 const val TAB_PRODUIT = 0
 const val TAB_COLORI = 1
 const val TAB_TAILLE = 2
 const val TAB_PLACELOGO = 3
-const val TAB_ARTICLEAVECPRIX = 4
+const val TAB_ARTICLE = 4
 const val TAB_QUANTITEPRODUIT = 5
 const val TAB_ACHATPRODUIT = 6
 
@@ -36,7 +36,7 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) : 
             TAB_COLORI -> return ColoriFragment(context)
             TAB_TAILLE -> return TailleFragment(context)
             TAB_PLACELOGO -> return PlaceLogoFragment(context)
-            TAB_ARTICLEAVECPRIX -> return ArticleFragment(context)
+            TAB_ARTICLE -> return ArticleFragment(context)
             TAB_QUANTITEPRODUIT -> return ArticlesEnStockFragment(context)
         }
         return ColoriFragment(context)

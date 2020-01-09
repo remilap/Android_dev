@@ -8,10 +8,15 @@ import androidx.room.PrimaryKey
 @Entity(tableName = Taille.TABLE_NAME)
 data class Taille(
     @PrimaryKey(autoGenerate = true)
-    @NonNull val id: Int,
+    @NonNull override val id: Int,
     @ColumnInfo(index = true)
-    @NonNull val elem: String
-) {
+    @NonNull override val elem: String
+) : IdValue {
+
+    override fun getString(): String {
+        return elem
+    }
+
     companion object {
         const val ELEM = "taille"
         const val TABLE_NAME = "laser_$ELEM"

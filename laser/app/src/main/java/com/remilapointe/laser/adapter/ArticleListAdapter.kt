@@ -9,9 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.log4k.d
 import com.remilapointe.laser.R
 import com.remilapointe.laser.db.*
+import com.remilapointe.laser.ui.viewmodel.ArticleViewModel
 
 class ArticleListAdapter internal constructor(
     context: Context,
+    private val articleViewModel: ArticleViewModel,
     private val clickListener: (Article) -> View.OnClickListener
     ) : RecyclerView.Adapter<ArticleListAdapter.ArticleViewHolder>() {
 
@@ -23,11 +25,13 @@ class ArticleListAdapter internal constructor(
     private var placeLogosList = mutableListOf<PlaceLogo>()
 
     inner class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val idItemView: TextView = itemView.findViewById(R.id.tvProduitItem)
+        val idItemView: TextView = itemView.findViewById(R.id.tvArticleItem)
+        /*
         val produitItemView: TextView = itemView.findViewById(R.id.tvArticleProduit)
         val coloriItemView: TextView = itemView.findViewById(R.id.tvArticleColori)
         val tailleItemView: TextView = itemView.findViewById(R.id.tvArticleTaille)
         val placeLogoItemView: TextView = itemView.findViewById(R.id.tArticlePlaceLogo)
+         */
         fun bind(article: Article, listener: (Article) -> View.OnClickListener) = idItemView.setOnClickListener( listener(article) )
     }
 
@@ -38,9 +42,11 @@ class ArticleListAdapter internal constructor(
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val current = articlesList[position]
-        d("${produitsList.size} articles, ${colorisList.size} coloris, ${taillesList.size} tailles, ${placeLogosList.size} placeLogos")
-        d("produit id: ${current.id}, coloriId: ${current.coloriId}, tailleId: ${current.tailleId}, placelogoId: ${current.placeLogoId}")
-        holder.idItemView.text = current.id.toString()
+//        d("${produitsList.size} articles, ${colorisList.size} coloris, ${taillesList.size} tailles, ${placeLogosList.size} placeLogos")
+        d("${Article.ELEM} ${Article.PRIM_KEY}: ${current.id}, ${Article.PRODUIT_ID}: ${current.produitId}, ${Article.COLORI_ID}: ${current.coloriId}, ${Article.TAILLE_ID}: ${current.tailleId}, ${Article.PLACELOGO_ID}: ${current.placeLogoId}")
+        holder.idItemView.text = //current.id.toString()
+        articleViewModel.getStringForArticleId(current.id)
+        /*
         produitsList.forEach {
             if (it.id == current.produitId) {
                 holder.produitItemView.text = it.elem
@@ -61,10 +67,11 @@ class ArticleListAdapter internal constructor(
                 holder.placeLogoItemView.text = it.elem
             }
         }
+         */
         holder.bind(current, clickListener)
     }
 
-    internal fun setArticlesAvecPrix(strs: MutableList<Article>) {
+    internal fun setArticles(strs: MutableList<Article>) {
         this.articlesList = strs
         d("set${Article.ELEM} with ${strs.size} elems")
         notifyDataSetChanged()
@@ -88,7 +95,7 @@ class ArticleListAdapter internal constructor(
         notifyDataSetChanged()
     }
 
-    internal fun setPlaceLogs(strs: MutableList<PlaceLogo>) {
+    internal fun setPlaceLogo(strs: MutableList<PlaceLogo>) {
         this.placeLogosList = strs
         d("set${PlaceLogo.ELEM}s with ${strs.size} elems")
         notifyDataSetChanged()

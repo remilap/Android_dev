@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,7 +40,7 @@ class ArticleFragment(passedContext: Context) : Fragment() {
         articleViewModel = ViewModelProvider(this).get(ArticleViewModel::class.java).apply {
 
         }
-        adapter = ArticleListAdapter(passThroughContext) { item: Article -> itemItemClicked(item) }
+        adapter = ArticleListAdapter(passThroughContext, articleViewModel) { item: Article -> itemItemClicked(item) }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -63,9 +64,12 @@ class ArticleFragment(passedContext: Context) : Fragment() {
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
-        articleViewModel.allArticles.observe(viewLifecycleOwner, Observer { objs ->
-            objs?.let { adapter.setArticlesAvecPrix(it) }
-        })
+        articleViewModel.allArticles.observe(viewLifecycleOwner, Observer { it?.let { adapter.setArticles(it) } })
+        articleViewModel.allProduits.observe(viewLifecycleOwner, Observer { it?.let { adapter.setProduits(it) } })
+        articleViewModel.allColoris.observe(viewLifecycleOwner, Observer { it?.let { adapter.setColoris(it) } })
+        articleViewModel.allTailles.observe(viewLifecycleOwner, Observer { it?.let { adapter.setTailles(it) } })
+        articleViewModel.allPlaceLogos.observe(viewLifecycleOwner, Observer { it?.let { adapter.setPlaceLogo(it) } })
+        SystemClock.sleep(1000)
 
         val fabAdd = root.findViewById<FloatingActionButton>(R.id.fab_add_article)
         fabAdd.setOnClickListener {
@@ -73,7 +77,7 @@ class ArticleFragment(passedContext: Context) : Fragment() {
             //val intent = Intent(this@ColoriFragment.context, ColoriAddActivity::class.java)
             getElements()
             startActivityForResult(
-                activity?.ArticleDetailIntent(null, produitsList, colorisList, taillesList, placelogosList),
+                activity?.ArticleDetailIntent(null, "", "", "", "", produitsList, colorisList, taillesList, placelogosList),
                 newArticleActivityRequestCode
             )
         }
@@ -81,26 +85,22 @@ class ArticleFragment(passedContext: Context) : Fragment() {
         val fabCheck = root.findViewById<FloatingActionButton>(R.id.fab_check_article)
         fabCheck.setOnClickListener {
             //d("click on check, this= ${this@ColoriFragment}, this.context=" + context + ", root.context=" + root.context + ", passed context=" + passThroughContext)
-            val allArticlesAvecPrix = articleViewModel.getAllArticlesAvecPrix()
+            val allArticles = articleViewModel.getAllArticles()
             val sb = StringBuffer()
-            allArticlesAvecPrix.forEach {
+            allArticles.forEach {
                 sb.append(it.id).append("-").append(it.produitId).append(", ")
             }
-            activity!!.toast("" + allArticlesAvecPrix.size + " ${Article.ELEM}(s): " + sb)
+            activity!!.toast("" + allArticles.size + " ${Article.ELEM}(s): " + sb)
         }
 
         return root
     }
 
     private fun getElements() {
-        produitsList.clear()
-        articleViewModel.allProduits.value!!.forEach { produitsList.add(it.elem) }
-        colorisList.clear()
-        articleViewModel.allColoris.value!!.forEach { colorisList.add(it.elem) }
-        taillesList.clear()
-        articleViewModel.allTailles.value!!.forEach { taillesList.add(it.elem) }
-        placelogosList.clear()
-        articleViewModel.allPlaceLogs.value!!.forEach { placelogosList.add(it.elem) }
+        produitsList = articleViewModel.getAllProduitsString()
+        colorisList = articleViewModel.getAllColorisString()
+        taillesList = articleViewModel.getAllTaillesString()
+        placelogosList = articleViewModel.getAllPlaceLogosString()
     }
 
     private fun itemItemClicked(item: Article): View.OnClickListener {
@@ -108,10 +108,10 @@ class ArticleFragment(passedContext: Context) : Fragment() {
         //intent.putExtra(ColoriAddActivity.EXTRA_QUERY_COLORI, item.elem)
         d("click on the ${Article.ELEM} ${Article.PRODUIT_ID}: ${item.produitId}, launch update")
         getElements()
-        startActivityForResult(
-            activity!!.ArticleDetailIntent(item, produitsList, colorisList, taillesList, placelogosList),
-            updateArticleActivityRequestCode
-        )
+//        startActivityForResult(
+//            activity!!.ArticleDetailIntent(item, produitsList, colorisList, taillesList, placelogosList),
+//            updateArticleActivityRequestCode
+//        )
         return View.OnClickListener {  }
     }
 

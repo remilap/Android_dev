@@ -8,11 +8,16 @@ import androidx.room.PrimaryKey
 @Entity(tableName = Colori.TABLE_NAME)
 data class Colori (
     @PrimaryKey(autoGenerate = true)
-    @NonNull val id: Int,
+    @NonNull override val id: Int,
     @ColumnInfo(index = true)
-    @NonNull val elem: String
+    @NonNull override val elem: String
 
-) {
+) : IdValue {
+
+    override fun getString(): String {
+        return elem
+    }
+
     companion object {
         const val ELEM = "colori"
         const val TABLE_NAME = "laser_$ELEM"
