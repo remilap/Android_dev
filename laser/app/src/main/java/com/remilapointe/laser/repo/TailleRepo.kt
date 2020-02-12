@@ -11,23 +11,24 @@ class TailleRepo(private val dao: TailleDao) {
     val allTailles: LiveData<MutableList<Taille>> = dao.getAll()
 
     @WorkerThread
-    suspend fun insert(elem: String) {
-        val oneObj = Taille(0, elem)
-        d("in Repo insert ${Taille.ELEM}: ${oneObj.elem}")
-        dao.insert(oneObj)
+    suspend fun insert(elem: String) : Int {
+        val taille = Taille(0, elem)
+        d("in Repo insert ${Taille.ELEM}: ${taille.elem}")
+        dao.insert(taille)
+        return taille.id
     }
 
     @WorkerThread
-    suspend fun removeAt(pos: Int) {
+    suspend fun removeAt(pos: Int) : Int {
         val oneObj = allTailles.value?.get(pos)
         d("in Repo remove ${Taille.ELEM} id: ${oneObj!!.id}, value: ${oneObj.elem}")
-        dao.remove(oneObj.id)
+        return dao.remove(oneObj.id)
     }
 
     @WorkerThread
-    fun remove(taille: Taille) {
+    fun remove(taille: Taille) : Int {
         d("in Repo remove ${Taille.ELEM} id: ${taille.id}, value: ${taille.elem}")
-        dao.remove(taille.id)
+        return dao.remove(taille.id)
     }
 
     @WorkerThread
@@ -43,9 +44,9 @@ class TailleRepo(private val dao: TailleDao) {
     }
 
     @WorkerThread
-    suspend fun update(taille: Taille) {
+    suspend fun update(taille: Taille) : Int {
         d("in Repo update ${Taille.ELEM} id: ${taille.id}, value: ${taille.elem}")
-        dao.update(taille.id, taille.elem)
+        return dao.update(taille.id, taille.elem)
     }
 
 }

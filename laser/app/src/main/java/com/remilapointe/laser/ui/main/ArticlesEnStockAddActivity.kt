@@ -18,8 +18,8 @@ fun Context.ArticlesEnStockDetailIntent(
 ): Intent {
     return Intent(this, ArticlesEnStockAddActivity::class.java).apply {
         d("${ArticlesEnStock.ELEM}.id= ${articlesEnStock?.id}, " +
-        "${ArticlesEnStock.ARTICLE_ID}= ${articlesEnStock?.articleId}, " +
-        "${ArticlesEnStock.NB}= ${articlesEnStock?.nb}, " +
+        "${ArticlesEnStock.ARTICLEENSTOCK_ARTICLEID}= ${articlesEnStock?.articleId}, " +
+        "${ArticlesEnStock.ARTICLEENSTOCK_NB}= ${articlesEnStock?.nb}, " +
         "articlesTab size= ${articlesTab.size}, " +
         "elem 1= ${articlesTab[0]}")
         putExtra(EXTRA_QUERY_ARTICLESENSTOCK_ID, articlesEnStock?.id)

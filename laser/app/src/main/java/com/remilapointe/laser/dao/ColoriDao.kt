@@ -16,7 +16,7 @@ interface ColoriDao {
     suspend fun insert(colori: Colori)
 
     @Query("DELETE FROM " + Colori.TABLE_NAME + " WHERE " + Colori.PRIM_KEY + " = :key")
-    suspend fun remove(key: Int)
+    suspend fun remove(key: Int) : Int
 
     @Query("SELECT * FROM " + Colori.TABLE_NAME + " WHERE " + Colori.PRIM_KEY + " = :key")
     fun get(key: Int) : Colori
@@ -27,6 +27,6 @@ interface ColoriDao {
     @Query("UPDATE " + Colori.TABLE_NAME + " SET " +
             Colori.SORT_FIELD + " = :value" +
             " WHERE " + Colori.PRIM_KEY + " = :key")
-    suspend fun update(key: Int, value: String)
+    suspend fun update(key: Int, value: String) : Int
 
 }

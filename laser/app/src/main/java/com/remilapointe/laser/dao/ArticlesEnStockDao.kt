@@ -6,6 +6,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.remilapointe.laser.db.ArticlesEnStock
+import java.time.LocalDate
+import java.util.*
 
 @Dao
 interface ArticlesEnStockDao {
@@ -17,15 +19,21 @@ interface ArticlesEnStockDao {
     suspend fun insert(articlesEnStock: ArticlesEnStock)
 
     @Query("DELETE FROM " + ArticlesEnStock.TABLE_NAME + " WHERE " + ArticlesEnStock.PRIM_KEY + " = :key")
-    suspend fun remove(key: Int)
+    suspend fun remove(key: Int): Int
 
     @Query("SELECT * FROM " + ArticlesEnStock.TABLE_NAME + " WHERE " + ArticlesEnStock.PRIM_KEY + " = :key")
-    fun get(key: Int) : ArticlesEnStock
+    fun get(key: Int): ArticlesEnStock
 
     @Query("UPDATE " + ArticlesEnStock.TABLE_NAME + " SET " +
-            ArticlesEnStock.ARTICLE_ID + " = :artId, " +
-            ArticlesEnStock.NB + " = :nb " +
+            ArticlesEnStock.ARTICLEENSTOCK_ARTICLEID + " = :artId, " +
+            ArticlesEnStock.ARTICLEENSTOCK_NB + " = :nb, " +
+            ArticlesEnStock.ARTICLEENSTOCK_NBACHETES + " = :nbAchetes, " +
+            ArticlesEnStock.ARTICLEENSTOCK_DATEACHAT + " = :dateAchat, " +
+            ArticlesEnStock.ARTICLEENSTOCK_PRIXACHATHT + " = :prixAchat " +
             " WHERE " + ArticlesEnStock.PRIM_KEY + " = :key")
-    suspend fun update(key: Int, artId: Int, nb: Int)
+    suspend fun update(key: Int, artId: Int, nb: Int, nbAchetes: Int, dateAchat: LocalDate, prixAchat: Double): Int
+
+    @Query("SELECT SUM(" + ArticlesEnStock.ARTICLEENSTOCK_NB + ") FROM " + ArticlesEnStock.TABLE_NAME + " WHERE " + ArticlesEnStock.PRIM_KEY + " = :key")
+    fun getNbArticlesEnStock(key: Int): Int
 
 }

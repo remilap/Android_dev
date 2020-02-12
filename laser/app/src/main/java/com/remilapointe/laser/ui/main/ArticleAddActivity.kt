@@ -10,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.log4k.d
 import com.remilapointe.laser.R
 import com.remilapointe.laser.db.*
+import kotlinx.android.synthetic.main.article_add_activity.*
+import org.jetbrains.anko.longToast
+import org.jetbrains.anko.toast
 
 fun Context.ArticleDetailIntent(
     article: Article?,
@@ -64,12 +67,6 @@ private const val EXTRA_QUERY_PLACELOGO_LIST = "com.remilapointe.laser.QUERY_PLA
 
 class ArticleAddActivity : AppCompatActivity() {
 
-    private lateinit var tvArticleId: TextView
-    private lateinit var spArticleAddProduit: Spinner
-    private lateinit var spArticleAddColori: Spinner
-    private lateinit var spArticleAddTaille: Spinner
-    private lateinit var spArticleAddPlacelogo: Spinner
-    private lateinit var edArticleAvecPrixAddPrixUHT: EditText
     private var articleProduitIndex: Int = 0
     private var articleColoriIndex: Int = 0
     private var articleTailleIndex: Int = 0
@@ -84,16 +81,22 @@ class ArticleAddActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.article_add_activity)
         d("onCreate begin")
+        val replyIntent = Intent()
 
-        tvArticleId = findViewById(R.id.tvArticleAddId)
         val articleId = intent.getIntExtra(EXTRA_QUERY_ARTICLE_ID, -1)
-        tvArticleId.text = if (articleId < 0) "new" else articleId.toString()
+        tvArticleAddId.text = if (articleId < 0) "new" else articleId.toString()
 
         articleProduitIndex = intent.getIntExtra(EXTRA_QUERY_ARTICLE_PRODUIT_INDEX, 0)
         val produitList = intent.getStringArrayListExtra(EXTRA_QUERY_PRODUIT_LIST)!!
+        if (produitList.size == 0) {
+            replyIntent.putExtra(EXTRA_REPLY_ARTICLE_MESSAGE, getString(R.string.aucun_produit_configure))
+            setResult(Activity.RESULT_CANCELED, replyIntent)
+            setResult(Activity.RESULT_CANCELED, replyIntent)
+            finish()
+            return
+        }
         d("${Article.ELEM}, Index= $articleProduitIndex, val= $articleProduit")
 
-        spArticleAddProduit = findViewById(R.id.spArticleAddProduit)
         val adaptProduit = ArrayAdapter(this, android.R.layout.simple_spinner_item, produitList)
         adaptProduit.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spArticleAddProduit.adapter = adaptProduit
@@ -102,10 +105,15 @@ class ArticleAddActivity : AppCompatActivity() {
 
         articleColoriIndex = intent.getIntExtra(EXTRA_QUERY_ARTICLE_COLORI_INDEX, 0)
         val coloriList = intent.getStringArrayListExtra(EXTRA_QUERY_COLORI_LIST)!!
+        if (coloriList.size == 0) {
+            replyIntent.putExtra(EXTRA_REPLY_ARTICLE_MESSAGE, getString(R.string.aucun_colori_configure))
+            setResult(Activity.RESULT_CANCELED, replyIntent)
+            finish()
+            return
+        }
         articleColori = coloriList[articleColoriIndex]
         d("articleAvecPrixColori, Index= $articleColoriIndex, val= $articleColori")
 
-        spArticleAddColori = findViewById(R.id.spArticleAddColori)
         val adaptColori = ArrayAdapter(this, android.R.layout.simple_spinner_item, coloriList)
         adaptColori.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spArticleAddColori.adapter = adaptColori
@@ -114,10 +122,15 @@ class ArticleAddActivity : AppCompatActivity() {
 
         articleTailleIndex = intent.getIntExtra(EXTRA_QUERY_ARTICLE_TAILLE_INDEX, 0)
         val tailleList = intent.getStringArrayListExtra(EXTRA_QUERY_TAILLE_LIST)!!
+        if (tailleList.size == 0) {
+            replyIntent.putExtra(EXTRA_REPLY_ARTICLE_MESSAGE, getString(R.string.aucune_taille_configuree))
+            setResult(Activity.RESULT_CANCELED, replyIntent)
+            finish()
+            return
+        }
         articleTaille = tailleList[articleTailleIndex]
         d("articleAvecPrixTaille, Index= $articleTailleIndex, val= $articleTaille")
 
-        spArticleAddTaille = findViewById(R.id.spArticleAddTaille)
         val adaptTaille = ArrayAdapter(this, android.R.layout.simple_spinner_item, tailleList)
         adaptTaille.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spArticleAddTaille.adapter = adaptTaille
@@ -126,10 +139,15 @@ class ArticleAddActivity : AppCompatActivity() {
 
         articlePlaceLogoIndex = intent.getIntExtra(EXTRA_QUERY_ARTICLE_PLACELOGO_INDEX, 0)
         val placeLogoList = intent.getStringArrayListExtra(EXTRA_QUERY_PLACELOGO_LIST)!!
+        if (placeLogoList.size == 0) {
+            replyIntent.putExtra(EXTRA_REPLY_ARTICLE_MESSAGE, getString(R.string.aucun_placelogo_configure))
+            setResult(Activity.RESULT_CANCELED, replyIntent)
+            finish()
+            return
+        }
         articlePlacelogo = placeLogoList[articlePlaceLogoIndex]
         d("articleAvecPrixPlaceLogo, Index= $articlePlaceLogoIndex, val= $articlePlacelogo")
 
-        spArticleAddPlacelogo = findViewById(R.id.spArticleAddPlacelogo)
         val adaptPlaceLogo = ArrayAdapter(this, android.R.layout.simple_spinner_item, placeLogoList)
         adaptPlaceLogo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spArticleAddPlacelogo.adapter = adaptPlaceLogo
@@ -143,11 +161,11 @@ class ArticleAddActivity : AppCompatActivity() {
         val button = findViewById<Button>(R.id.bt_save_article)
         button.setOnClickListener {
             d("click on ${Article.ELEM} save button")
-            val replyIntent = Intent()
-            if (TextUtils.isEmpty(tvArticleId.text)) {
+            if (TextUtils.isEmpty(tvArticleAddId.text)) {
+                replyIntent.putExtra(EXTRA_REPLY_ARTICLE_MESSAGE, getString(R.string.empty_not_saved, Article.ELEM))
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
-                val elemTxt = tvArticleId.text.toString()
+                val elemTxt = tvArticleAddId.text.toString()
                 var elem = 0
                 try {
                     elem = elemTxt.toInt()
@@ -182,6 +200,7 @@ class ArticleAddActivity : AppCompatActivity() {
         const val EXTRA_REPLY_ARTICLE_COLORI = "com.remilapointe.laser.REPLY_ARTICLE_COLORI"
         const val EXTRA_REPLY_ARTICLE_TAILLE = "com.remilapointe.laser.REPLY_ARTICLE_TAILLE"
         const val EXTRA_REPLY_ARTICLE_PLACELOG = "com.remilapointe.laser.REPLY_ARTICLE_PLACELOGO"
+        const val EXTRA_REPLY_ARTICLE_MESSAGE = "com.remilapointe.laser.REPLAY_ARTICLE_MESSAGE"
 //        const val EXTRA_REPLY_ARTICLEAVECPRIX_PRIX_UHT = "com.remilapointe.laser.REPLY_ARTICLEAVECPRIX_PRIX_UHT"
     }
 

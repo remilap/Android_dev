@@ -16,10 +16,10 @@ interface ArticleDao {
     suspend fun insert(article: Article)
 
     @Query("DELETE FROM " + Article.TABLE_NAME + " WHERE " + Article.PRIM_KEY + " = :key")
-    suspend fun remove(key: Int)
+    suspend fun remove(key: Int) : Int
 
     @Query("SELECT * FROM " + Article.TABLE_NAME + " WHERE " + Article.PRIM_KEY + " = :key")
-    fun get(key: Int) : Article?
+    suspend fun get(key: Int) : Article?
 
     @Query("SELECT * FROM " + Article.TABLE_NAME + " WHERE " +
             Article.PRODUIT_ID + " = :proId AND " +
@@ -27,7 +27,7 @@ interface ArticleDao {
             Article.TAILLE_ID + " = :taiId AND " +
             Article.PLACELOGO_ID + " = :plaId"
     )
-    fun get(proId: Int, colId: Int, taiId: Int, plaId: Int) : Article?
+    suspend fun get(proId: Int, colId: Int, taiId: Int, plaId: Int) : Article?
 
     @Query("UPDATE " + Article.TABLE_NAME + " SET " +
             Article.PRODUIT_ID + " = :proId, " +
@@ -35,6 +35,6 @@ interface ArticleDao {
             Article.TAILLE_ID + " = :taiId, " +
             Article.PLACELOGO_ID + " = :plaId " +
             " WHERE id= :key")
-    suspend fun update(key: Int, proId: Int, colId: Int, taiId: Int, plaId: Int)
+    suspend fun update(key: Int, proId: Int, colId: Int, taiId: Int, plaId: Int) : Int
 
 }

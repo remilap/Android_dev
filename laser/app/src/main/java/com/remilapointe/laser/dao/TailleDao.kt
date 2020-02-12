@@ -16,7 +16,7 @@ interface TailleDao {
     suspend fun insert(taille: Taille)
 
     @Query("DELETE FROM " + Taille.TABLE_NAME + " WHERE " + Taille.PRIM_KEY + " = :key")
-    fun remove(key: Int)
+    fun remove(key: Int) : Int
 
     @Query("SELECT * FROM " + Taille.TABLE_NAME + " WHERE " + Taille.PRIM_KEY + " = :key")
     fun get(key: Int) : Taille
@@ -27,6 +27,6 @@ interface TailleDao {
     @Query("UPDATE " + Taille.TABLE_NAME + " SET " +
             Taille.SORT_FIELD + " = :value" +
             " WHERE " + Taille.PRIM_KEY + " = :key")
-    suspend fun update(key: Int, value: String)
+    suspend fun update(key: Int, value: String) : Int
 
 }

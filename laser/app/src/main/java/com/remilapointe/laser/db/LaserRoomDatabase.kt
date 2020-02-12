@@ -10,8 +10,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.remilapointe.laser.dao.*
 
 @Database(
-    entities = [Produit::class, Colori::class, Taille::class, PlaceLogo::class, Article::class, ArticlesEnStock::class, AchatArticles::class],
-    version = 6,
+    entities = [Produit::class, Colori::class, Taille::class, PlaceLogo::class, Article::class, ArticlesEnStock::class, TransactionArticles::class],
+    version = 7,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -23,6 +23,7 @@ abstract class LaserRoomDatabase : RoomDatabase() {
     abstract fun placeLogoDao(): PlaceLogoDao
     abstract fun articleDao(): ArticleDao
     abstract fun articlesEnStockDao(): ArticlesEnStockDao
+    abstract fun transactionArticlesDao(): TransactionArticlesDao
 
     companion object {
         @Volatile

@@ -19,20 +19,20 @@ import com.log4k.d
 import com.remilapointe.laser.R
 import com.remilapointe.laser.adapter.TailleListAdapter
 import com.remilapointe.laser.db.Taille
-import com.remilapointe.laser.ui.viewmodel.TailleViewModel
+import com.remilapointe.laser.ui.viewmodel.LaserViewModel
 import org.jetbrains.anko.toast
 
 class TailleFragment(passedContext: Context) : Fragment() {
 
     val passThroughContext: Context = passedContext
 
-    private lateinit var tailleViewModel: TailleViewModel
+    private lateinit var laserViewModel: LaserViewModel
     private lateinit var tailleListAdapter: TailleListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        tailleViewModel = ViewModelProvider(this).get(TailleViewModel::class.java).apply {
+        laserViewModel = ViewModelProvider(this).get(LaserViewModel::class.java).apply {
 
         }
         tailleListAdapter = TailleListAdapter(passThroughContext) { item: Taille -> itemItemClicked(item) }
@@ -52,14 +52,14 @@ class TailleFragment(passedContext: Context) : Fragment() {
                 viewHolder.adapterPosition.let {
                     d("${Taille.ELEM} swipe position $it")
                     val item = adapterSwipe.get(it)
-                    tailleViewModel.remove(item)
+                    laserViewModel.removeTaille(item)
                 }
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
-        tailleViewModel.allTailles.observe(this, Observer { objs ->
+        laserViewModel.allTailles.observe(this, Observer { objs ->
             objs?.let { tailleListAdapter.setTailles(it) }
         })
 
@@ -72,7 +72,7 @@ class TailleFragment(passedContext: Context) : Fragment() {
         val fabCheck = root.findViewById<FloatingActionButton>(R.id.fab_check_taille)
         fabCheck.setOnClickListener {
             //d("click on check, this= ${this@ColoriFragment}, this.context=" + context + ", root.context=" + root.context + ", passed context=" + passThroughContext)
-            val allTailles = tailleViewModel.getAllTailles()
+            val allTailles = laserViewModel.getAllTailles()
             val sb = StringBuffer()
             allTailles.forEach {
                 sb.append(it.id).append("-").append(it.elem).append(", ")
@@ -97,7 +97,7 @@ class TailleFragment(passedContext: Context) : Fragment() {
                 val sTaille = data.getStringExtra(TailleAddActivity.EXTRA_REPLY_TAILLE)
                 if (sTaille != null && sTaille.isNotEmpty()) {
                     d("${Taille.ELEM} to insert: $sTaille")
-                    tailleViewModel.insert(sTaille)
+                    laserViewModel.insertTaille(sTaille)
                 } else {
                     d("empty ${Taille.ELEM} cannot be inserted")
                 }

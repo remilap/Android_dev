@@ -1,10 +1,7 @@
 package com.remilapointe.laser.db
 
 import androidx.annotation.NonNull
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(
     tableName = Article.TABLE_NAME,
@@ -48,6 +45,7 @@ data class Article(
     @ColumnInfo(index = true)
     val placeLogoId: Int
 ) {
+
     companion object {
         const val ELEM = "article"
         const val TABLE_NAME = "laser_$ELEM"

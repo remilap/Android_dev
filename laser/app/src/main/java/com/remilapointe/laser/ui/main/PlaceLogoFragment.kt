@@ -19,20 +19,20 @@ import com.log4k.d
 import com.remilapointe.laser.R
 import com.remilapointe.laser.adapter.PlaceLogoListAdapter
 import com.remilapointe.laser.db.PlaceLogo
-import com.remilapointe.laser.ui.viewmodel.PlaceLogoViewModel
+import com.remilapointe.laser.ui.viewmodel.LaserViewModel
 import org.jetbrains.anko.toast
 
 class PlaceLogoFragment(passedContext: Context) : Fragment() {
 
     val passThroughContext: Context = passedContext
 
-    private lateinit var placeLogoViewModel: PlaceLogoViewModel
+    private lateinit var laserViewModel: LaserViewModel
     private lateinit var placeLogoListAdapter: PlaceLogoListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        placeLogoViewModel = ViewModelProvider(this).get(PlaceLogoViewModel::class.java).apply {
+        laserViewModel = ViewModelProvider(this).get(LaserViewModel::class.java).apply {
 
         }
         placeLogoListAdapter = PlaceLogoListAdapter(passThroughContext) { item: PlaceLogo -> itemItemClicked(item) }
@@ -52,14 +52,14 @@ class PlaceLogoFragment(passedContext: Context) : Fragment() {
                 viewHolder.adapterPosition.let {
                     d("${PlaceLogo.ELEM} swipe position $it")
                     val item = adapterSwipe.get(it)
-                    placeLogoViewModel.remove(item)
+                    laserViewModel.removePlaceLogo(item)
                 }
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
-        placeLogoViewModel.allPlaceLogos.observe(this, Observer { objs ->
+        laserViewModel.allPlaceLogos.observe(this, Observer { objs ->
             objs?.let { placeLogoListAdapter.setPlaceLogos(it) }
         })
 
@@ -72,7 +72,7 @@ class PlaceLogoFragment(passedContext: Context) : Fragment() {
         val fabCheck = root.findViewById<FloatingActionButton>(R.id.fab_check_placelogo)
         fabCheck.setOnClickListener {
             //d("click on check, this= ${this@ColoriFragment}, this.context=" + context + ", root.context=" + root.context + ", passed context=" + passThroughContext)
-            val allPlacelogos = placeLogoViewModel.getAllPlaceLogos()
+            val allPlacelogos = laserViewModel.getAllPlaceLogos()
             val sb = StringBuffer()
             allPlacelogos.forEach {
                 sb.append(it.id).append("-").append(it.elem).append(", ")
@@ -97,7 +97,7 @@ class PlaceLogoFragment(passedContext: Context) : Fragment() {
                 val sPlaceLogo = data.getStringExtra(PlaceLogoAddActivity.EXTRA_REPLY_PLACELOGO)
                 if (sPlaceLogo != null && sPlaceLogo.isNotEmpty()) {
                     d("${PlaceLogo.ELEM} to insert: $sPlaceLogo")
-                    placeLogoViewModel.insert(sPlaceLogo)
+                    laserViewModel.insertPlaceLogo(sPlaceLogo)
                 } else {
                     d("empty ${PlaceLogo.ELEM} cannot be inserted")
                 }

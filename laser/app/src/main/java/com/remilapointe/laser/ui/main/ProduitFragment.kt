@@ -19,20 +19,20 @@ import com.log4k.d
 import com.remilapointe.laser.R
 import com.remilapointe.laser.adapter.ProduitListAdapter
 import com.remilapointe.laser.db.Produit
-import com.remilapointe.laser.ui.viewmodel.ProduitViewModel
+import com.remilapointe.laser.ui.viewmodel.LaserViewModel
 import org.jetbrains.anko.toast
 
 class ProduitFragment(passedContext: Context) : Fragment() {
 
     val passThroughContext: Context = passedContext
 
-    private lateinit var produitViewModel: ProduitViewModel
+    private lateinit var laserViewModel: LaserViewModel
     private lateinit var produitListAdapter: ProduitListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        produitViewModel = ViewModelProvider(this).get(ProduitViewModel::class.java).apply {
+        laserViewModel = ViewModelProvider(this).get(LaserViewModel::class.java).apply {
 
         }
         produitListAdapter = ProduitListAdapter(passThroughContext) { item: Produit -> itemItemClicked(item) }
@@ -52,14 +52,14 @@ class ProduitFragment(passedContext: Context) : Fragment() {
                 viewHolder.adapterPosition.let {
                     d("${Produit.ELEM} swipe position $it")
                     val item = adapterSwipe.get(it)
-                    produitViewModel.remove(item)
+                    laserViewModel.removeProduit(item)
                 }
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
-        produitViewModel.allProduits.observe(viewLifecycleOwner, Observer { objs ->
+        laserViewModel.allProduits.observe(viewLifecycleOwner, Observer { objs ->
             objs?.let { produitListAdapter.setProduits(it) }
         })
 
@@ -71,7 +71,7 @@ class ProduitFragment(passedContext: Context) : Fragment() {
         val fabCheck = root.findViewById<FloatingActionButton>(R.id.fab_check_colori)
         fabCheck.setOnClickListener {
             //d("click on check, this= ${this@ColoriFragment}, this.context=" + context + ", root.context=" + root.context + ", passed context=" + passThroughContext)
-            val allProduits = produitViewModel.getAllProduits()
+            val allProduits = laserViewModel.getAllProduits()
             val sb = StringBuffer()
             allProduits.forEach {
                 sb.append(it.id).append("-").append(it.elem).append(", ")
@@ -96,7 +96,7 @@ class ProduitFragment(passedContext: Context) : Fragment() {
                 val sProduit = data.getStringExtra(ProduitAddActivity.EXTRA_REPLY_PRODUIT)
                 if (sProduit != null && sProduit.isNotEmpty()) {
                     d("${Produit.ELEM} to insert: $sProduit")
-                    produitViewModel.insert(sProduit)
+                    laserViewModel.insertProduit(sProduit)
                 } else {
                     d("empty ${Produit.ELEM} cannot be inserted")
                 }

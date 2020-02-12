@@ -16,7 +16,7 @@ interface ProduitDao {
     suspend fun insert(produit: Produit)
 
     @Query("DELETE FROM " + Produit.TABLE_NAME + " WHERE " + Produit.PRIM_KEY + " = :key")
-    suspend fun remove(key: Int)
+    suspend fun remove(key: Int) : Int
 
     @Query("SELECT * FROM " + Produit.TABLE_NAME + " WHERE " + Produit.PRIM_KEY + " = :key")
     fun get(key: Int): Produit
@@ -27,6 +27,6 @@ interface ProduitDao {
     @Query("UPDATE " + Produit.TABLE_NAME + " SET " +
             Produit.SORT_FIELD + " = :value" +
             " WHERE " + Produit.PRIM_KEY + " = :key")
-    suspend fun update(key: Int, value: String)
+    suspend fun update(key: Int, value: String) : Int
 
 }

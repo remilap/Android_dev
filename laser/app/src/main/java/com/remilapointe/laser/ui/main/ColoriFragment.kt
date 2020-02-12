@@ -18,22 +18,21 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.log4k.d
 import com.remilapointe.laser.R
 import com.remilapointe.laser.adapter.ColoriListAdapter
-import com.remilapointe.laser.adapter.ColoriSimpleListAdapter
 import com.remilapointe.laser.db.Colori
-import com.remilapointe.laser.ui.viewmodel.ColoriViewModel
+import com.remilapointe.laser.ui.viewmodel.LaserViewModel
 import org.jetbrains.anko.toast
 
 class ColoriFragment(passedContext: Context) : Fragment(), ColoriListAdapter.OnSaveItems {
 
     val passThroughContext: Context = passedContext
 
-    private lateinit var coloriViewModel: ColoriViewModel
+    private lateinit var laserViewModel: LaserViewModel
     private lateinit var adapter: ColoriListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        coloriViewModel = ViewModelProvider(this).get(ColoriViewModel::class.java).apply {
+        laserViewModel = ViewModelProvider(this).get(LaserViewModel::class.java).apply {
 
         }
 //        adapter = ColoriListAdapter(passThroughContext) { item: Colori -> itemItemClicked(item) }
@@ -54,15 +53,14 @@ class ColoriFragment(passedContext: Context) : Fragment(), ColoriListAdapter.OnS
                 viewHolder.adapterPosition.let {
                     d("${Colori.ELEM} swipe position $it")
                     val item = adapterSwipe.get(it)
-                    coloriViewModel.remove(item)
+                    laserViewModel.removeColori(item)
                 }
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
-        coloriViewModel = ViewModelProvider(this).get(ColoriViewModel::class.java)
-        coloriViewModel.allColoris.observe(viewLifecycleOwner, Observer { objs ->
+        laserViewModel.allColoris.observe(viewLifecycleOwner, Observer { objs ->
             objs?.let { adapter.setColoris(it) }
         })
 
@@ -76,7 +74,7 @@ class ColoriFragment(passedContext: Context) : Fragment(), ColoriListAdapter.OnS
         val fabCheck = root.findViewById<FloatingActionButton>(R.id.fab_check_colori)
         fabCheck.setOnClickListener {
             //d("click on check, this= ${this@ColoriFragment}, this.context=" + context + ", root.context=" + root.context + ", passed context=" + passThroughContext)
-            val allColoris = coloriViewModel.getAllColoris()
+            val allColoris = laserViewModel.getAllColoris()
             val sb = StringBuffer()
             allColoris.forEach {
                 sb.append(it.id).append("-").append(it.elem).append(", ")
@@ -103,7 +101,7 @@ class ColoriFragment(passedContext: Context) : Fragment(), ColoriListAdapter.OnS
                 val sColori = data.getStringExtra(ColoriAddActivity.EXTRA_REPLY_COLORI)
                 if (sColori != null && sColori.isNotEmpty()) {
                     d("${Colori.ELEM} to insert: $sColori")
-                    coloriViewModel.insert(sColori)
+                    laserViewModel.insertColori(sColori)
                 } else {
                     d("empty ${Colori.ELEM} cannot be inserted")
                 }
@@ -117,7 +115,7 @@ class ColoriFragment(passedContext: Context) : Fragment(), ColoriListAdapter.OnS
 
     override fun saveColori(position: Int, vararg items: Colori?) {
         items.forEach {
-            coloriViewModel.update(it!!)
+            laserViewModel.updateColori(it!!)
         }
     }
 

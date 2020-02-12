@@ -16,7 +16,7 @@ interface PlaceLogoDao {
     suspend fun insert(placeLogo: PlaceLogo)
 
     @Query("DELETE FROM " + PlaceLogo.TABLE_NAME + " WHERE " + PlaceLogo.PRIM_KEY + " = :key")
-    fun remove(key: Int)
+    fun remove(key: Int) : Int
 
     @Query("SELECT * FROM " + PlaceLogo.TABLE_NAME + " WHERE " + PlaceLogo.PRIM_KEY + " = :key")
     fun get(key: Int) : PlaceLogo
@@ -27,6 +27,6 @@ interface PlaceLogoDao {
     @Query("UPDATE " + PlaceLogo.TABLE_NAME + " SET " +
             PlaceLogo.SORT_FIELD + " = :value" +
             " WHERE " + PlaceLogo.PRIM_KEY + " = :key")
-    suspend fun update(key: Int, value: String)
+    suspend fun update(key: Int, value: String) : Int
 
 }

@@ -12,23 +12,23 @@ class ProduitRepo(private val dao: ProduitDao) {
 
     @WorkerThread
     suspend fun insert(elem: String) : Int {
-        val oneObj = Produit(0, elem)
-        d("in Repo insert ${Produit.ELEM} id: ${oneObj.elem}")
-        dao.insert(oneObj)
-        return oneObj.id
+        val produit = Produit(0, elem)
+        d("in Repo insert ${Produit.ELEM} id: ${produit.elem}")
+        dao.insert(produit)
+        return produit.id
     }
 
     @WorkerThread
-    suspend fun removeAt(pos: Int) {
+    suspend fun removeAt(pos: Int) : Int {
         val oneObj = allProduits.value?.get(pos)
         d("in Repo remove ${Produit.ELEM} id: ${oneObj!!.id}, value: ${oneObj.elem}")
-        dao.remove(oneObj.id)
+        return dao.remove(oneObj.id)
     }
 
     @WorkerThread
-    suspend fun remove(produit: Produit) {
+    suspend fun remove(produit: Produit) : Int {
         d("in Repo remove ${Produit.ELEM} id: ${produit.id}, value: ${produit.elem}")
-        dao.remove(produit.id)
+        return dao.remove(produit.id)
     }
 
     @WorkerThread

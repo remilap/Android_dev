@@ -19,21 +19,22 @@ import com.log4k.d
 import com.remilapointe.laser.R
 import com.remilapointe.laser.adapter.ArticlesEnStockListAdapter
 import com.remilapointe.laser.db.ArticlesEnStock
-import com.remilapointe.laser.ui.viewmodel.ArticlesEnStockViewModel
+import com.remilapointe.laser.ui.viewmodel.LaserViewModel
 import org.jetbrains.anko.toast
+import java.time.LocalDate
 
 class ArticlesEnStockFragment(passedContext: Context) : Fragment() {
 
     val passThroughContext: Context = passedContext
 
-    private lateinit var articlesEnStockViewModel: ArticlesEnStockViewModel
+    private lateinit var laserViewModel: LaserViewModel
     private lateinit var adapter: ArticlesEnStockListAdapter
     private var articlesList = arrayListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        articlesEnStockViewModel = ViewModelProvider(this).get(ArticlesEnStockViewModel::class.java).apply {  }
+        laserViewModel = ViewModelProvider(this).get(LaserViewModel::class.java).apply {  }
         adapter = ArticlesEnStockListAdapter(passThroughContext) { item: ArticlesEnStock -> itemItemClicked(item) }
     }
 
@@ -56,14 +57,14 @@ class ArticlesEnStockFragment(passedContext: Context) : Fragment() {
                 viewHolder.adapterPosition.let {
                     d("${ArticlesEnStock.ELEM} swipe position $it")
                     val item = adapterSwipe.get(it)
-                    articlesEnStockViewModel.remove(item)
+                    laserViewModel.removeArticlesEnStock(item)
                 }
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
-        articlesEnStockViewModel.allArticlesEnStock.observe(viewLifecycleOwner, Observer { objs ->
+        laserViewModel.allArticlesEnStock.observe(viewLifecycleOwner, Observer { objs ->
             objs?.let { adapter.setArticlesEnStock(it) }
         })
 
@@ -78,7 +79,7 @@ class ArticlesEnStockFragment(passedContext: Context) : Fragment() {
 
         val fabCheck = root.findViewById<FloatingActionButton>(R.id.fab_check_articlesenstock)
         fabCheck.setOnClickListener {
-            val allArticlesEnStock = articlesEnStockViewModel.getAllArticlesEnStock()
+            val allArticlesEnStock = laserViewModel.getAllArticlesEnStock()
             val sb = StringBuffer()
             allArticlesEnStock.forEach {
                 sb.append(it.id).append("-").append(it.nb).append(", ")
@@ -91,7 +92,7 @@ class ArticlesEnStockFragment(passedContext: Context) : Fragment() {
 
     private fun getElements() {
         articlesList.clear()
-        articlesEnStockViewModel.allArticlesEnStock.value!!.forEach { articlesList.add(it.articleId.toString()) }
+        laserViewModel.allArticlesEnStock.value!!.forEach { articlesList.add(it.articleId.toString()) }
     }
 
     private fun itemItemClicked(item: ArticlesEnStock): View.OnClickListener {
@@ -122,14 +123,14 @@ class ArticlesEnStockFragment(passedContext: Context) : Fragment() {
                     }
                 }
                 if (articlesEnStockArticleId >= 0) {
-                    d("${ArticlesEnStock.ELEM} to insert with ${ArticlesEnStock.ARTICLE_ID}: $articlesEnStockArticleId/$sArticlesEnStockArticle")
+                    d("${ArticlesEnStock.ELEM} to insert with ${ArticlesEnStock.ARTICLEENSTOCK_ARTICLEID}: $articlesEnStockArticleId/$sArticlesEnStockArticle")
                 } else {
-                    d("empty ${ArticlesEnStock.ARTICLE_ID}, ${ArticlesEnStock.ELEM} cannot be inserted")
+                    d("empty ${ArticlesEnStock.ARTICLEENSTOCK_ARTICLEID}, ${ArticlesEnStock.ELEM} cannot be inserted")
                     ok = false
                 }
                 val nb = data.getIntExtra(ArticlesEnStockAddActivity.EXTRA_REPLY_ARTICLESENSTOCK_NB, 0)
                 if (ok) {
-                    articlesEnStockViewModel.insert(articlesEnStockArticleId, nb)
+                    laserViewModel.insertArticlesEnStock(articlesEnStockArticleId, nb, 0, LocalDate.now(), 0.0)
                 }
             }
         } else if (requestCode == updateArticlesEnStockActivityRequestCode && resultCode == Activity.RESULT_OK) {

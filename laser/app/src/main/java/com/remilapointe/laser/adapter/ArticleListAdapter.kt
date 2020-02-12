@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.log4k.d
 import com.remilapointe.laser.R
 import com.remilapointe.laser.db.*
-import com.remilapointe.laser.ui.viewmodel.ArticleViewModel
+import com.remilapointe.laser.ui.viewmodel.LaserViewModel
 
 class ArticleListAdapter internal constructor(
     context: Context,
-    private val articleViewModel: ArticleViewModel,
+    private val laserViewModel: LaserViewModel,
     private val clickListener: (Article) -> View.OnClickListener
     ) : RecyclerView.Adapter<ArticleListAdapter.ArticleViewHolder>() {
 
@@ -23,6 +23,10 @@ class ArticleListAdapter internal constructor(
     private var colorisList = mutableListOf<Colori>()
     private var taillesList = mutableListOf<Taille>()
     private var placeLogosList = mutableListOf<PlaceLogo>()
+
+    inner class ArticleLoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    }
 
     inner class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val idItemView: TextView = itemView.findViewById(R.id.tvArticleItem)
@@ -44,30 +48,7 @@ class ArticleListAdapter internal constructor(
         val current = articlesList[position]
 //        d("${produitsList.size} articles, ${colorisList.size} coloris, ${taillesList.size} tailles, ${placeLogosList.size} placeLogos")
         d("${Article.ELEM} ${Article.PRIM_KEY}: ${current.id}, ${Article.PRODUIT_ID}: ${current.produitId}, ${Article.COLORI_ID}: ${current.coloriId}, ${Article.TAILLE_ID}: ${current.tailleId}, ${Article.PLACELOGO_ID}: ${current.placeLogoId}")
-        holder.idItemView.text = //current.id.toString()
-        articleViewModel.getStringForArticleId(current.id)
-        /*
-        produitsList.forEach {
-            if (it.id == current.produitId) {
-                holder.produitItemView.text = it.elem
-            }
-        }
-        colorisList.forEach {
-            if (it.id == current.coloriId) {
-                holder.coloriItemView.text = it.elem
-            }
-        }
-        taillesList.forEach {
-            if (it.id == current.tailleId) {
-                holder.tailleItemView.text = it.elem
-            }
-        }
-        placeLogosList.forEach {
-            if (it.id == current.placeLogoId) {
-                holder.placeLogoItemView.text = it.elem
-            }
-        }
-         */
+        holder.idItemView.text = laserViewModel.getArticleStringByArticle(current)
         holder.bind(current, clickListener)
     }
 

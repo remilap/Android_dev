@@ -17,8 +17,16 @@
             android:background="@android:color/darker_gray"
             tools:listitem="@layout/article_recyclerview_item" />
 
+    <Button
+            android:id="@+id/btAddAllArticles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:text="@string/bt_add_all_articles" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_check_article"
+            android:id="@+id/fabCheckArticle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|start"
@@ -26,7 +34,7 @@
             android:src="@drawable/ic_launcher_foreground"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_add_article"
+            android:id="@+id/fabAddArticle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"

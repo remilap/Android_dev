@@ -23,26 +23,33 @@
         </activity>
         <activity
                 android:name=".MainActivity"
-                android:windowSoftInputMode="stateVisible"
                 android:theme="@style/AppTheme.ActionBar">
+            <!--                android:windowSoftInputMode="stateVisible"/ -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
-                android:name=".ui.main.ColoriAddActivity"
-                android:windowSoftInputMode="stateVisible"/>
+                android:name=".ConfigurationActivity">
+        </activity>
         <activity
-                android:name=".ui.main.TailleAddActivity"
-                android:windowSoftInputMode="stateVisible"/>
+                android:name=".ui.main.ColoriAddActivity">
+        </activity>
         <activity
-                android:name=".ui.main.PlaceLogoAddActivity"
-                android:windowSoftInputMode="stateVisible"/>
+                android:name=".ui.main.TailleAddActivity">
+        </activity>
         <activity
-                android:name=".ui.main.ProduitAddActivity"
-                android:windowSoftInputMode="stateVisible"/>
-        <activity android:name=".ui.main.ArticleAddActivity" />
+                android:name=".ui.main.PlaceLogoAddActivity">
+        </activity>
+        <activity
+                android:name=".ui.main.ProduitAddActivity">
+        </activity>
+        <activity
+                android:name=".ui.main.ArticleAddActivity">
+        </activity>
+        <activity android:name=".ui.main.AchatActivity" />
+
     </application>
 
 </manifest>
