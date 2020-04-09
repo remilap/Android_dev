@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">Cluedo</string>
+    <string name="st_nb_joueurs">Nb joueurs</string>
+    <string name="st_title">Hello World!</string>
+    <string name="st_nbj_3">3</string>
+    <string name="st_nbj_4">4</string>
+    <string name="st_distrib_carte">Distribution des cartes</string>
+    <string name="give_nom_joueur">Nom du joueur</string>
+    <string name="st_enigme">Enigme</string>
+    <string name="st_joueur_num">"Joueur "</string>
+    <string-array name="pers_name">
+        <item>Madame Leblanc</item>
+        <item>Madame Pervenche</item>
+        <item>Colonel Moutarde</item>
+        <item>Mademoiselle Rose</item>
+        <item>Docteur Olive</item>
+        <item>Professeur Violet</item>
+    </string-array>
+    <string-array name="pers_coul">
+        <item>blanc</item>
+        <item>bleu</item>
+        <item>jaune</item>
+        <item>rouge</item>
+        <item>vert</item>
+        <item>violet</item>
+    </string-array>
+    <integer-array name="pers_posx">
+        <item>9</item>
+        <item>23</item>
+        <item>0</item>
+        <item>7</item>
+        <item>14</item>
+        <item>23</item>
+    </integer-array>
+    <integer-array name="pers_posy">
+        <item>0</item>
+        <item>6</item>
+        <item>17</item>
+        <item>24</item>
+        <item>0</item>
+        <item>19</item>
+    </integer-array>
+    <string-array name="arme_name">
+        <item>chandelier</item>
+        <item>clef anglaise</item>
+        <item>corde</item>
+        <item>matraque</item>
+        <item>poignard</item>
+        <item>révolver</item>
+    </string-array>
+    <string-array name="lieu_name">
+        <item>Hall</item>
+        <item>Bureau</item>
+        <item>Bibliothèque</item>
+        <item>Salle de billard</item>
+        <item>Véranda</item>
+        <item>Grand salon</item>
+        <item>Cuisine</item>
+        <item>Salle à manger</item>
+        <item>Petit salon</item>
+    </string-array>
+</resources>
