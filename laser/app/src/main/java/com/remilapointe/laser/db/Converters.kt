@@ -2,7 +2,6 @@ package com.remilapointe.laser.db
 
 import androidx.room.TypeConverter
 import java.time.LocalDate
-import java.util.*
 
 class Converters {
 

@@ -71,6 +71,7 @@ class ArticleRepo(
         return produit.elem + "/" + colori.elem + "/" + taille.elem + "/" + placeLogo.elem
     }
 
+    /*
     @WorkerThread
     suspend fun getAllArticlesString() : LiveData<MutableList<String>> {
         d("in Repo, getAllArticlesString")
@@ -80,5 +81,6 @@ class ArticleRepo(
         }
         return allArticles.value?.map { getArticleString(it.id) }
     }
+     */
 
 }

@@ -13,10 +13,13 @@ interface ArticleDao {
     fun getAll(): LiveData<MutableList<Article>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(article: Article)
+    fun insert(article: Article)
 
     @Query("DELETE FROM " + Article.TABLE_NAME + " WHERE " + Article.PRIM_KEY + " = :key")
     suspend fun remove(key: Int) : Int
+
+    @Query("DELETE FROM " + Article.TABLE_NAME)
+    suspend fun removeAll() : Int
 
     @Query("SELECT * FROM " + Article.TABLE_NAME + " WHERE " + Article.PRIM_KEY + " = :key")
     suspend fun get(key: Int) : Article?

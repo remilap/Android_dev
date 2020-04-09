@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 class SplashActivity : AppCompatActivity() {
 
     // This is the loading time of the splash screen
-    private val SPLASH_TIME_OUT: Long = 3000 // 3 sec
+    private val splashTimeOut: Long = 3000 // 3 sec
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +23,7 @@ class SplashActivity : AppCompatActivity() {
                 // close this activity
                 finish()
             },
-            SPLASH_TIME_OUT
+            splashTimeOut
         )
     }
 
