@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">LiveCorona</string>
+    <string name="st_country">Country:</string>
+    <string name="st_total_confirmed">Total Confirmed:</string>
+    <string name="st_total_deaths">Total Deaths:</string>
+    <string name="st_total_recovered">Total Recovered:</string>
+    <string name="st_default_nb">32435465475</string>
+    <string name="app_label">Country Search</string>
+    <string name="search_hint">Country</string>
+</resources>

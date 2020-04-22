@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:padding="2dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txtCountryTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:text="@string/st_country"/>
+
+            <TextView
+                android:id="@+id/txtCountryName"
+                android:layout_toEndOf="@+id/txtCountryTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19sp"
+                android:layout_marginStart="10sp"
+                android:textColor="#000"
+                android:text="@string/st_country"/>
+
+            <TextView
+                android:id="@+id/txtConfirmTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/txtCountryTitle"
+                android:textColor="#000"
+                android:text="@string/st_total_confirmed"/>
+
+            <TextView
+                android:id="@+id/txtConfirmCases"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19sp"
+                android:layout_toEndOf="@+id/txtConfirmTitle"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/txtCountryName"
+                android:layout_marginStart="10dp"
+                android:textColor="#000"
+                android:text="@string/st_default_nb"/>
+
+
+            <TextView
+                android:id="@+id/txtTotalDeathsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/txtConfirmTitle"
+                android:textColor="#000"
+                android:text="@string/st_total_deaths"/>
+
+            <TextView
+                android:id="@+id/txtTotalDeaths"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19sp"
+                android:layout_toEndOf="@+id/txtTotalDeathsTitle"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/txtConfirmCases"
+                android:layout_marginStart="10dp"
+                android:textColor="#000"
+                android:text="@string/st_default_nb"/>
+
+            <TextView
+                android:id="@+id/txtRecoveredTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/txtTotalDeathsTitle"
+                android:textColor="#000"
+                android:text="@string/st_total_recovered"/>
+
+            <TextView
+                android:id="@+id/txtRecovered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19sp"
+                android:layout_toEndOf="@+id/txtRecoveredTitle"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/txtTotalDeaths"
+                android:layout_marginStart="10dp"
+                android:textColor="#000"
+                android:text="@string/st_default_nb"/>
+
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>
