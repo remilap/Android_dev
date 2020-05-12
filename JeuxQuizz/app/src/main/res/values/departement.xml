@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- https://fr.wikipedia.org/wiki/Liste_des_d%C3%A9partements_fran%C3%A7ais -->
+    <string-array name="region">
+        <item>1:Auvergne-Rhône-Alpes</item>
+        <item>2:Hauts-de-France</item>
+        <item>3:Provence-Alpes-Côte d\'Azur</item>
+        <item>4:Grand Est</item>
+        <item>5:Occitanie</item>
+        <item>6:Normandie</item>
+        <item>7:Nouvelle-Aquitaine</item>
+        <item>8:Centre-Val de Loire</item>
+        <item>9:Corse</item>
+        <item>10:Bourgogne-Franche-Comté</item>
+        <item>11:Bretagne</item>
+        <item>12:Pays de la Loire</item>
+        <item>13:Ile-de-France</item>
+        <item>14:Guadeloupe</item>
+        <item>15:Martinique</item>
+        <item>16:Guyane</item>
+        <item>17:La Réunion</item>
+        <item>18:Mayotte</item>
+    </string-array>
+
+    <string-array name="departement">
+        <item>01:Ain:1:Bourg-en-Bresse:de l\'</item>
+        <item>02:Aisne:2:Laon:de l\'</item>
+        <item>03:Allier:1:Moulins:de l\'</item>
+        <item>04:Alpes-de-Haute-Provence:3:Digne-les-Bains:des </item>
+        <item>05:Hautes-Alpes:3:Gap:des </item>
+        <item>06:Alpes-Maritimes:3:Nice:des </item>
+        <item>07:Ardèche:1:Privas:de l\'</item>
+        <item>08:Ardennes:4:Charleville-Mézières:des</item>
+        <item>09:Ariège:5:Foix:de l\'</item>
+        <item>10:Aube:4:Troyes:de l\'</item>
+        <item>11:Aude:5:Carcassonne:de l\'</item>
+        <item>12:Aveyron:5:Rodez:de l\'</item>
+        <item>13:Bouches-du-Rhône:3:Marseille:des </item>
+        <item>14:Calvados:6:Caen:du </item>
+        <item>15:Cantal:1:Aurillac:du </item>
+        <item>16:Charente:7:Angoulême:de la </item>
+        <item>17:Charente-Maritime:7:La Rochelle:de la </item>
+        <item>18:Cher:8:Bourges:du </item>
+        <item>19:Corrèze:7:Tulle:de la </item>
+        <item>2A:Corse-du-Sud:9:Ajaccio:de la </item>
+        <item>2B:Haute-Corse:9:Bastia:de la </item>
+        <item>21:Côte-d\'Or:10:Dijon:de la </item>
+        <item>22:Côtes-d\'Armor:11:Saint-Brieuc:des </item>
+        <item>23:Creuse:7:Guéret:de la </item>
+        <item>24:Dordogne:7:Périgueux:de la </item>
+        <item>25:Doubs:10:Besançon:du </item>
+        <item>26:Drôme:1:Valence:de la </item>
+        <item>27:Eure:6:Evreux:de l\'</item>
+        <item>28:Eure-et-Loire:8:Chartres:de l\'</item>
+        <item>29:Finistère:11:Quimper:du </item>
+        <item>30:Gard:5:Nîmes:du </item>
+        <item>31:Haute-Garonne:5:Toulouse:de la </item>
+        <item>32:Gers:5:Auch:du </item>
+        <item>33:Gironde:7:Bordeaux:de la </item>
+        <item>34:Hérault:5:Montpellier:de l\'</item>
+        <item>35:Ille-et-Vilaine:11:Rennes:de l\'</item>
+        <item>36:Indre:8:Châteauroux:de l\'</item>
+        <item>37:Indre-et-Loire:8:Tours:de l\'</item>
+        <item>38:Isère:1:Grenoble:de l\'</item>
+        <item>39:Jura:10:Lons-le-Saunier:du </item>
+        <item>40:Landes:7:Mont-de-Marsan:des </item>
+        <item>41:Loir-et-Cher:8:Blois:du </item>
+        <item>42:Loire:1:Saint-Etienne:de la </item>
+        <item>43:Haute-Loire:1:Le Puy-en-Velay:de la </item>
+        <item>44:Loire-Atlantique:12:Nantes:de la </item>
+        <item>45:Loiret:8:Orléans:du </item>
+        <item>46:Lot:5:Cahors:du </item>
+        <item>47:Lot-et-Garonne:7:Agen:du </item>
+        <item>48:Lozère:5:Mende:de la </item>
+        <item>49:Maine-et-Loire:12:Angers:du </item>
+        <item>50:Manche:6:Saint-Lô:de la </item>
+        <item>51:Marne:4:Châlons-en-Champagne:de la </item>
+        <item>52:Haute-Marne:4:Chaumont:de la </item>
+        <item>53:Mayenne:12:Laval:de la </item>
+        <item>54:Meurthe-et-Moselle:4:Nancy:de la </item>
+        <item>55:Meuse:4:Bar-le-Duc:de la </item>
+        <item>56:Morbihan:11:Vannes:du </item>
+        <item>57:Moselle:4:Metz:de la </item>
+        <item>58:Nièvre:10:Nevers:de la </item>
+        <item>59:Nord:2:Lille:du </item>
+        <item>60:Oise:2:Beauvais:de l\'</item>
+        <item>61:Orne:6:Alençon:de l\'</item>
+        <item>62:Pas-de-Calais:2:du </item>
+        <item>63:Puy-de-Dôme:1:du </item>
+        <item>64:Pyrénées-Atlantiques:7:des </item>
+        <item>65:Hautes-Pyrénées:5:Tarbes:des </item>
+        <item>66:Pyrénées-Orientales:5:Perpignan:des </item>
+        <item>67:Bas-Rhin:4:Strasbourg:du </item>
+        <item>68:Haut-Rhin:4:Colmar:du </item>
+        <item>69:Rhône:1:Lyon:du </item>
+        <item>70:Haute-Saône:10:de la </item>
+        <item>71:Saône-et-Loire:10:de la </item>
+        <item>72:Sarthe:12:Le Mans:de la </item>
+        <item>73:Savoie:1:Chambéry:de la </item>
+        <item>74:Haute-Savoie:1:Annecy:de la </item>
+        <item>75:Paris:13:Paris:de </item>
+        <item>76:Seine-Maritime:6:Rouen:de la </item>
+        <item>77:Seine-et-Marne:13:Melun:de la </item>
+        <item>78:Yvelines:13:Versailles:des </item>
+        <item>79:Deux-Sèvres:7:Niort:des </item>
+        <item>80:Somme:2:Amiens:de la </item>
+        <item>81:Tarn:5:Albi:du </item>
+        <item>82:Tarn-et-Garonne:5:Montauban:du </item>
+        <item>83:Var:3:Toulon:du </item>
+        <item>84:Vaucluse:3:Avignon:du </item>
+        <item>85:Vendée:12:La Roche-sur-Yon:de la </item>
+        <item>86:Vienne:7:Poitiers:de la </item>
+        <item>87:Haute-Vienne:7:Limoges:de la </item>
+        <item>88:Vosges:4:Epinal:des </item>
+        <item>89:Yonne:10:Auxerre:de l\'</item>
+        <item>90:Territoire de Belfort:10:Belfort:du </item>
+        <item>91:Essone:13:Evry-Courcouronnes:de l\'</item>
+        <item>92:Hauts-de-Seine:13:Nanterre:des </item>
+        <item>93:Seine-Saint-Denis:13:Bobigny:de la </item>
+        <item>94:Val-de-Marne:13:Créteil:du </item>
+        <item>95:Val-d\'Oise:13:Pontoise:du </item>
+        <item>971:Guadeloupe:14:Basse-Terre:de la </item>
+        <item>972:Martinique:15:Fort-de-France:de la </item>
+        <item>973:Guyane:16:Cayenne:de la </item>
+        <item>974:La Réunion:17:Saint-Denis:de </item>
+        <item>976:Mayotte:18:Dzaoudzi:de </item>
+    </string-array>
+
+    <!-- http://soutien67.free.fr/svt/animaux/classification/classification01.htm -->
+    <string-array name="especes_animal">
+        <item>1:poisson</item>
+        <item>2:oiseau</item>
+        <item>3:mammifère</item>
+        <item>4:insecte</item>
+        <item>5:crustacé</item>
+        <item>6:mollusque</item>
+        <item>7:autre</item>
+    </string-array>
+
+    <string-array name="animal">
+        <item>1:chien:3</item>
+        <item>2:chat:3</item>
+        <item>3:cheval:3</item>
+        <item>4:éléphant:3</item>
+        <item>5:souris:3</item>
+        <item>6:autruche:2</item>
+        <item>7:pigeon:2</item>
+        <item>8:corbeau:2</item>
+        <item>9:coq:2</item>
+        <item>10:thon:1</item>
+        <item>11:brochet:1</item>
+        <item>12:truite:1</item>
+        <item>13:saumon:1</item>
+        <item>14:requin:1</item>
+        <item>15:papillon:4</item>
+        <item>16:mouche:4</item>
+        <item>17:moustique:4</item>
+        <item>18:libellule:4</item>
+        <item>19:crabe:5</item>
+        <item>20:crevette:5</item>
+        <item>21:pieuvre:6</item>
+        <item>22:poulpe:6</item>
+        <item>23:huître:6</item>
+        <item>24:moule:6</item>
+        <item>25:escargot:6</item>
+        <item>26:limace:6</item>
+        <item>27:étoile de mer:7</item>
+        <item>28:méduse:7</item>
+        <item>29:ver de terre:7</item>
+        <item>30:alligator:7</item>
+        <item>31:crocodile:7</item>
+        <item>32:tortue:7</item>
+        <item>33:lézard:7</item>
+        <item>34:serpent:7</item>
+        <item>35:grenouille:7</item>
+        <item>36:crapaud:7</item>
+        <item>37:mille-pattes:7</item>
+    </string-array>
+
+    <!-- https://fr.wikipedia.org/wiki/Liste_de_noms_de_couleur -->
+    <string-array name="couleur">
+        <item>1:Abricot:E67E30</item>
+        <item>2:Acajou:88421D</item>
+        <item>3:Aigue-marine:79F8F8</item>
+        <item>4:Alezan:A76726:chevaux</item>
+        <item>5:Amande:82C46C</item>
+        <item>6:Amarante:91283B</item>
+        <item>7:Ambre:F0C300</item>
+        <item>8:Améthyste:884DA7</item>
+        <item>9:Anthracite:303030</item>
+        <item>10:Aquilain:AD4F09:chevaux</item>
+        <item>11:Argent:FFFFFF:héraldique</item>
+        <item>12:Aubergine:370028</item>
+        <item>13:Auburn:9D3E0C:cheveux</item>
+        <item>14:Aurore:FFCB60</item>
+        <item>15:Avocat:568203</item>
+        <item>16:Azur:007FFF</item>
+        <item>17:Baillet:AE642D:chevaux, vieilli</item>
+        <item>18:Basané:8B6C42:teint</item>
+        <item>19:Beurre:F0E36B</item>
+        <item>20:Bis:766F64</item>
+        <item>21:Bisque:FFE4C4</item>
+        <item>22:Bistre:856D4D</item>
+        <item>23:Bitume:4E3D28:pigment</item>
+        <item>24:Blanc cassé:FEFEE2</item>
+        <item>25:Blanc lunaire:F4FEFE</item>
+        <item>26:Blé:E8D630</item>
+        <item>27:Bleu acier:3A8EBA</item>
+        <item>28:Bleu barbeau:5472AE:bleuet</item>
+        <item>29:Bleu canard:048B9A</item>
+        <item>30:Bleu céleste:26C4EC</item>
+        <item>31:Bleu charrette:8EA2C6</item>
+        <item>32:Bleu ciel:77B5FE</item>
+        <item>33:Bleu de cobalt:22427C</item>
+        <item>34:Bleu de Prusse:24445C</item>
+        <item>35:Bleu de Berlin:24445C</item>
+        <item>36:Bleu hussard:24445C</item>
+        <item>37:Bleu électrique:2C75FF</item>
+        <item>38:Bleu givré:80D0D0</item>
+        <item>39:Bleu marine:03224C</item>
+        <item>40:Bleu nuit:0F056B</item>
+        <item>41:Bleu outremer:004787:pigment</item>
+        <item>42:Bleu paon:067790</item>
+        <item>43:Bleu persan:4E63CE</item>
+        <item>44:Bleu pétrole:1D4851</item>
+        <item>45:Bleu roi:318CE7</item>
+        <item>46:Bleu de France:318CE7</item>
+        <item>47:Bleu turquin:425B8A</item>
+        <item>48:Blond vénitien:E7A854:cheveux</item>
+        <item>49:Blond:E2BC74:cheveux</item>
+        <item>50:Bouton d\'or:FCDC12</item>
+        <item>51:Brique:842E1B</item>
+        <item>52:Bronze:614E1A</item>
+        <item>53:Brou de noix:3F2204</item>
+        <item>54:Caca d\'oie:CDCD0D</item>
+        <item>55:Cacao:614B3A</item>
+        <item>56:Cachou:2F1B0C:pigments</item>
+        <item>57:Caeruleum:357AB7</item>
+        <item>58:Café:462E01</item>
+        <item>59:Café au lait:785E2F</item>
+        <item>60:Cannelle:7E5835</item>
+        <item>61:Capucine:FF5E4D</item>
+        <item>62:Caramel:7E3300:pigments</item>
+        <item>63:Carmin:960018:pigment</item>
+        <item>64:Carotte:F4661B</item>
+        <item>65:Chamois:D0C07A</item>
+        <item>66:Chartreuse:7FFF00</item>
+        <item>67:Châtain:8B6C42:cheveux</item>
+        <item>68:Chaudron:85530F</item>
+        <item>69:Chocolat:5A3A22</item>
+        <item>70:Cinabre:DB1702:pigment</item>
+        <item>71:Citrouille:DF6D14</item>
+        <item>72:Coquille d\'oeuf:FDE9E0</item>
+        <item>73:Corail:E73E01</item>
+        <item>74:Cramoisi:DC143C</item>
+        <item>75:Cuisse de nymphe:FEE7F0</item>
+        <item>76:Cuivre:B36700</item>
+        <item>77:Cyan:2BFAFA</item>
+        <item>78:Écarlate:ED0000</item>
+        <item>79:Écru:FEFEE0</item>
+        <item>80:Émeraude:00815F:pigment PG18</item>
+        <item>81:Fauve:AD4F09</item>
+        <item>82:Flave:E6E697</item>
+        <item>83:Fraise:BF3030</item>
+        <item>84:Fraise écrasée:A42424</item>
+        <item>85:Framboise:C72C48</item>
+        <item>86:Fuchsia:FD3F92</item>
+        <item>87:Fumée:BBD2E1</item>
+        <item>88:Garance:EE1010:pigment</item>
+        <item>89:Glauque:649B88</item>
+        <item>90:Glycine:C9A0DC</item>
+        <item>91:Grège:BBAE98</item>
+        <item>92:Grenadine:E9383F</item>
+        <item>93:Grenat:6E0B14</item>
+        <item>94:Gris acier:AFAFAF</item>
+        <item>95:Gris de Payne:AFAFAF</item>
+        <item>96:Gris fer:7F7F7F</item>
+        <item>97:Gris perle:CECECE</item>
+        <item>98:Gris souris:9E9E9E</item>
+        <item>99:Groseille:CF0A1D</item>
+        <item>100:Gueules:E21313:héraldique</item>
+        <item>101:Héliotrope:DF73FF</item>
+        <item>102:Incarnat:FF6F7D</item>
+        <item>103:Indigo:791CF8:teinture</item>
+        <item>104:Indigo:2E006C:teinture</item>
+        <item>105:Isabelle:FEA777</item>
+        <item>106:Jaune canari:E7F00D</item>
+        <item>107:Jaune citron:F7FF3C</item>
+        <item>108:Jaune d\'or:EFD807</item>
+        <item>109:Jaune de cobalt:FDEE00</item>
+        <item>110:Jaune de Mars:EED153:pigment</item>
+        <item>111:Jaune de Naples:FFF0BC:pigment</item>
+        <item>112:Jaune impérial:FFE436</item>
+        <item>113:Jaune mimosa:FEF86C</item>
+        <item>114:Lapis-lazuli:26619C</item>
+        <item>115:Lavallière:8F5922:reliure</item>
+        <item>116:Lavande:9683EC</item>
+        <item>117:Lie de vin:AC1E44</item>
+        <item>118:Lilas:B666D2</item>
+        <item>119:Lime:9EFD38:vert citron</item>
+        <item>120:Vert citron:9EFD38</item>
+        <item>121:Lin:FAF0E6</item>
+        <item>122:Magenta:FF00FF</item>
+        <item>123:Maïs:FFDE75</item>
+        <item>124:Malachite:1FA055</item>
+        <item>125:Mandarine:FEA347</item>
+        <item>126:Mastic:B3B191</item>
+        <item>127:Mauve:D473D4</item>
+        <item>128:Menthe:16B84E</item>
+        <item>129:Moutarde:C7CF00</item>
+        <item>130:Nacarat:FC5D5D</item>
+        <item>131:Nankin:F7E269</item>
+        <item>132:Noisette:955628</item>
+        <item>133:Ocre jaune:DFAF2C</item>
+        <item>134:Ocre rouge:DD985C</item>
+        <item>135:Olive:708D23</item>
+        <item>136:Or:FFD700:couleur</item>
+        <item>137:Orange brûlé:CC5500</item>
+        <item>138:Orchidée:DA70D6</item>
+        <item>139:Orpiment:FCD21C:pigment</item>
+        <item>140:Paille:FEE347</item>
+        <item>141:Parme:CFA0E9</item>
+        <item>142:Pelure d\'oignon:D58490</item>
+        <item>143:Pervenche:CCCCFF</item>
+        <item>144:Pistache:BEF574</item>
+        <item>145:Poil de chameau:B67823</item>
+        <item>146:Ponceau:C60800</item>
+        <item>147:Coquelicot:C60800</item>
+        <item>148:Pourpre:9E0E40:héraldique</item>
+        <item>149:Prasin:4CA66B</item>
+        <item>150:Prune:811453</item>
+        <item>151:Puce:4E1609</item>
+        <item>152:Rose Mountbatten:997A8D</item>
+        <item>153:Rouge anglais:F7230C:pigment</item>
+        <item>154:Rouge cardinal:B82010</item>
+        <item>155:Rouge cerise:BB0B0B</item>
+        <item>156:Rouge d\'Andrinople:A91101:teinture</item>
+        <item>157:Rouge de Falun:801818:pigment</item>
+        <item>158:Rouge feu:FF4901</item>
+        <item>159:Rouge indien:CD5C5C:pigment</item>
+        <item>160:Rouge sang:850606</item>
+        <item>161:Rouge tomette:AE4A34</item>
+        <item>162:Rouille:985717</item>
+        <item>163:Roux:AD4F09</item>
+        <item>164:Rubis:E0115F</item>
+        <item>165:Sable:E0CDA9</item>
+        <item>166:Safre:0131B4</item>
+        <item>167:Sang de boeuf:730800</item>
+        <item>168:Sanguine:850606</item>
+        <item>169:Saphir:0131B4</item>
+        <item>170:Sarcelle:008080</item>
+        <item>171:Saumon:F88E55</item>
+        <item>172:Sépia:AE8964</item>
+        <item>173:Sinople:149414:héraldique</item>
+        <item>174:Smalt:003399</item>
+        <item>175:Soufre:FFFF6B</item>
+        <item>176:Tabac:9F551E</item>
+        <item>177:Taupe:463F32</item>
+        <item>178:Terre d\'ombre:926D27</item>
+        <item>179:Tomate:DE2916</item>
+        <item>180:Topaze:FAEA73</item>
+        <item>181:Tourterelle:BBACAC:colombin</item>
+        <item>182:Colombin:BBACAC</item>
+        <item>183:Turquoise:25FDE9</item>
+        <item>184:Vanille:E1CE9A</item>
+        <item>185:Vermeil:FF0921</item>
+        <item>186:Vermillon:DB1702</item>
+        <item>187:Vert bouteille:096A09</item>
+        <item>188:Vert céladon:83A697</item>
+        <item>189:Vert d\'eau:B0F2B6</item>
+        <item>190:Vert de chrome:18391E</item>
+        <item>191:Vert-de-gris:95A595</item>
+        <item>192:Vert de Hooker:1B4F08</item>
+        <item>193:Vert de vessie:22780F</item>
+        <item>194:Vert émeraude366735:ou Smaragdin, RAL 6001</item>
+        <item>195:Smaragdin:366735:RAL 6001</item>
+        <item>196:Vert épinard:175732</item>
+        <item>197:Vert impérial:00561B</item>
+        <item>198:Vert lichen:85C17E</item>
+        <item>199:Vert olive:556B2F</item>
+        <item>200:Vert perroquet:3AF24B</item>
+        <item>201:Vert poireau:4CA66B</item>
+        <item>202:Vert pomme:34C924</item>
+        <item>203:Vert prairie:57D53B</item>
+        <item>204:Vert printemps:00FF7F</item>
+        <item>205:Vert sapin:095228</item>
+        <item>206:Vert sauge:689D71</item>
+        <item>207:Vert tilleul:A5D152</item>
+        <item>208:Vert Véronèse:5A6521</item>
+        <item>209:Violet d\'évêque:723E64</item>
+        <item>210:Viride:40826D</item>
+        <item>211:Zinzolin:6C0277</item>
+    </string-array>
+
+</resources>

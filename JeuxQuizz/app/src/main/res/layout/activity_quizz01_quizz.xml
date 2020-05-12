@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.darshankomu.quiz.MainQuiz">
+
+    <TextView
+        android:id="@+id/tv_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/st_score"
+        android:textSize="20sp"
+        />
+
+    <TextView
+        android:id="@+id/tv_time_counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:20"
+        android:textSize="25sp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/black"
+        android:padding="10dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_question_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:padding="10dp"
+        android:text="@string/st_question"
+        android:textSize="18sp"
+        />
+
+
+
+    <TextView
+        android:id="@+id/tv_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_time_counter"
+        android:layout_marginTop="19dp"
+        android:gravity="center"
+        android:text="@string/st_this_is_question"
+        android:textSize="20sp" />
+
+    <RadioGroup
+        android:id="@+id/rg_reponses_01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_centerVertical="true"
+        android:padding="10dp">
+        <RadioButton
+            android:id="@+id/rb_rep1_01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/st_option_1"
+            />
+        <RadioButton
+            android:id="@+id/rb_rep2_01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/st_option_1"
+            />
+        <RadioButton
+            android:id="@+id/rb_rep3_01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/st_option_1"
+            />
+
+    </RadioGroup>
+
+
+    <Button
+        android:id="@+id/bt_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/st_submit"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        />
+
+</RelativeLayout>

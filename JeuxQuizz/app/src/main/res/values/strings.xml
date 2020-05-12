@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Jeux Quizz</string>
+    <string name="st_quizz_premiere_lettre">Trouver un mot commençant par</string>
+    <string name="st_valid">Valider la réponse</string>
+    <string name="quel_est_chef_lieu">\"Quel est le chef-lieu \"</string>
+    <string name="st_start">Start</string>
+    <string name="st_my_highscore">"My HighScore: %1$d"</string>
+    <string name="st_submit">Submit</string>
+    <string name="st_option_1">Option 1</string>
+    <string name="st_this_is_question">This is Question \nThis is Question</string>
+    <string name="st_question">Question %1$d/%2$d</string>
+    <string name="st_score">"Score: %1$d"</string>
+    <string name="st_correct_answer">Correct answer</string>
+    <string name="st_incorrect_answer">Bad answer, see correct one below</string>
+    <string name="st_next">Next</string>
+    <string name="st_finish">Finish</string>
+    <string name="st_quizz_test">Quiz de test</string>
+
+</resources>
