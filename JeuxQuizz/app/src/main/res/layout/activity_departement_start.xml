@@ -11,7 +11,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:src="@drawable/quizlogo"
+        android:src="@drawable/quizdeptlogo"
         android:layout_margin="16dp"
         />
 
@@ -28,7 +28,7 @@
          /> -->
 
     <TextView
-        android:id="@+id/tv_highscore_quiz01"
+        android:id="@+id/tv_highscore_dept"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/st_my_highscore"
@@ -39,7 +39,7 @@
         />
 
     <Button
-        android:id="@+id/bt_start_quiz01"
+        android:id="@+id/bt_start_dept"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/st_start"

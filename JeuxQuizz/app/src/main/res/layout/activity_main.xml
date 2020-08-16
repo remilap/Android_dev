@@ -36,7 +36,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bt_quizz_test"
         android:layout_marginTop="8dp"
-        android:text="@string/st_quizz_premiere_lettre"
+        android:text="@string/st_quizz_departement"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

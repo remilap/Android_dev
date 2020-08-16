@@ -17,9 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.Quizz01StartActivity" />
-        <activity android:name=".activity.Quizz01MainActivity" />
-        <activity android:name=".activity.QuizzDepartementStartActivity" />
+        <activity android:name=".activity.Quiz01StartActivity" />
+        <activity android:name=".activity.Quiz01MainActivity" />
+        <activity android:name=".activity.QuizDepartementStartActivity" />
     </application>
 
 </manifest>

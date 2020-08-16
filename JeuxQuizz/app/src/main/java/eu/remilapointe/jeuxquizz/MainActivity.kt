@@ -6,7 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.log4k.d
-import eu.remilapointe.jeuxquizz.activity.Quizz01StartActivity
+import eu.remilapointe.jeuxquizz.activity.Quiz01StartActivity
+import eu.remilapointe.jeuxquizz.activity.QuizDepartementStartActivity
 import eu.remilapointe.jeuxquizz.db.QuizzDb
 import eu.remilapointe.jeuxquizz.entity.Departement
 import eu.remilapointe.jeuxquizz.entity.Region
@@ -22,13 +23,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         bt_quizz_test.setOnClickListener {
-            val intent = Intent(applicationContext, Quizz01StartActivity::class.java)
+            val intent = Intent(applicationContext, Quiz01StartActivity::class.java)
             intent.putExtra(QUIZ_REFERENCE, "test")
             startActivity(intent)
         }
 
         bt_quizz_premiere_lettre.setOnClickListener {
-            val intent = Intent(applicationContext, Quizz01StartActivity::class.java)
+            val intent = Intent(applicationContext, QuizDepartementStartActivity::class.java)
             intent.putExtra(QUIZ_REFERENCE, "test")
             startActivity(intent)
         }
