@@ -6,10 +6,8 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.View
 import android.widget.RadioButton
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.log4k.d
 import eu.remilapointe.jeuxquizz.R
@@ -19,7 +17,7 @@ import org.jetbrains.anko.toast
 import java.util.*
 import java.util.Collections.shuffle
 
-class Quizz01MainActivity : AppCompatActivity() {
+class Quiz01MainActivity : AppCompatActivity() {
 
     private var colorStateList: ColorStateList? = null
     private var colorStateListCountDown: ColorStateList? = null
@@ -49,7 +47,7 @@ class Quizz01MainActivity : AppCompatActivity() {
 
         loadTest()
 
-        qCountTotal = questionSetsList!!.size
+        qCountTotal = questionSetsList.size
         shuffle(questionSetsList)
 
         showQuestion()
@@ -75,11 +73,11 @@ class Quizz01MainActivity : AppCompatActivity() {
         rg_reponses_01.clearCheck()
 
         if (qCounter < qCountTotal) {
-            currQuestion = questionSetsList?.get(qCounter) as Question?
+            currQuestion = questionSetsList.get(qCounter)
             tv_question.text = currQuestion?.mQuestion
-            rb_rep1_01.setText(currQuestion?.mOption1)
-            rb_rep2_01.setText(currQuestion?.mOption2)
-            rb_rep3_01.setText(currQuestion?.mOption3)
+            rb_rep1_01.text = currQuestion?.mOption1
+            rb_rep2_01.text = currQuestion?.mOption2
+            rb_rep3_01.text = currQuestion?.mOption3
 
             qCounter++
             tv_question_count.text = resources.getString(R.string.st_question, qCounter, qCountTotal)
