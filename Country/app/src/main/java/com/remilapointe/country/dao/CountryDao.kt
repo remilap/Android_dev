@@ -1,28 +1,27 @@
-package com.remilapointe.country.dao
+package eu.remilapointe.country.dao
 
-import androidx.paging.DataSource
-import androidx.room.*
-import com.remilapointe.country.db.CountryDb
-import com.remilapointe.country.entity.Country
+import androidx.lifecycle.LiveData
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import eu.remilapointe.country.entity.Country
 
 @Dao
 interface CountryDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addCountry(country: Country)
+    @Query("SELECT * FROM " + Country.TABLE_NAME + " ORDER BY " + Country.PRIM_KEY + " ASC")
+    fun getAll(): LiveData<MutableList<Country>>
 
-    @Insert
-    fun addCountry(countries: List<Country>)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insert(country: Country)
 
-    @Update
-    fun updateCountry(country: Country)
+    @Query("DELETE FROM " + Country.TABLE_NAME + " WHERE " + Country.PRIM_KEY + " = :key")
+    suspend fun remove(key: Long) : Int
 
-    @Delete
-    fun reallyDeleteCountry(country: Country)
+    @Query("DELETE FROM " + Country.TABLE_NAME)
+    fun removeAll() : Int
 
-    @Query("SELECT * FROM ${CountryDb.DB_NAME} ORDER BY name_id")
-    fun listCountriesByName(): DataSource.Factory<Int, Country>
-
-    @Query("SELECT * FROM ${CountryDb.DB_NAME} WHERE id = :id")
-    fun getCountryById(id: Long): Country
+    @Query("SELECT * FROM " + Country.TABLE_NAME + " WHERE " + Country.PRIM_KEY + " = :key")
+    fun get(key: Long) : Country?
 
 }

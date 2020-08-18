@@ -1,13 +1,4 @@
 <resources>
     <string name="app_name">Country</string>
-    <string name="add_country">Add country</string>
-    <string name="add">Add</string>
-    <string name="country">Country</string>
-    <string name="txt_name">Country name</string>
-    <string name="txt_population">Population</string>
-    <string name="txt_surface">Surface</string>
-    <string name="txt_capital">Capital</string>
-    <string name="txt_surface_unit">km²</string>
-    <string name="txt_ok">OK</string>
-    <string name="txt_cancel">Cancel</string>
+    <string name="title_item_detail">Item Detail</string>
 </resources>

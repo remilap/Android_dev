@@ -1,57 +1,44 @@
-package com.remilapointe.country.entity
+package eu.remilapointe.country.entity
 
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.remilapointe.country.dao.CountryDao
-import com.remilapointe.country.db.CountryDb
-import java.io.Serializable
+import java.time.LocalDate
 
-@Entity(tableName = CountryDb.DB_NAME)
+@Entity(
+    tableName = Country.TABLE_NAME
+)
 data class Country(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    var id: Long,
-
-    @ColumnInfo(name = "name_id")
-    var name_id: Long = 0,
-
-    @ColumnInfo(name = "capital_id")
-    var capitale_id: Long = 0,
-
-    @ColumnInfo(name = "abbrev")
-    var abbrev: String = "FR",
-
-    @ColumnInfo(name = "surface_id")
-    var surface_id: Long = 0,
-
-    @ColumnInfo(name = "population_id")
-    var population_id: Long = 0,
-
-    @ColumnInfo(name = "ue_entry_in")
-    var ue_entry_in: Int = 0,
-
-    @ColumnInfo(name = "money")
-    var money: String = "Euro",
-
-    @ColumnInfo(name = "in_schengen")
-    var in_schengen: Boolean = true,
-
-    @ColumnInfo(name = "langage")
-    var langage: String = "Français",
-
-    @ColumnInfo(name = "visited_in")
-    var visited_in: String = "2018"
-
-) : Serializable {
-
-    constructor(): this(0, 0, 0, "", 0, 0, 0, "", false, "", "")
-
-    override fun toString(): String {
-        return id.toString() +
-                '|' + name_id +
-                '|' + capitale_id +
-                '|' + abbrev
+    @NonNull var id: Long,
+    var nameId: Long, // id of StringWithLanguage
+    var capitaleId: Long, // id of StringWithLanguage
+    var abbrev: String,
+    var surfaceId: Long, // id of LongWithDate
+    var populationId: Long, // id of LongWithDate
+    var UEEntryIn: LocalDate?,
+    var UEExitIn: LocalDate?,
+    var inSchengen: Boolean = false,
+    var languages: String, // different languages comma separated
+    var money: Long, // id of StringWithDate
+    var visitedIn: String // different dates comma separated
+    ) {
+    companion object {
+        const val ELEM = "country"
+        const val TABLE_NAME = "country_$ELEM"
+        const val PRIM_KEY = "id"
+        const val NAMEID = "nameId"
+        const val CAPITALEID = "capitaleId"
+        const val ABBREV = "abbrev"
+        const val SURFACEID = "surfaceId"
+        const val POPULATIONID = "populationId"
+        const val UEENTRYIN = "UEEntryIn"
+        const val UEEXITIN = "UEExitIn"
+        const val INSCHENGEN = "inSchengen"
+        const val LANGUAGES = "languages"
+        const val MONEYID = "moneyId"
+        const val VISITEDIN = "visitedIn"
     }
-
 }

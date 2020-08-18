@@ -1,29 +1,29 @@
-package com.remilapointe.country.business
+package eu.remilapointe.country.business
 
-import java.util.*
+import java.time.LocalDate
 
 class InfoWithDate<T> {
 
-    private var lst : HashMap<Date, T> = hashMapOf()
+    private var lst : HashMap<LocalDate, T> = hashMapOf()
 
-    fun addInfo(date: Date, info: T) {
+    fun addInfo(date: LocalDate, info: T) {
         if (! lst.containsKey(date)) {
             lst[date] = info
         }
     }
 
-    fun getInfoForDate(date: Date) : T? {
+    fun getInfoForDate(date: LocalDate) : T? {
         if (lst.containsKey(date)) {
-            return lst[date]!!
+            return lst[date]
         }
         return null
     }
 
-    fun getSortedDates() : List<Date> {
+    fun getSortedDates() : List<LocalDate> {
         return lst.keys.sorted()
     }
 
-    fun getMostRecentDate() : Date? {
+    fun getMostRecentDate() : LocalDate? {
         return getSortedDates()[0]
     }
 

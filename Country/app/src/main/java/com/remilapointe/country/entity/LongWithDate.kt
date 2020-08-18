@@ -1,23 +1,33 @@
-package com.remilapointe.country.entity
+package eu.remilapointe.country.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.remilapointe.country.db.LongWithDateDb
-import java.util.*
+import java.time.LocalDate
 
-@Entity(tableName = LongWithDateDb.DB_NAME)
+@Entity(
+    tableName = LongWithDate.TABLE_NAME
+)
 data class LongWithDate(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
     var id: Long,
-
-    @ColumnInfo(name = "date")
-    var date: Date = Calendar.getInstance().time,
-
-    @ColumnInfo(name = "value")
+    @ColumnInfo(index = true)
+    var info: Int,
+    @ColumnInfo(index = true)
+    var country_id: Long,
+    var date: LocalDate = LocalDate.now(),
     var value: Long = 0
-
 ) {
-    constructor() : this(0, Calendar.getInstance().time, 0)
+    companion object {
+        const val ELEM = "longWithDate"
+        const val TABLE_NAME = "${Country.ELEM}_$ELEM"
+        const val PRIM_KEY = "id"
+        const val LONG_INFO = "info"
+        const val LONG_COUNTRY_ID = "country_id"
+        const val LONG_DATE = "date"
+        const val LONG_VALUE = "value"
+        const val LONG_INFO_SURFACE = 1
+        const val LONG_INFO_POPULATION = 2
+    }
+
 }
