@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.remilapointe.album.entity.Album
+import com.remilapointe.album.model.AlbumDetailsHolder
 import com.remilapointe.album.model.AlbumViewHolder
 
 /**
@@ -20,14 +21,14 @@ import com.remilapointe.album.model.AlbumViewHolder
  * @see android.arch.paging.PagedListAdapter
  * @see android.arch.paging.AsyncPagedListDiffer
  */
-class AlbumAdapter(val clickListener: ((Album) -> Unit)?) : PagedListAdapter<Album, AlbumViewHolder>(diffCallback) {
+class AlbumAdapter(val clickListener: ((Album) -> Unit)?) : PagedListAdapter<Album, AlbumDetailsHolder>(diffCallback) {
 
-    override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AlbumDetailsHolder, position: Int) {
         holder.bindTo(getItem(position)!!, clickListener!!)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder =
-        AlbumViewHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumDetailsHolder =
+        AlbumDetailsHolder(parent)
 
     companion object {
         /**
