@@ -3,4 +3,7 @@
     <string name="string_movie_name">Movie name</string>
     <string name="string_director_name">Director</string>
     <string name="string_year">Year</string>
+    <string name="title_no_intent">This is a sample news title which has no intent</string>
+    <string name="washington_post">Washington Post</string>
+    <string name="date_ini">9 Mar 2020</string>
 </resources>
