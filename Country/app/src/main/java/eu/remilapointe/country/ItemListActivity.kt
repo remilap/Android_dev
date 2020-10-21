@@ -9,6 +9,7 @@ import eu.remilapointe.country.dao.CountryDao
 import eu.remilapointe.country.db.CountryDb
 
 import eu.remilapointe.country.dummy.DummyContent
+import eu.remilapointe.country.entity.Country
 import eu.remilapointe.country.repository.CountryRepo
 import kotlinx.android.synthetic.main.activity_item_list.*
 import kotlinx.android.synthetic.main.item_list.*
@@ -29,10 +30,14 @@ class ItemListActivity : AppCompatActivity() {
      */
     private var twoPane: Boolean = false
 
+    var countryLis: ArrayList<Country> = arrayListOf()
+    lateinit var rvCountries: RecyclerView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item_list)
         d("OnCreate ItemListActivity")
+        rvCountries = findViewById(R.id.item_list)
 
         setSupportActionBar(toolbar)
         toolbar.title = title

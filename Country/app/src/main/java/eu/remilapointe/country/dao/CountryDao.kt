@@ -1,10 +1,7 @@
 package eu.remilapointe.country.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import eu.remilapointe.country.entity.Country
 
 @Dao
@@ -14,6 +11,9 @@ interface CountryDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(country: Country)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun update(country: Country)
 
     @Query("DELETE FROM " + Country.TABLE_NAME + " WHERE " + Country.PRIM_KEY + " = :key")
     suspend fun remove(key: Long) : Int
