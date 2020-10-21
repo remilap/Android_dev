@@ -1,11 +1,20 @@
 package eu.remilapointe.jeuxquizz
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.DataStore
+import androidx.datastore.preferences.*
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import com.log4k.d
+import eu.remilapointe.jeuxquizz.SettingsManager.Companion.QUIZ_REFERENCE
+import eu.remilapointe.jeuxquizz.SettingsManager.Companion.SELECTED_QUIZ
+import eu.remilapointe.jeuxquizz.SettingsManager.Companion.quizList
 import eu.remilapointe.jeuxquizz.activity.Quiz01StartActivity
 import eu.remilapointe.jeuxquizz.activity.QuizDepartementStartActivity
 import eu.remilapointe.jeuxquizz.db.QuizzDb
@@ -14,21 +23,53 @@ import eu.remilapointe.jeuxquizz.entity.Region
 import eu.remilapointe.jeuxquizz.entity.Ville
 import eu.remilapointe.jeuxquizz.repository.QuizzRegionRepository
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.jetbrains.anko.toast
+
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var settingsManager: SettingsManager
+    private var selectedQuiz: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        bt_quizz_test.setOnClickListener {
-            val intent = Intent(applicationContext, Quiz01StartActivity::class.java)
-            intent.putExtra(QUIZ_REFERENCE, "test")
-            startActivity(intent)
+        settingsManager = SettingsManager(applicationContext)
+
+        bt_quiz_test.setOnClickListener {
+            var selectedItem: Int = 0
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Choose some animals")
+
+// Add a checkbox list
+            builder.setSingleChoiceItems(quizList, 0,
+                DialogInterface.OnClickListener { _, which ->
+                    selectedItem = which
+                    lifecycleScope.launch { settingsManager.setSelectedQuiz(which) }
+                }
+            )
+// Add OK and Cancel buttons
+            builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+                // The user clicked OK
+                toast("choix : ${quizList[selectedItem]}")
+                val intent = Intent(applicationContext, Quiz01StartActivity::class.java)
+                intent.putExtra(QUIZ_REFERENCE, selectedItem)
+                startActivity(intent)
+            })
+            builder.setNegativeButton("Cancel", DialogInterface.OnClickListener{ dialog, which ->
+                // The user clicked Cancel
+                dialog.cancel()
+            })
+// Create and show the alert dialog
+            val dialog: AlertDialog = builder.create()
+            dialog.show()
         }
 
-        bt_quizz_premiere_lettre.setOnClickListener {
+        bt_quiz_departement.setOnClickListener {
             val intent = Intent(applicationContext, QuizDepartementStartActivity::class.java)
             intent.putExtra(QUIZ_REFERENCE, "test")
             startActivity(intent)
@@ -52,11 +93,11 @@ class MainActivity : AppCompatActivity() {
         val regions = ctx.resources.getStringArray(R.array.region)
         // with following format: <item>1:Auvergne-Rhône-Alpes</item>
         for (regionLine in regions) {
-            Log.d("MAIN","Region line: $regionLine")
+            Log.d("MAIN", "Region line: $regionLine")
             val elems = regionLine.split(":")
             region = Region(0, elems[0].toInt(), elems[1])
             regionDao.insert(region)
-            Log.d("MAIN","Region inserted: ${repository.regionToString(region)}")
+            Log.d("MAIN", "Region inserted: ${repository.regionToString(region)}")
         }
 
         val departements = ctx.resources.getStringArray(R.array.departement)
@@ -78,7 +119,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    companion object {
-        const val QUIZ_REFERENCE = "QUIZ_REFERENCE"
-    }
 }

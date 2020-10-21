@@ -3,8 +3,10 @@ package eu.remilapointe.jeuxquizz.business
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import eu.remilapointe.jeuxquizz.MainActivity
+import eu.remilapointe.jeuxquizz.SettingsManager
 
-class HighScore(activity: Activity, private val whichPref: String) {
+class HighScore(activity: Activity, private val whichPrefInt: Int) {
 
     var preferences: SharedPreferences
     var mhighscore: Int = 0
@@ -14,6 +16,7 @@ class HighScore(activity: Activity, private val whichPref: String) {
     }
 
     fun getUpdatedHighScore(score: Int) : Int {
+        val whichPref = SettingsManager.quizList[whichPrefInt]
         mhighscore = preferences.getInt(whichPref, 0)
         if (score > mhighscore) {
             mhighscore = score
@@ -25,13 +28,14 @@ class HighScore(activity: Activity, private val whichPref: String) {
     }
 
     fun getHighScore() : Int {
+        val whichPref = SettingsManager.quizList[whichPrefInt]
         mhighscore = preferences.getInt(whichPref, 0)
         return mhighscore
     }
 
     companion object {
-        val PREFS = "quizz_shared_prefs"
-        val HIGH_SCORE_QUIZ01 = "high_score_quiz01"
+        const val PREFS = "quizz_shared_prefs"
+        const val HIGH_SCORE_QUIZ01 = "high_score_quiz01"
         val HIGH_SCORE_DEPARTEMENT = "high_score_departement"
     }
 

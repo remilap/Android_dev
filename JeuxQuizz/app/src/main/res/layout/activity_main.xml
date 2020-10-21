@@ -10,7 +10,7 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="@string/app_title"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -18,7 +18,7 @@
         />
 
     <Button
-        android:id="@+id/bt_quizz_test"
+        android:id="@+id/bt_quiz_test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,12 +29,12 @@
         />
 
     <Button
-        android:id="@+id/bt_quizz_premiere_lettre"
+        android:id="@+id/bt_quiz_departement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bt_quizz_test"
+        app:layout_constraintTop_toBottomOf="@id/bt_quiz_test"
         android:layout_marginTop="8dp"
         android:text="@string/st_quizz_departement"
         />
