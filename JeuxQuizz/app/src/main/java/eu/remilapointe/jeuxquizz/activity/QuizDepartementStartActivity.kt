@@ -17,7 +17,7 @@ class QuizDepartementStartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_departement_start)
 
-        highScoreMgt = HighScore(this, HighScore.HIGH_SCORE_QUIZ01)
+        highScoreMgt = HighScore(this, HighScore.HIGH_SCORE_QUIZ01_INT)
         val mhighscore = highScoreMgt.getHighScore()
         displayHighScore(mhighscore)
         bt_start_dept.setOnClickListener {

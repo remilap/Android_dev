@@ -36,7 +36,9 @@ class HighScore(activity: Activity, private val whichPrefInt: Int) {
     companion object {
         const val PREFS = "quizz_shared_prefs"
         const val HIGH_SCORE_QUIZ01 = "high_score_quiz01"
-        val HIGH_SCORE_DEPARTEMENT = "high_score_departement"
+        const val HIGH_SCORE_QUIZ01_INT = 1
+        const val HIGH_SCORE_DEPARTEMENT = "high_score_departement"
+        const val HIGH_SCORE_DEPARTEMENT_INT = 2
     }
 
 }
