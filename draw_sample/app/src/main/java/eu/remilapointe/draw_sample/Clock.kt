@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Clock(modifier: Modifier = Modifier, animationStart: MutableState<Boolean>) {
+fun clock(modifier: Modifier = Modifier, animationStart: MutableState<Boolean>) {
     var currentAngle = 0f
     var previousT = 0f
 

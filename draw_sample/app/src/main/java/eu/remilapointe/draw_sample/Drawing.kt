@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.pointerInteropFilter
 
 @Composable
-fun Drawing() {
+fun drawing() {
 
     val action: MutableState<Any?> = mutableStateOf(null)
     val path = Path()
