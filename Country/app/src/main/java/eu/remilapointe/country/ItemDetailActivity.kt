@@ -6,7 +6,9 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import com.log4k.d
+import eu.remilapointe.country.entity.Country
 import kotlinx.android.synthetic.main.activity_item_detail.*
+import java.time.LocalDate
 
 /**
  * An activity representing a single Item detail screen. This
@@ -15,6 +17,8 @@ import kotlinx.android.synthetic.main.activity_item_detail.*
  * in a [ItemListActivity].
  */
 class ItemDetailActivity : AppCompatActivity() {
+
+    private var item: Country? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,20 +46,27 @@ class ItemDetailActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
-            d("declaring ItemDetailFragment")
-            val fragment = ItemDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putLong(
-                        ItemDetailFragment.ARG_ITEM_ID,
-                        intent.getLongExtra(ItemDetailFragment.ARG_ITEM_ID, 0)
-                    )
-                }
+        }
+        Bundle().apply {
+            val country_id = intent.getLongExtra(ARG_ITEM_ID, 0)
+            item = Country(99,
+                98,
+                97,
+                "TO",
+                198,
+                19,
+                LocalDate.ofYearDay(1984, 1),
+                LocalDate.ofYearDay(2004, 1),
+                true,
+                "to",
+                1999,
+                "2006"
+            )
+            item?.let {
+                val txt = "Entry in UE in ${it.UEEntryIn}, language is ${it.languages}"
+                item_detail.text = txt
             }
 
-            d("adding ItemDetailFragment ${fragment.javaClass.simpleName}")
-            supportFragmentManager.beginTransaction()
-                .add(R.id.item_detail_container, fragment)
-                .commit()
         }
     }
 
@@ -73,4 +84,12 @@ class ItemDetailActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+
+    companion object {
+        /**
+         * The fragment argument representing the item ID that this fragment
+         * represents.
+         */
+        const val ARG_ITEM_ID = "item_id"
+    }
 }

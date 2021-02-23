@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Country</string>
     <string name="title_item_detail">Item Detail</string>
+    <string name="floatingactionbutton">FloatingActionButton</string>
+    <string name="message">message</string>
+    <string name="abbrev">abbrev</string>
+    <string name="language">English</string>
+    <string name="UeEntry">1984</string>
+    <string name="population">65 millions</string>
 </resources>
