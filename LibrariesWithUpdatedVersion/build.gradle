@@ -1,29 +1,53 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    apply from: 'versions.gradle'
-    addRepos(repositories)
+    ext.kotlin_version = "1.5.21"
+    repositories {
+        mavenCentral()
+        google()
+//        jcenter()
+        maven {
+            url 'https://repo1.maven.org/maven2/'
+        }
+        maven {
+            url 'https://mvnrepository.com'
+        }
+    }
     dependencies {
-        classpath "com.android.tools.build:gradle:${versions.android_gradle_plugin}"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$versions.kotlin"
+        classpath "com.android.tools.build:gradle:7.0.0"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+//        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$versions.kotlin"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
     repositories {
+        mavenCentral()
         google()
+//        jcenter()
+        maven {
+            url 'https://repo1.maven.org/maven2/'
+        }
+        maven {
+            url 'https://mvnrepository.com'
+        }
     }
 }
 
 allprojects {
-    addRepos(repositories)
+    repositories {
+        mavenCentral()
+        google()
+//        jcenter()
+        maven {
+            url 'https://repo1.maven.org/maven2/'
+        }
+        maven {
+            url 'https://mvnrepository.com'
+        }
+    }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-repositories {
-    google()
 }
