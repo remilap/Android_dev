@@ -7,6 +7,8 @@ import androidx.camera.core.ImageProxy
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.TextRecognizerOptionsInterface
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import eu.remilapointe.appareilphoto.Constants.TAG
 import java.io.IOException
 
@@ -29,7 +31,7 @@ class TextReaderAnalyzer(
     }
 
     private fun readTextFromImage(image: InputImage, imageProxy: ImageProxy) {
-        TextRecognition.getClient()
+        TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
                 .process(image)
                 .addOnSuccessListener { visionText ->
                     processTextFromImage(visionText)

@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate")
 
         binding = ViewfinderBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
     }
 
     private fun takePhoto() {
+        Log.d(TAG, "take Photo")
         // Get a stable reference of the modifiable image capture use case
         val imageCapture = imageCapture ?: return
 
@@ -61,6 +63,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
                 FILENAME_FORMAT, Locale.US
             ).format(System.currentTimeMillis()) + ".jpg"
         )
+        Log.d(TAG, "file: " + photoFile.absoluteFile)
 
         // Create output options object which contains file + metadata
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
@@ -85,6 +88,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
     }
 
     private fun startCamera() {
+        Log.d(TAG, "startCamera")
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
         cameraProviderFuture.addListener({
@@ -98,20 +102,23 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
                     it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
                 }
             cameraProviderFuture.get().bind(preview, imageAnalyzer)
-/**
+
             imageCapture = ImageCapture.Builder()
                 .build()
 
-            val imageAnalyzer = ImageAnalysis.Builder()
+            /**            val imageAnalyzer1 = ImageAnalysis.Builder()
                 .build()
                 .also {
                     it.setAnalyzer(cameraExecutor, LuminosityAnalyzer { luma ->
                         Log.d(TAG, "Average luminosity: $luma")
                     })
-                }
+                }**/
 
             // Select back camera as a default
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+
+            // Camera provider is now guaranteed to be available
+            //val cameraProvider = cameraProviderFuture.get()
 
             try {
                 // Unbind use cases before rebinding
@@ -125,7 +132,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
             } catch (exc: Exception) {
                 Log.e(TAG, "Use case binding failed", exc)
             }
-**/
+
         },
             ContextCompat.getMainExecutor(this))
     }
@@ -139,6 +146,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
     }
 
     private val imageAnalyzer by lazy {
+        Log.d(TAG, "imageAnalyzer")
         ImageAnalysis.Builder()
                 .setTargetAspectRatio(AspectRatio.RATIO_16_9)
                 .build()
@@ -148,17 +156,19 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
                             TextReaderAnalyzer(::onTextFound)
                     )
                 }
+//        Toast.makeText(applicationContext, "fin de imageAnalyzer", Toast.LENGTH_SHORT).show()
     }
 
     private fun onTextFound(foundText: String)  {
         Log.d(TAG, "We got new text: $foundText")
-        Toast.makeText(applicationContext, foundText, Toast.LENGTH_LONG).show()
+//        Toast.makeText(applicationContext, foundText, Toast.LENGTH_LONG).show()
     }
 
     private fun ProcessCameraProvider.bind(
             preview: Preview,
             imageAnalyzer: ImageAnalysis
     ) = try {
+        Log.d(TAG, "ProcessCameraProvider.bind")
         unbindAll()
         bindToLifecycle(
                 this@MainActivity,
@@ -173,10 +183,12 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.d(TAG, "onDestroy")
         cameraExecutor.shutdown()
     }
 
     private fun requestPermission() {
+        Log.d(TAG, "requestPermission")
 
         if (CameraUtility.hasCameraPermissions(this)) {
             startCamera()
@@ -202,10 +214,12 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+        Log.d(TAG, "onPermissionsGranted")
         startCamera()
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
+        Log.d(TAG, "onPermissionsDenied")
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
             AppSettingsDialog.Builder(this).build().show()
         } else {
@@ -219,6 +233,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        Log.d(TAG, "onRequestPermissionsResult")
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 
