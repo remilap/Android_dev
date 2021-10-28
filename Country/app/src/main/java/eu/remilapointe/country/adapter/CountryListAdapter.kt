@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.log4k.d
 import eu.remilapointe.country.R
 import eu.remilapointe.country.entity.Country
 import eu.remilapointe.country.ui.CountryViewHolder
 import eu.remilapointe.country.ui.main.CountryViewModel
+import mu.KotlinLogging
+
+private val logger = KotlinLogging.logger {}
 
 class CountryListAdapter internal constructor(
     context: Context,
@@ -27,7 +29,7 @@ class CountryListAdapter internal constructor(
 
     override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
         val current = countriesList[position]
-        d("${Country.ELEM} ${Country.PRIM_KEY}: ${current.id}, ${Country.NAMEID}: ${current.nameId}")
+        logger.debug("${Country.ELEM} ${Country.PRIM_KEY}: ${current.id}, ${Country.NAMEID}: ${current.nameId}")
         holder.tvNameItem.text = current.nameId.toString()
         holder.tvCapitaleItem.text = current.capitaleId.toString()
         holder.tvAbbrevItem.text = current.abbrev
@@ -36,13 +38,13 @@ class CountryListAdapter internal constructor(
 
     internal fun setCountries(strs: MutableList<Country>) {
         this.countriesList = strs
-        d("set${Country.ELEM} with ${strs.size} elems")
+        logger.debug("set${Country.ELEM} with ${strs.size} elems")
         notifyDataSetChanged()
     }
 
     fun get(position: Int): Country {
         val country = countriesList[position]
-        d("get ${Country.ELEM} position $position value ${country.nameId}")
+        logger.debug("get ${Country.ELEM} position $position value ${country.nameId}")
         return country
     }
 

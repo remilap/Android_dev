@@ -1,17 +1,20 @@
 package eu.remilapointe.country
 
 import android.app.Application
+/**
 import com.log4k.DefaultAppender
 import com.log4k.Level
 import com.log4k.Log4k
 import com.log4k.android.AndroidAppender
 import java.io.File
 import java.io.PrintWriter
+**/
 
 class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        /**
         if (BuildConfig.DEBUG) {
             Log4k.add(Level.Verbose, ".*", AndroidAppender())
             Log4k.add(Level.Verbose, "com\\.log4k\\.sample\\..+", DefaultAppender())
@@ -24,6 +27,7 @@ class App : Application() {
                 )
             )
         }
+        **/
     }
 
 }

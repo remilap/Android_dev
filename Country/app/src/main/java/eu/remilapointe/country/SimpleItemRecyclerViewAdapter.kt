@@ -1,15 +1,17 @@
 package eu.remilapointe.country
 
 import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.log4k.d
+import eu.remilapointe.country.databinding.ItemListContentBinding
 import eu.remilapointe.country.entity.Country
-import kotlinx.android.synthetic.main.item_list_content.view.*
+import mu.KotlinLogging
+
+private lateinit var binding: ItemListContentBinding
+private val logger = KotlinLogging.logger {}
 
 class SimpleItemRecyclerViewAdapter(
     private val parentActivity: ItemListActivity,
@@ -22,7 +24,7 @@ class SimpleItemRecyclerViewAdapter(
     init {
         onClickListener = View.OnClickListener { v ->
             val item = v.tag as Country
-            d("launch one Pane with ItemDetailActivity")
+            logger.debug("launch one Pane with ItemDetailActivity")
             val intent = Intent(
                 v.context,
                 ItemDetailActivity::class.java
@@ -34,6 +36,8 @@ class SimpleItemRecyclerViewAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        binding = ItemListContentBinding.inflate(LayoutInflater.from(parent.context))
+//        val view = binding.root
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_list_content, parent, false)
         return ViewHolder(view)
@@ -56,10 +60,10 @@ class SimpleItemRecyclerViewAdapter(
     override fun getItemCount() = values.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val idView: TextView = view.id_text
-        val abbrevView: TextView = view.tvAbbrev
-        val languageView: TextView = view.tvLanguage
-        val ueEntryView: TextView = view.tvUeEntry
-        val population: TextView = view.tvPopulation
+        val idView: TextView = view.findViewById(R.id.id_text)
+        val abbrevView: TextView = view.findViewById(R.id.tvAbbrev)
+        val languageView: TextView = view.findViewById(R.id.tvLanguage)
+        val ueEntryView: TextView = view.findViewById(R.id.tvUeEntry)
+        val population: TextView = view.findViewById(R.id.tvPopulation)
     }
 }

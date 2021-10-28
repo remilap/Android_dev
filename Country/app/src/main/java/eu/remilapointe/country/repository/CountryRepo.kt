@@ -2,10 +2,12 @@ package eu.remilapointe.country.repository
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
-import com.log4k.d
 import eu.remilapointe.country.dao.CountryDao
 import eu.remilapointe.country.entity.Country
+import mu.KotlinLogging
 import java.time.LocalDate
+
+private val logger = KotlinLogging.logger {}
 
 class CountryRepo(private val dao: CountryDao) {
 
@@ -37,7 +39,7 @@ class CountryRepo(private val dao: CountryDao) {
             languages,
             moneyId,
             visitedIn)
-        d("in Repo insert ${Country.ELEM} id: ${elem.id}")
+        logger.debug("in Repo insert ${Country.ELEM} id: ${elem.id}")
         dao.insert(elem)
         return elem.id
     }
@@ -45,19 +47,19 @@ class CountryRepo(private val dao: CountryDao) {
     @WorkerThread
     suspend fun removeAt(pos: Int) : Int {
         val oneObj = dao.getAll().value?.get(pos)
-        d("in Repo remove ${Country.ELEM} id: ${oneObj!!.id}, value: ${oneObj.abbrev}")
+        logger.debug("in Repo remove ${Country.ELEM} id: ${oneObj!!.id}, value: ${oneObj.abbrev}")
         return dao.remove(oneObj.id)
     }
 
     @WorkerThread
     suspend fun remove(country: Country) : Int {
-        d("in Repo remove ${Country.ELEM} id: ${country.id}, value: ${country.abbrev}")
+        logger.debug("in Repo remove ${Country.ELEM} id: ${country.id}, value: ${country.abbrev}")
         return dao.remove(country.id)
     }
 
     @WorkerThread
     fun get(key: Long): Country? {
-        d("in Repo get ${Country.ELEM} id: $key")
+        logger.debug("in Repo get ${Country.ELEM} id: $key")
         return dao.get(key)
     }
 

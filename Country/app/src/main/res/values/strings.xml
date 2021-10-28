@@ -7,4 +7,5 @@
     <string name="language">English</string>
     <string name="UeEntry">1984</string>
     <string name="population">65 millions</string>
+    <string name="menu_fab">your own action</string>
 </resources>

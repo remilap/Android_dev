@@ -7,7 +7,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.log4k.d
 import eu.remilapointe.country.dao.CountryDao
 import eu.remilapointe.country.dao.LongWithDateDao
 import eu.remilapointe.country.dao.StringWithDateDao
@@ -16,7 +15,10 @@ import eu.remilapointe.country.entity.Country
 import eu.remilapointe.country.entity.LongWithDate
 import eu.remilapointe.country.entity.StringWithDate
 import eu.remilapointe.country.entity.StringWithLanguage
+import mu.KotlinLogging
 import java.time.LocalDate
+
+private val logger = KotlinLogging.logger {}
 
 @Database(
     entities = [Country::class, LongWithDate::class, StringWithDate::class, StringWithLanguage::class],
@@ -40,7 +42,7 @@ abstract class CountryDb : RoomDatabase() {
         fun getDatabase(
             context: Context
         ): CountryDb {
-            d("getDatabase")
+            logger.debug("getDatabase")
             return INSTANCE ?: synchronized(this) {
                 // create database here
                 val instance = Room.databaseBuilder(

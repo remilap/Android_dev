@@ -3,7 +3,6 @@ package eu.remilapointe.country.ui.main
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.log4k.d
 import eu.remilapointe.country.db.CountryDb
 import eu.remilapointe.country.entity.Country
 import eu.remilapointe.country.entity.LongWithDate
@@ -13,6 +12,9 @@ import eu.remilapointe.country.repository.CountryRepo
 import eu.remilapointe.country.repository.LongWithDateRepo
 import eu.remilapointe.country.repository.StringWithDateRepo
 import eu.remilapointe.country.repository.StringWithLanguageRepo
+import mu.KotlinLogging
+
+private val logger = KotlinLogging.logger {}
 
 class CountryViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -29,7 +31,7 @@ class CountryViewModel(application: Application) : AndroidViewModel(application)
     private val CL = this::class.java.simpleName
 
     init {
-        d("$CL:init")
+        logger.debug("$CL:init")
         val countryDao = CountryDb.getDatabase(application).countryDao()
         countryRepo = CountryRepo(countryDao)
         allCountries = countryRepo.allCountries

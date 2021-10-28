@@ -4,12 +4,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import com.log4k.d
+import eu.remilapointe.country.databinding.ActivityItemListBinding
 import eu.remilapointe.country.db.CountryDb
-
 import eu.remilapointe.country.entity.Country
-import kotlinx.android.synthetic.main.activity_item_list.*
-import kotlinx.android.synthetic.main.item_list.*
+import mu.KotlinLogging
+
+private lateinit var binding: ActivityItemListBinding
+private val logger = KotlinLogging.logger {}
 
 /**
  * An activity representing a list of Pings. This activity
@@ -26,28 +27,30 @@ class ItemListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_item_list)
-        d("OnCreate ItemListActivity")
-        rvCountries = item_list
+        binding = ActivityItemListBinding.inflate(layoutInflater)
+        val rootView = binding.root
+        setContentView(rootView)
+        logger.debug("OnCreate ItemListActivity")
+        rvCountries = binding.itemList
 
-        setSupportActionBar(toolbar)
-        toolbar.title = title
+        setSupportActionBar(binding.toolbar)
+        binding.toolbar.title = title
 
-        fab.setOnClickListener { view ->
-            d("Snackbar action")
+        binding.fab.setOnClickListener { view ->
+            logger.debug("Snackbar action")
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
 
         val countryDao = CountryDb.getDatabase(applicationContext).countryDao()
         countryDao.getAll().value?.forEach { it -> countryList.add(it) }
-        d("nb on initial countries: ${countryList.size}")
+        logger.debug("nb on initial countries: ${countryList.size}")
 
-        setupRecyclerView(item_list)
+        setupRecyclerView(binding.itemList)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        d("setupRecyclerView")
+        logger.debug("setupRecyclerView")
         val countryDao = CountryDb.getDatabase(applicationContext).countryDao()
         recyclerView.adapter =
             SimpleItemRecyclerViewAdapter(

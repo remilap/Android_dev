@@ -5,10 +5,13 @@ import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
-import com.log4k.d
+import eu.remilapointe.country.databinding.ActivityItemDetailBinding
 import eu.remilapointe.country.entity.Country
-import kotlinx.android.synthetic.main.activity_item_detail.*
+import mu.KotlinLogging
 import java.time.LocalDate
+
+private lateinit var binding: ActivityItemDetailBinding
+private val logger = KotlinLogging.logger {}
 
 /**
  * An activity representing a single Item detail screen. This
@@ -22,11 +25,14 @@ class ItemDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_item_detail)
-        setSupportActionBar(detail_toolbar)
-        d("Activity start")
+        binding = ActivityItemDetailBinding.inflate(layoutInflater)
+        val rootView = binding.root
+        setContentView(rootView)
 
-        fab.setOnClickListener { view ->
+        setSupportActionBar(binding.detailToolbar)
+        logger.debug("Activity start")
+
+        binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
@@ -48,8 +54,8 @@ class ItemDetailActivity : AppCompatActivity() {
             // using a fragment transaction.
         }
         Bundle().apply {
-            val country_id = intent.getLongExtra(ARG_ITEM_ID, 0)
-            item = Country(99,
+            val countryId = intent.getLongExtra(ARG_ITEM_ID, 0)
+            item = Country(countryId,
                 98,
                 97,
                 "TO",
@@ -64,7 +70,7 @@ class ItemDetailActivity : AppCompatActivity() {
             )
             item?.let {
                 val txt = "Entry in UE in ${it.UEEntryIn}, language is ${it.languages}"
-                item_detail.text = txt
+                binding.itemDetail.text = txt
             }
 
         }

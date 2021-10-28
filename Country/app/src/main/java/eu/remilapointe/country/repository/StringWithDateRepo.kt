@@ -2,10 +2,12 @@ package eu.remilapointe.country.repository
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
-import com.log4k.d
 import eu.remilapointe.country.dao.StringWithDateDao
 import eu.remilapointe.country.entity.StringWithDate
+import mu.KotlinLogging
 import java.time.LocalDate
+
+private val logger = KotlinLogging.logger {}
 
 class StringWithDateRepo(private val dao: StringWithDateDao) {
 
@@ -14,7 +16,7 @@ class StringWithDateRepo(private val dao: StringWithDateDao) {
     @WorkerThread
     suspend fun insert(info: Int, countryId: Long, date: LocalDate, value: String) : Long {
         val elem = StringWithDate(0, info, countryId, date, value)
-        d("in Repo insert ${StringWithDate.ELEM} id: ${elem.id}")
+        logger.debug("in Repo insert ${StringWithDate.ELEM} id: ${elem.id}")
         dao.insert(elem)
         return elem.id
     }
@@ -22,19 +24,19 @@ class StringWithDateRepo(private val dao: StringWithDateDao) {
     @WorkerThread
     suspend fun removeAt(pos: Int) : Int {
         val oneObj = dao.getAll().value?.get(pos)
-        d("in Repo remove ${StringWithDate.ELEM} id: ${oneObj!!.id}, value: ${oneObj.value}")
+        logger.debug("in Repo remove ${StringWithDate.ELEM} id: ${oneObj!!.id}, value: ${oneObj.value}")
         return dao.remove(oneObj.id)
     }
 
     @WorkerThread
     suspend fun remove(stringWithDate: StringWithDate) : Int {
-        d("in Repo remove ${StringWithDate.ELEM} id: ${stringWithDate.id}, value: ${stringWithDate.value}")
+        logger.debug("in Repo remove ${StringWithDate.ELEM} id: ${stringWithDate.id}, value: ${stringWithDate.value}")
         return dao.remove(stringWithDate.id)
     }
 
     @WorkerThread
     fun get(key: Long): StringWithDate? {
-        d("in Repo get ${StringWithDate.ELEM} id: $key")
+        logger.debug("in Repo get ${StringWithDate.ELEM} id: $key")
         return dao.get(key)
     }
 
@@ -43,7 +45,7 @@ class StringWithDateRepo(private val dao: StringWithDateDao) {
 
     @WorkerThread
     suspend fun update(obj: StringWithDate): Int {
-        d("in Repo update ${StringWithDate.ELEM} id: ${obj.id}, value ${obj.value}")
+        logger.debug("in Repo update ${StringWithDate.ELEM} id: ${obj.id}, value ${obj.value}")
         return dao.update(obj.id, obj.info, obj.country_id, obj.date, obj.value)
     }
 
